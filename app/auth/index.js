@@ -9,4 +9,4 @@ var express = require('express'),
 require('./local/passport').setup(usuario, config);
 router.use('/local', require('./local'));
 
-module.exports = router();
+module.exports = router;
