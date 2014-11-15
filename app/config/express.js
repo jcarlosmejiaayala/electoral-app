@@ -31,6 +31,6 @@ module.exports = function (app) {
         store: new mongoStore({mongoose_connection: mongoose.connection})
     }));
     app.use(express.static(app.get('appPath')));
-    app.use(mongan('dev'));
+    app.use(morgan('dev'));
     if ('development' == app.get('env')) app.use(errorHandler());
 };
