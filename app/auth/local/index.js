@@ -12,7 +12,7 @@ router.post('/', function (req, res, next) {
             token;
         if (error) return res.json(401, error);
         if (!user) return res.json(404, {message: 'Usuario inexistente'});
-        token = auth.signToken(use._id, user.role);
+        token = auth.signToken(use._id, user.rol);
         res.json({token: token});
     })(req, res, next);
 });
