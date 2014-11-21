@@ -1,3 +1,11 @@
-/**
- * Created by jmejia on 13/11/14.
- */
+(function(){
+    'use strict';
+
+    function controller($scope){
+
+    }
+
+    angular
+        .module('electoralApp')
+        .controller('MainCtrl', controller);
+})();

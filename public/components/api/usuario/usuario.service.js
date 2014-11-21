@@ -1,11 +1,10 @@
-(function () {
+(function(){
     'use strict';
 
-    function controller(){
+    function factory(){
         this.isCollapsed = true;
     }
-
     angular
         .module('electoralApp')
-        .controller('NavbarCtrl', controller);
+        .factory('User', factory);
 })();
