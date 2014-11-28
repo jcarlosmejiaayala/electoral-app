@@ -2,7 +2,7 @@
     'use strict';
 
     function factory($resource){
-        $resource('/usuario/:id',
+        return $resource('/usuario/:id',
             {
                 id:'@id'
             },

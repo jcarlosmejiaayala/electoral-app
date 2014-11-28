@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url(../bower_components/normalize.css/normalize.css);
 @import url(../bower_components/animate.css/animate.min.css);
 /*!
  *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome
@@ -10,8 +9,8 @@
 @import url(../bower_components/angular-loading-bar/src/loading-bar.css);
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=4.2.0");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.2.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff?v=4.2.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.2.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular") format("svg");
+  src: url("../bower_components/font-awesome/fonts/fontawesome-webfont.eot?v=4.2.0");
+  src: url("../bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0") format("embedded-opentype"), url("../bower_components/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0") format("woff"), url("../bower_components/font-awesome/fonts/fontawesome-webfont.ttf?v=4.2.0") format("truetype"), url("../bower_components/font-awesome/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 .fa {
@@ -7032,5 +7031,11 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+html, body {
+  height: 100%; }
+
+.main-container, .container {
+  height: inherit;
+  position: relative; }
 
 /*# sourceMappingURL=app.css.map */

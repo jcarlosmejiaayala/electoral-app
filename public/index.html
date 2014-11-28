@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="app/app.css"/>
 </head>
 <body>
-<div ui-view></div>
+<div class="main-container" ui-view></div>
 <!-- bower_components -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/lodash/dist/lodash.min.js"></script>
@@ -30,10 +30,19 @@
 <!-- app.js -->
 <script src="app/app.js"></script>
 <!-- end:app.js -->
-<!-- components -->
-<script src="components/navbar/navbar.controller.js"></script>
+<!-- app -->
+<script src="app/account/loggin/loggin.controller.js"></script>
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.js"></script>
+<!-- end:app -->
+<!-- components -->
+<script src="components/navbar/navbar.controller.js"></script>
+<script src="components/auth/auth.service.js"></script>
+<script src="components/pubsub/pubsub.service.js"></script>
 <!-- end:components -->
+<!--- api -->
+<script src="app/api/usuario/usuario.resource.js"></script>
+<script src="app/api/usuario/usuario.service.js"></script>
+<!-- end:api -->
 </body>
 </html>

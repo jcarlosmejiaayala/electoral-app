@@ -1,6 +1,15 @@
-@import '../bower_components/normalize.css/normalize.css';
 @import '../bower_components/animate.css/animate.min.css';
 @import '../bower_components/font-awesome/scss/font-awesome';
 @import '../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap';
 @import '../bower_components/angular-loading-bar/src/loading-bar.css';
+@import 'account/loggin/loggin';
 @import 'main/main';
+
+html, body {
+  height: 100%;
+}
+
+.main-container, .container {
+  height: inherit;
+  position:relative;
+}
