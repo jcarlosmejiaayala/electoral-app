@@ -1,5 +1,10 @@
 @import url(../bower_components/fontawesome/css/font-awesome.min.css);
 @import url(../bower_components/angular-material/angular-material.min.css);
 @import url(../bower_components/angular-material/themes/red-theme.css);
+.navbar .face {
+  border: 1px solid #ddd;
+  width: 4rem;
+  margin: 1rem;
+  border-radius: 50%; }
 
 /*# sourceMappingURL=app.css.map */

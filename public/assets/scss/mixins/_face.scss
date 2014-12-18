@@ -1,0 +1,8 @@
+ @mixin face($border-width, $type, $color, $width, $margin, $border-radius: false){
+   border: $border-width #{$type} $color;
+   width: $width;
+   margin: $margin;
+   @if $border-radius{
+      border-radius: $border-radius;
+   }
+ }

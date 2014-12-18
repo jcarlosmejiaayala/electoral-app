@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAQ,qEAA0D;AAC1D,0EAA+D;AAC/D,sEAA2D",
-"sources": ["app.scss"],
+"mappings": "AAAQ,qEAA0D;AAC1D,0EAA+D;AAC/D,sEAA2D;ACCjE,aAAM;ECFL,MAAM,EAAE,cAA6B;EACrC,KAAK,EDE+B,IAAI;ECDxC,MAAM,EDCoC,IAAI;ECC3C,aAAa,EDDgC,GAAG",
+"sources": ["app.scss","../components/navbar/_navbar.scss","../assets/scss/mixins/_face.scss"],
 "names": [],
 "file": "app.css"
 }
