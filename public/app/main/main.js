@@ -4,18 +4,18 @@
     function config($stateProvider) {
         var states = [];
         states.push({
-            name: 'main',
+            name: 'home',
             url: '/',
             templateUrl: 'app/main/main.html',
-            controller: 'MainCtrl',
+            controller: 'mainCtrl',
             controllerAs: 'main'
         });
 
         states.push({
             name: 'login',
             url: '/login',
-            templateUrl: 'app/account/loggin/loggin.html',
-            controller: 'LoginCtrl',
+            templateUrl: 'app/account/login/login.html',
+            controller: 'loginCtrl',
             controllerAs: 'login'
         });
 

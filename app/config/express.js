@@ -23,13 +23,13 @@ module.exports = function (app) {
     app.use(bodyParser.json());
     app.use(methodOverride());
     app.use(cookieParser());
-    app.use(passport.initialize());
     app.use(session({
         secret: config.secrets.session,
         resave: true,
         saveUninitialized: true,
         store: new mongoStore({mongoose_connection: mongoose.connection})
     }));
+    app.use(passport.initialize());
     app.use(express.static(app.get('appPath')));
     app.use(morgan('dev'));
     if ('development' == app.get('env')) app.use(errorHandler());

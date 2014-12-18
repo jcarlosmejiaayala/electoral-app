@@ -2,9 +2,9 @@
 
 
 var express = require('express'),
-    controller = require('./usuarios.controller'),
-    config = require('../config/enviroment'),
-    auth = require('../auth/auth.service'),
+    controller = require('./usuario.controller'),
+    config = require('../../config/enviroment'),
+    auth = require('../../auth/auth.service'),
     router = express.Router();
 
 router.get('/', controller.index);

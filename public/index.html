@@ -7,42 +7,34 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <title>electoral-app</title>
     <link rel="stylesheet" href="app/app.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet'>
 </head>
 <body>
-<div class="main-container" ui-view></div>
-<!-- bower_components -->
+<div ui-view></div>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/lodash/dist/lodash.min.js"></script>
 <script src="bower_components/underscore.string/dist/underscore.string.min.js"></script>
 <script src="bower_components/moment/min/moment.min.js"></script>
 <script src="bower_components/highstock-release/highstock.js"></script>
-<script src="bower_components/snap.svg/dist/snap.svg-min.js"></script>
+<script src="bower_components/hammerjs/hammer.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="bower_components/angular-socket-io/socket.min.js"></script>
-<script src="bower_components/angular-touch/angular-touch.min.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/ngstorage/ngStorage.min.js"></script>
-<script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
-<!-- end:bower_components-->
-<!-- app.js -->
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script>
 <script src="app/app.js"></script>
-<!-- end:app.js -->
-<!-- app -->
-<script src="app/account/loggin/loggin.controller.js"></script>
+<script src="app/login/login.controller.js"></script>
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.js"></script>
-<!-- end:app -->
-<!-- components -->
 <script src="components/navbar/navbar.controller.js"></script>
 <script src="components/auth/auth.service.js"></script>
 <script src="components/pubsub/pubsub.service.js"></script>
-<!-- end:components -->
-<!--- api -->
-<script src="app/api/usuario/usuario.resource.js"></script>
-<script src="app/api/usuario/usuario.service.js"></script>
-<!-- end:api -->
+<script src="components/usuario/usuario.service.js"></script>
+<script src="components/usuario/usuario.resource.js"></script>
+
 </body>
 </html>

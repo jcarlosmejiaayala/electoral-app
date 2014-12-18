@@ -1,14 +1,18 @@
-(function(){
+(function () {
     'use strict';
 
-    function controller($scope){
-        this.menu = {};
-        this.isCollapsed = true;
-        this.toggleNavigation = function(){
-            this.isCollapsed = !this.isCollapsed;
+    function controller($mdSidenav, auth) {
+        this.displayMenu = function () {
+            $mdSidenav('menu').toggle();
+        };
+
+        this.isLoggedIn = function(){
+            return false;
         };
     }
+
     angular
         .module('electoralApp')
-        .controller('NavbarCtrl', controller);
+        .controller('navbarController', controller);
+    controller.$inject = ['$mdSidenav', 'auth'];
 })();

@@ -1,11 +1,10 @@
 (function(){
     'use strict';
 
-    function controller($scope){
+    function controller (){
 
     }
-
     angular
         .module('electoralApp')
-        .controller('mainCtrl', controller);
+        .controller('loginCtrl', controller);
 })();

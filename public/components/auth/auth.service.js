@@ -1,9 +1,14 @@
 (function(){
     'use strict';
-    function factory(Usuario){
-        var auth = {};
-        auth.isLoggedIn = function(){
+    function factory($sessionStorage, usuario){
+        var auth = {},
+            currentUser = {};
 
+        if($sessionStorage.token){
+            currentUser = usuario.get();
+        }
+        auth.isLoggedIn = function(){
+            //return
         };
         return {
           isLoggedIn: auth.isLoggedIn
@@ -11,5 +16,6 @@
     }
     angular
         .module('electoralApp')
-        .factory('Auth', factory);
+        .factory('auth', factory);
+    factory.$inject = ['$sessionStorage', 'usuario'];
 })();

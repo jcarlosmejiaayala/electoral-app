@@ -1,8 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    passport = require('passport'),
-    config = require('../config/enviroment'),
+var config = require('../config/enviroment'),
     jwt = require('jsonwebtoken'),
     expressJwt = require('express-jwt'),
     compose = require('composable-middleware'),
@@ -13,8 +11,9 @@ var mongoose = require('mongoose'),
 function isAuthenticated() {
     return compose()
         .use(function (req, res, next) {
-            if (req.query && _.has(req.query, 'access_token'))
+            if (req.query && _.has(req.query, 'access_token')) {
                 req.headers.authorization = 'Bearer ' + req.query['access_token'];
+            }
             validateJwt(req, res, next);
         })
         .use(function (req, res, next) {

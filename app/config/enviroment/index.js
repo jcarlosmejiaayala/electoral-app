@@ -20,6 +20,9 @@ all = {
         'candidato',
         'root'
     ],
+    menu: [
+
+    ],
     mongo: {
         uri: 'mongodb://localhost/electoral',
         options: {

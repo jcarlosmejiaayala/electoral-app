@@ -8,7 +8,7 @@
     function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
-        $httpProvider.interceptors.push('authInterceptor');
+        //$httpProvider.interceptors.push('authInterceptor');
     }
 
     function factory($sessionStorage, $rootScope, $q, $location) {
@@ -37,12 +37,11 @@
     angular
         .module('electoralApp', [
             'ngResource',
-            'ngTouch',
             'ngStorage',
             'btford.socket-io',
             'ui.router',
-            'ui.bootstrap',
-            'highcharts-ng'
+            'highcharts-ng',
+            'ngMaterial'
         ])
         .config(config)
         .factory('authInterceptor', factory)
