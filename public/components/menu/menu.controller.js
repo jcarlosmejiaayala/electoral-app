@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function controller($scope, $mdBottomSheet, $mdSidenav, pubsub, auth) {
+    function controller($scope, $mdBottomSheet, $mdSidenav, $state) {
         var scope = this;
         this.items = [
             {
@@ -15,6 +15,8 @@
         ];
         this.displayMenuItems = function ($event) {
             if (scope.itemSelected) {
+                $state.go(scope.itemSelected.toLowerCase());
+                /*
                 $mdBottomSheet
                     .show({
                         templateUrl: 'components/bottom-sheet/bottom-sheet.html',
@@ -28,8 +30,9 @@
                         }
                     })
                     .then(function (result) {
-                        debugger;
+                        //result.toLowerCase();
                     });
+                    */
             }
         };
         this.menuClose = function(){
@@ -41,5 +44,5 @@
         .module('electoralApp')
         .controller('menuController', controller);
 
-    controller.$inject = ['$scope', '$mdBottomSheet', '$mdSidenav', 'auth'];
+    controller.$inject = ['$scope', '$mdBottomSheet', '$mdSidenav', '$state'];
 })();
