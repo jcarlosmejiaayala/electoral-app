@@ -1,8 +1,5 @@
-@import '../../assets/scss/colors';
-
-.navbar {
-  .face {
-    @include face(1px, "solid", $face, 4rem, 1rem, 50%);
+.navbar{
+  .thumb-nabvar{
+    width: 6rem;
   }
 }
-

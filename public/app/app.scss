@@ -1,6 +1,10 @@
 @import '../bower_components/fontawesome/css/font-awesome.min.css';
 @import '../bower_components/angular-material/angular-material.min.css';
-@import '../bower_components/angular-material/themes/red-theme.css';
-@import '../assets/scss/colors';
-@import '../assets/scss/mixins';
+@import '../bower_components/angular-material/themes/green-theme.css';
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins";
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/utilities";
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/responsive-utilities";
+@import '../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/scaffolding';
 @import '../components/navbar/navbar';
+@import '../components/menu/menu';
