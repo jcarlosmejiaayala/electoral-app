@@ -1,13 +1,11 @@
 (function () {
     'use strict';
 
-    function controller($mdSidenav) {
-        this.displayMenu = function(){
-            $mdSidenav('menu').toggle();
-        };
+    function controller() {
     }
+
     angular
         .module('electoralApp')
         .controller('navbarController', controller);
-    controller.$inject = ['$mdSidenav'];
+    controller.$inject = ['$scope'];
 })();
