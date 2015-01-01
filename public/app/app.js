@@ -1,17 +1,15 @@
 (function () {
     'use strict';
-    function run($rootScope) {
-        _.mixin(_.str.exports());
-        $rootScope._ = _;
+    function run(_) {
     }
 
-    function config($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    function config($urlRouterProvider, $locationProvider, $httpProvider) {
         $urlRouterProvider.otherwise('/');
         $locationProvider.html5Mode(true);
         //$httpProvider.interceptors.push('authInterceptor');
     }
 
-    function factory($sessionStorage, $rootScope, $q, $location) {
+    function factory($sessionStorage, $q, $location) {
         var interceptor = {};
         interceptor.request = function (config) {
             config.headers = config.headers || {};
@@ -38,10 +36,11 @@
         .module('electoralApp', [
             'ngResource',
             'ngStorage',
+            'ngTouch',
             'btford.socket-io',
             'ui.router',
             'highcharts-ng',
-            'ngMaterial'
+            'ui.bootstrap'
         ])
         .config(config)
         .factory('authInterceptor', factory)

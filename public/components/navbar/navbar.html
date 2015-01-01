@@ -1,9 +1,15 @@
-<md-toolbar class="navbar" layout="row" layout-fill>
-    <div class="md-toolbar-tools">
-        <div flex>
-            <a href ng-click="navbar.displayMenu()">
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
                 <i class="fa fa-navicon"></i>
-            </a>
+            </button>
+            <a href="/" class="navbar-brand">electoral demo</a>
+        </div>
+        <div collapse="navbar.isCollapsed" class="navbar-collapse collapse">
+            <div class="nav navbar-nav">
+
+            </div>
         </div>
     </div>
-</md-toolbar>
+</div>
