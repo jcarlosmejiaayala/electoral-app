@@ -1,13 +1,12 @@
 (function(){
     'use strict';
 
-    function controller(){
+    function controller (){
 
     }
-
     angular
         .module('electoralApp')
-        .controller('mainController', controller);
+        .controller('resultadoController', controller);
 
     controller.$inject = [];
 })();

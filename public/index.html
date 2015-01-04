@@ -6,11 +6,12 @@
     <meta name="description" content="aplicacion electoral conteo votos">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <title>electoral-app</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="bower_components/sweetalert/lib/sweet-alert.css"/>
     <link rel="stylesheet" href="app/app.css"/>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
 </head>
 <body>
 <div ui-view></div>
@@ -19,6 +20,7 @@
 <script src="bower_components/underscore.string/dist/underscore.string.min.js"></script>
 <script src="bower_components/moment/min/moment.min.js"></script>
 <script src="bower_components/highstock-release/highstock.js"></script>
+<script src="bower_components/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
@@ -27,16 +29,16 @@
 <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="bower_components/ngstorage/ngStorage.min.js"></script>
 <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="bower_components/angular-sweetalert/SweetAlert.min.js"></script>
 <script src="app/app.js"></script>
 <script src="app/login/login.controller.js"></script>
+<script src="app/resultado/resultado.controller.js"></script>
+<script src="app/configuracion/configuracion.controller.js"></script>
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.js"></script>
-<script src="app/casilla/casilla.js"></script>
-<script src="app/usuario/usuario.js"></script>
 <script src="components/navbar/navbar.controller.js"></script>
 <script src="components/menu/menu.controller.js"></script>
 <script src="components/auth/auth.service.js"></script>
-<script src="components/lodash/lodash.service.js"></script>
 <script src="components/pubsub/pubsub.service.js"></script>
 <script src="components/usuario/usuario.service.js"></script>
 <script src="components/usuario/usuario.resource.js"></script>

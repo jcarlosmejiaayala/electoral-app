@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    function run(_) {
+    function run() {
     }
 
     function config($urlRouterProvider, $locationProvider, $httpProvider) {
@@ -20,7 +20,7 @@
         };
 
         interceptor.responseError = function (response) {
-            if(_.isEqual(response.status, 401)){
+            if(response.status == 401){
                 $location.path('/login');
                 delete $sessionStorage.token;
                 return $q.reject(response);
@@ -40,7 +40,8 @@
             'btford.socket-io',
             'ui.router',
             'highcharts-ng',
-            'ui.bootstrap'
+            'ui.bootstrap',
+            'oitozero.ngSweetAlert'
         ])
         .config(config)
         .factory('authInterceptor', factory)

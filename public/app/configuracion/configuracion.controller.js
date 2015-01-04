@@ -4,10 +4,9 @@
     function controller(){
 
     }
-
     angular
         .module('electoralApp')
-        .controller('mainController', controller);
+        .controller('configuracionController', controller);
 
     controller.$inject = [];
 })();

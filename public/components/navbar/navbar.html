@@ -4,12 +4,54 @@
             <button type="button" class="navbar-toggle" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
                 <i class="fa fa-navicon"></i>
             </button>
-            <a href="/" class="navbar-brand">electoral demo</a>
+            <a href="/" class="navbar-brand">demo</a>
+
+            <form class="navbar-form col-xs-8 col-sm-9 visible-xs-inline-block">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Busca tu casilla"/>
+                    <i class="fa fa-search input-group-addon"></i>
+                </div>
+            </form>
         </div>
         <div collapse="navbar.isCollapsed" class="navbar-collapse collapse">
-            <div class="nav navbar-nav">
-
-            </div>
+            <ul class="nav navbar-nav">
+                <li ng-repeat="item in navbar.menu track by item.name"
+                    ng-class="{active: navbar.isActive(item.link), 'visible-xs': navbar.showLogin(item.name) }">
+                    <a href="{{::item.link}}" class="text-center">{{::item.name}}</a>
+                </li>
+                <li>
+                    <form class="navbar-form navbar-left hidden-xs">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Busca tu casilla"/>
+                            <i class="fa fa-search input-group-addon"></i>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden-xs">
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn btn-info btn-sm dropdown-toggle navbar-btn" dropdown-toggle>
+                            Ingresar
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <form name="userForm" ng-submit="navbar.sendCredentials()">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Email" ng-click="$event.stopPropagation()" ng-model="navbar.email" required autofocus/>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Contraseña" ng-click="$event.stopPropagation()" ng-model="navbar.password" required/>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary btn-sm" ng-click="$event.stopPropagation()">Acceder</button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

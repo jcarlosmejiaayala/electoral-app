@@ -1,10 +1,14 @@
-(function(){
+(function () {
     'use strict';
 
-    function controller (){
+    function controller() {
+        this.sendCredentials = function () {
 
+        }
     }
+
     angular
         .module('electoralApp')
-        .controller('loginCtrl', controller);
+        .controller('loginController', controller);
+    controller.$inject = [];
 })();
