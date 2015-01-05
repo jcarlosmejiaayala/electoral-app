@@ -1,5 +1,6 @@
 body {
-  font-family: "Roboto", sans-serif; }
+  font-family: "Roboto", sans-serif;
+  background-color: #efefe3; }
 
 .navbar-form.visible-xs-inline-block {
   padding-top: 0;

@@ -5,13 +5,14 @@
                 <i class="fa fa-navicon"></i>
             </button>
             <a href="/" class="navbar-brand">demo</a>
-
-            <form class="navbar-form col-xs-8 col-sm-9 visible-xs-inline-block">
+            <!--
+            <form class="navbar-form col-xs-8 col-sm-9 visible-xs-inline-block" ng-show="item.link == '/'">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Busca tu casilla"/>
                     <i class="fa fa-search input-group-addon"></i>
                 </div>
             </form>
+            -->
         </div>
         <div collapse="navbar.isCollapsed" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -19,7 +20,8 @@
                     ng-class="{active: navbar.isActive(item.link), 'visible-xs': navbar.showLogin(item.name) }">
                     <a href="{{::item.link}}" class="text-center">{{::item.name}}</a>
                 </li>
-                <li>
+                <!--
+                <li ng-show="item.link == '/'">
                     <form class="navbar-form navbar-left hidden-xs">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Busca tu casilla"/>
@@ -27,6 +29,7 @@
                         </div>
                     </form>
                 </li>
+                -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden-xs">

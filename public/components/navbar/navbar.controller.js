@@ -10,10 +10,6 @@
                 link: '/planilla'
             },
             {
-                name: 'Resultados',
-                link: '/resultados'
-            },
-            {
                 name: 'Ingresar',
                 link: '/login'
             },
