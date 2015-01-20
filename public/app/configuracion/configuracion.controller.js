@@ -2,7 +2,10 @@
     'use strict';
 
     function controller(){
-
+        this.items = [{
+            name: 'Usuarios',
+            link: '/configuracion/candidato'
+        }];
     }
     angular
         .module('electoralApp')

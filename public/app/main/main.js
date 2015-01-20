@@ -23,21 +23,17 @@
         states.push({
             name: 'planilla',
             url: '/planilla',
-            templateUrl: 'app/planilla/planilla.html'
+            templateUrl: 'app/planilla/planilla.html',
+            controller: 'planillaController',
+            controllerAs: 'planilla'
         });
 
         states.push({
             name: 'resultados',
             url: '/resultados',
-            templateUrl: 'app/resultado/resultado.html',
-            controller: 'resultadoController',
-            controllerAs: 'resultado'
-        });
-
-        states.push({
-            name: 'casilla',
-            url: '/casilla',
-            templateUrl: 'app/casilla/casilla.html'
+            templateUrl: 'app/resultados/resultados.html',
+            controller: 'resultadosController',
+            controllerAs: 'resultados'
         });
 
         states.push({

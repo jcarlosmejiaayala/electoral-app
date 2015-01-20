@@ -13,8 +13,18 @@
                 }).$promise;
         };
 
-        usuario.get = function (cb) {
-            return usuarioResource.get(
+        usuario.get = function (data, cb) {
+            return usuarioResource.get(data,
+                function (data) {
+                    return cb(null, data);
+                },
+                function (err) {
+                    return cb(err);
+                }).$promise;
+        };
+
+        usuario.save = function (data, cb) {
+            return usuarioResource.save(data,
                 function (data) {
                     return cb(null, data);
                 },
@@ -25,7 +35,8 @@
 
         return {
             get: usuario.get,
-            query: usuario.query
+            query: usuario.query,
+            save: usuario.save
         };
     }
 

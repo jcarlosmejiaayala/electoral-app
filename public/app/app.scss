@@ -1,3 +1,7 @@
 @import '../assets/scss/main';
 @import '../components/navbar/navbar';
+@import 'main/main';
 @import 'login/login';
+@import 'configuracion/configuracion';
+@import 'configuracion/candidato/nuevo/nuevo';
+@import 'configuracion/candidato/candidato';

@@ -1,18 +1,10 @@
-<div class="navbar navbar-default navbar-static-top">
+<div class="navbar navbar-default navbar-static-top navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
                 <i class="fa fa-navicon"></i>
             </button>
             <a href="/" class="navbar-brand">demo</a>
-            <!--
-            <form class="navbar-form col-xs-8 col-sm-9 visible-xs-inline-block" ng-show="item.link == '/'">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Busca tu casilla"/>
-                    <i class="fa fa-search input-group-addon"></i>
-                </div>
-            </form>
-            -->
         </div>
         <div collapse="navbar.isCollapsed" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -20,16 +12,6 @@
                     ng-class="{active: navbar.isActive(item.link), 'visible-xs': navbar.showLogin(item.name) }">
                     <a href="{{::item.link}}" class="text-center">{{::item.name}}</a>
                 </li>
-                <!--
-                <li ng-show="item.link == '/'">
-                    <form class="navbar-form navbar-left hidden-xs">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Busca tu casilla"/>
-                            <i class="fa fa-search input-group-addon"></i>
-                        </div>
-                    </form>
-                </li>
-                -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="hidden-xs">
@@ -40,6 +22,9 @@
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <form name="userForm" ng-submit="navbar.sendCredentials()">
+                                    <div class="form-group">
+                                        <label class="text-center text-muted">Ingrese sus credenciales.</label>
+                                    </div>
                                     <div class="form-group">
                                         <input type="email" class="form-control" placeholder="Email" ng-click="$event.stopPropagation()" ng-model="navbar.email" required autofocus/>
                                     </div>

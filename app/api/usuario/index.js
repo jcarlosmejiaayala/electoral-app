@@ -1,6 +1,5 @@
 'use strict';
 
-
 var express = require('express'),
     controller = require('./usuario.controller'),
     config = require('../../config/enviroment'),

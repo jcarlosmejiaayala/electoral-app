@@ -1,6 +1,7 @@
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: #efefe3; }
+  font-family: "Helvetica", sans-serif;
+  background-color: #efefe3;
+  padding-top: 70px; }
 
 .navbar-form.visible-xs-inline-block {
   padding-top: 0;
@@ -13,6 +14,12 @@ body {
   [dropdown] input {
     width: 90%;
     margin: 0 auto; }
+
+.main {
+  margin-top: -20px; }
+  .main .carousel img {
+    width: 100%;
+    height: 50rem; }
 
 .form-signin {
   max-width: 330px;
@@ -60,5 +67,24 @@ body {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%; }
+
+.list-group a {
+  text-decoration: none; }
+
+.config-candidato-nuevo div > .radio-inline + .radio-inline {
+  margin-bottom: 15px; }
+.config-candidato-nuevo .radio-inline + .radio-inline {
+  margin-left: 0; }
+.config-candidato-nuevo div > [type="submit"] {
+  margin-top: 30px; }
+
+.config-candidato div.row:first-child {
+  margin-bottom: 15px; }
+.config-candidato table tbody tr td {
+  vertical-align: middle; }
+  .config-candidato table tbody tr td i {
+    width: 4rem; }
+    .config-candidato table tbody tr td i:hover {
+      cursor: pointer; }
 
 /*# sourceMappingURL=app.css.map */

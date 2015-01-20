@@ -1,0 +1,11 @@
+.config-candidato-nuevo {
+  div > .radio-inline + .radio-inline{
+    margin-bottom: 15px;
+  }
+  .radio-inline + .radio-inline {
+    margin-left: 0;
+  }
+  div > [type="submit"] {
+    margin-top: 30px;
+  }
+}

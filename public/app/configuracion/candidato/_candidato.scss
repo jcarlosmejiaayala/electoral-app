@@ -1,0 +1,20 @@
+.config-candidato {
+  div.row:first-child {
+    margin-bottom: 15px;
+  }
+  table {
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+          i {
+            width: 4rem;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

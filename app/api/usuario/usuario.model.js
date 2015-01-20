@@ -9,11 +9,12 @@ var crypto = require('crypto'),
         salt: String,
         nombre: String,
         direccion: String,
+        estado: String,
+        candidatura: String,
         email: {type: String, lowercase: true},
         partido: String,
-        avatar: String,
-        telefono: {
-            local: Number,
+        telefonos: {
+            telefono: Number,
             celular: Number
         },
         redesSociales: {
@@ -38,8 +39,7 @@ UsuarioSchema
     .virtual('perfil')
     .get(function () {
         return {
-            rol: this.rol,
-            avatar: this.avatar
+            rol: this.rol
         };
     });
 

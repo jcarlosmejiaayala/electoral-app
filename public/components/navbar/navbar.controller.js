@@ -6,26 +6,34 @@
         //obtener el menu del back
         this.menu = [
             {
+                name: 'Inicio',
+                link: '/'
+            },
+            {
                 name: 'Planilla',
                 link: '/planilla'
             },
             {
-                name: 'Ingresar',
-                link: '/login'
+                name: 'Resultados',
+                link: '/resultados'
             },
             {
                 name: 'Configuración',
                 link: '/configuracion'
+            },
+            {
+                name: 'Ingresar',
+                link: '/login'
             }
         ];
         this.isActive = function (route) {
             return (_.isEqual(route, $location.path()));
         };
 
-        this.showLogin = function(name){
+        this.showLogin = function (name) {
             return (_.isEqual(name, 'Ingresar'));
         };
-        this.sendCredentials = function(){
+        this.sendCredentials = function () {
         };
     }
 
