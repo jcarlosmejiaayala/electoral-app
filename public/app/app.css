@@ -44,9 +44,12 @@ body {
     width: 90%;
     margin: 0 auto; }
 
-.main img {
-  width: 100%;
-  height: 50rem; }
+.main .jumbotron {
+  background: url("../assets/img/vote.jpg") no-repeat center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; }
 
 .form-signin {
   max-width: 330px;

@@ -41,8 +41,7 @@
             'ui.router',
             'highcharts-ng',
             'ui.bootstrap',
-            'oitozero.ngSweetAlert',
-            'slick'
+            'oitozero.ngSweetAlert'
         ])
         .config(config)
         .factory('authInterceptor', factory)
