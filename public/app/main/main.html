@@ -1,14 +1,10 @@
 <ng-include src="'components/navbar/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid main">
-     <div class="row">
-         <carousel inteval="main.intervalCarousel">
-            <slide ng-repeat="slide in ::main.slideImages" active="slide.active">
+    <div class="col-xs-12 col-sm-12">
+        <slick arrows="false" accessibility="false" autoplay="true" touch-move="false" autoplay-speed="5000" swipe="false">
+            <div ng-repeat="slide in ::main.slideImages" active="slide.active">
                 <img src="/assets/img/carousel/{{::slide.image}}"/>
-                <div class="carousel-caption">
-                    <p>{{slide.message}}</p>
-                    <button>Ejemplo de botton</button>
-                </div>
-            </slide>
-         </carousel>
-     </div>
+            </div>
+        </slick>
+    </div>
 </div>

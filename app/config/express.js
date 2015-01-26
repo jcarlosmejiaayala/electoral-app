@@ -18,7 +18,7 @@ module.exports = function (app) {
     app.set('appPath', path.join(config.root, '/public'));
     app.set('view engine', 'html');
     app.engine('html', require('ejs').renderFile);
-    app.use(compression());
+    app.use(compression({level: 9}));
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());
     app.use(methodOverride());
