@@ -1,7 +1,18 @@
 @import 'variables';
 
-body{
+body {
   font-family: $font;
   background-color: $color-ligthgray;
   padding-top: 70px;
+  overflow-x: hidden;
+}
+
+.img-responsive {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+label, p{
+  line-height: 1.5;
 }

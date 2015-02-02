@@ -1,9 +1,80 @@
-.main{
-  .jumbotron{
-    background: url('../assets/img/vote.jpg') no-repeat center center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+@import '../../assets/scss/variables';
+
+.main {
+  color: $color-ligthblack;
+  margin-top: -18px;
+  div.content-header {
+    position: relative;
+    height: 600px;
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .content-box {
+      margin-top: 300px;
+    }
+    button.button-content-box {
+      background: transparent;
+      border: 5px solid $color-ligthblack;
+      letter-spacing: 1px;
+      padding: 10px 30px;
+      margin-top: 50px;
+      font-size: 20px;
+      transition: all 0.25s;
+      width: 300px;
+      &:hover {
+        border-color: $color-seagreen;
+        color: $color-seagreen;
+      }
+    }
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      height: inherit;
+    }
+  }
+  .content-features {
+    background-color: $color-white;
+    padding-bottom: 50px;
+    .header-features {
+      margin-top: 60px;
+      h4 {
+        font-weight: 700;
+        color: $color-seagreen;
+      }
+    }
+    .features {
+      & > div {
+        padding: 40px;
+        height: 300px;
+        transition: all 0.5s;
+        i {
+          color: $color-seagreen;
+          font-size: 100px;
+        }
+        p{
+          margin-top: 40px;
+        }
+        &:hover{
+          background: $color-seagreen;
+          color: $color-white;
+          i{
+            transform: scale(1.2);
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 761px) {
+  .main {
+    margin-top: -15px;
+    div.content-header {
+      height: 35rem;
+    }
   }
 }

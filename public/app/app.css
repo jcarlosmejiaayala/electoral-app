@@ -1,7 +1,16 @@
 body {
   font-family: "Open Sans", Helvetica;
   background-color: #dedede;
-  padding-top: 70px; }
+  padding-top: 70px;
+  overflow-x: hidden; }
+
+.img-responsive {
+  display: block;
+  height: auto;
+  width: 100%; }
+
+label, p {
+  line-height: 1.5; }
 
 .navbar {
   background: #fff;
@@ -27,6 +36,9 @@ body {
   border: 2px solid #2aa;
   color: #2aa;
   background-color: #fff; }
+  .navbar-nav > li button.navbar-btn:hover {
+    color: #fff;
+    background-color: #2aa; }
 .navbar-nav > li a {
   color: #188; }
 
@@ -44,13 +56,75 @@ body {
     width: 90%;
     margin: 0 auto; }
 
-.main .jumbotron {
-  background: url("../assets/img/vote.jpg") no-repeat center center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1; }
+.footer {
+  padding-top: 15px;
+  border-radius: 0;
+  bottom: 0;
+  position: relative;
+  height: 50px;
+  margin-bottom: 0;
+  background-color: #223;
+  letter-spacing: 1px;
+  color: #fff; }
 
+.main {
+  color: #2a2a2a;
+  margin-top: -18px; }
+  .main div.content-header {
+    position: relative;
+    height: 600px; }
+    .main div.content-header h1 {
+      font-size: 48px;
+      font-weight: 700; }
+    .main div.content-header .content-box {
+      margin-top: 300px; }
+    .main div.content-header button.button-content-box {
+      background: transparent;
+      border: 5px solid #2a2a2a;
+      letter-spacing: 1px;
+      padding: 10px 30px;
+      margin-top: 50px;
+      font-size: 20px;
+      transition: all 0.25s;
+      width: 300px; }
+      .main div.content-header button.button-content-box:hover {
+        border-color: #2aa;
+        color: #2aa; }
+    .main div.content-header img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      height: inherit; }
+  .main .content-features {
+    background-color: #fff;
+    padding-bottom: 50px; }
+    .main .content-features .header-features {
+      margin-top: 60px; }
+      .main .content-features .header-features h4 {
+        font-weight: 700;
+        color: #2aa; }
+    .main .content-features .features > div {
+      padding: 40px;
+      height: 300px;
+      transition: all 0.5s; }
+      .main .content-features .features > div i {
+        color: #2aa;
+        font-size: 100px; }
+      .main .content-features .features > div p {
+        margin-top: 40px; }
+      .main .content-features .features > div:hover {
+        background: #2aa;
+        color: #fff; }
+        .main .content-features .features > div:hover i {
+          transform: scale(1.2);
+          color: #fff; }
+
+@media screen and (max-width: 761px) {
+  .main {
+    margin-top: -15px; }
+    .main div.content-header {
+      height: 35rem; } }
 .form-signin {
   max-width: 330px;
   padding: 15px;
