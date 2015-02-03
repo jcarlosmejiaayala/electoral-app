@@ -13,16 +13,19 @@
     .content-box {
       margin-top: 300px;
     }
-    button.button-content-box {
+    a.button-content-box {
       background: transparent;
       border: 5px solid $color-ligthblack;
       letter-spacing: 1px;
       padding: 10px 30px;
       margin-top: 50px;
+      color: $color-ligthblack;
       font-size: 20px;
       transition: all 0.25s;
+      text-decoration: none;
+      display: inline-block;
       width: 300px;
-      &:hover {
+      &:hover, &:active {
         border-color: $color-seagreen;
         color: $color-seagreen;
       }
@@ -57,7 +60,7 @@
         p{
           margin-top: 40px;
         }
-        &:hover{
+        &:hover, &:active{
           background: $color-seagreen;
           color: $color-white;
           i{
@@ -70,11 +73,18 @@
   }
 }
 
-@media screen and (max-width: 761px) {
+@media screen and (max-width: 768px) {
   .main {
-    margin-top: -15px;
     div.content-header {
-      height: 35rem;
+      height: 450px;
+      .content-box {
+        margin-top: 30px;
+      }
+    }
+    .features {
+      & > div {
+        height: auto !important;
+      }
     }
   }
 }

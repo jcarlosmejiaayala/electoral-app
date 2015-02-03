@@ -11,3 +11,9 @@
   letter-spacing: 1px;
   color: $color-white;
 }
+
+@media screen and (max-width: 768px){
+  .footer{
+    height: auto !important;
+  }
+}

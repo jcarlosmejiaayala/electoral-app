@@ -67,6 +67,9 @@ label, p {
   letter-spacing: 1px;
   color: #fff; }
 
+@media screen and (max-width: 768px) {
+  .footer {
+    height: auto !important; } }
 .main {
   color: #2a2a2a;
   margin-top: -18px; }
@@ -78,16 +81,19 @@ label, p {
       font-weight: 700; }
     .main div.content-header .content-box {
       margin-top: 300px; }
-    .main div.content-header button.button-content-box {
+    .main div.content-header a.button-content-box {
       background: transparent;
       border: 5px solid #2a2a2a;
       letter-spacing: 1px;
       padding: 10px 30px;
       margin-top: 50px;
+      color: #2a2a2a;
       font-size: 20px;
       transition: all 0.25s;
+      text-decoration: none;
+      display: inline-block;
       width: 300px; }
-      .main div.content-header button.button-content-box:hover {
+      .main div.content-header a.button-content-box:hover, .main div.content-header a.button-content-box:active {
         border-color: #2aa;
         color: #2aa; }
     .main div.content-header img {
@@ -113,18 +119,20 @@ label, p {
         font-size: 100px; }
       .main .content-features .features > div p {
         margin-top: 40px; }
-      .main .content-features .features > div:hover {
+      .main .content-features .features > div:hover, .main .content-features .features > div:active {
         background: #2aa;
         color: #fff; }
-        .main .content-features .features > div:hover i {
+        .main .content-features .features > div:hover i, .main .content-features .features > div:active i {
           transform: scale(1.2);
           color: #fff; }
 
-@media screen and (max-width: 761px) {
-  .main {
-    margin-top: -15px; }
-    .main div.content-header {
-      height: 35rem; } }
+@media screen and (max-width: 768px) {
+  .main div.content-header {
+    height: 450px; }
+    .main div.content-header .content-box {
+      margin-top: 30px; }
+  .main .features > div {
+    height: auto !important; } }
 .form-signin {
   max-width: 330px;
   padding: 15px;
