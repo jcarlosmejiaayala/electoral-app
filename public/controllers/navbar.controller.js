@@ -3,7 +3,6 @@
 
     function controller($location, SweetAlert) {
         this.isCollapsed = true;
-        //obtener el menu del back
         this.menu = [
             {
                 name: 'Inicio',

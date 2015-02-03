@@ -1,4 +1,8 @@
-@import '../assets/scss/main';
+@import 'scaffolding';
+@import 'home';
+@import 'navbar';
+@import 'footer';
+/*
 @import '../components/navbar/navbar';
 @import '../components/footer/footer';
 @import 'main/main';
@@ -6,3 +10,4 @@
 @import 'configuracion/configuracion';
 @import 'configuracion/candidato/nuevo/nuevo';
 @import 'configuracion/candidato/candidato';
+*/

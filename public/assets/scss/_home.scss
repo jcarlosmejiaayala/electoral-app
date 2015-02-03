@@ -1,6 +1,6 @@
 @import '../../assets/scss/variables';
 
-.main {
+.home {
   color: $color-ligthblack;
   margin-top: -18px;
   div.content-header {
@@ -74,7 +74,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main {
+  .home {
     div.content-header {
       height: 450px;
       .content-box {

@@ -6,7 +6,7 @@
 
     angular
         .module('electoralApp')
-        .controller('mainController', controller);
+        .controller('homeController', controller);
 
     controller.$inject = ['usuario'];
 })();
