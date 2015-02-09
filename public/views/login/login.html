@@ -1,9 +1,9 @@
-<ng-include src="'components/navbar/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
+<ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <div class="account-wall">
-                <img class="profile-img" src="../assets/img/photo.png">
+                <img class="profile-img" src="../../assets/img/photo.png">
 
                 <form class="form-signin" ng-submit="login.sendCredentials()">
                     <div class="form-group">
@@ -20,3 +20,4 @@
         </div>
     </div>
 </div>
+<ng-include src="'/views/layouts/footer.html'"></ng-include>

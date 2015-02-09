@@ -1,6 +1,7 @@
 'use strict';
 
 var crypto = require('crypto'),
+    moment = require('moment'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     UsuarioSchema = new Schema({
@@ -21,7 +22,22 @@ var crypto = require('crypto'),
             facebook: String,
             twitter: String
         },
-        status: Boolean
+        status: Boolean,
+        creado: Date,
+        actualizado: Date,
+        expira: Date
+    });
+
+
+UsuarioSchema
+    .pre('save', function (next) {
+        var now = moment();
+        this.actualizado = now;
+        if (!this.creado) {
+            this.creado = now;
+            this.expira = now.add(7, 'd');
+        }
+        next();
     });
 
 UsuarioSchema

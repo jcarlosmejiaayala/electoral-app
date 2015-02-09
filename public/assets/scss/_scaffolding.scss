@@ -2,9 +2,10 @@
 
 body {
   font-family: $font;
-  background-color: $color-ligthgray;
+  background-color: $color-white;
   padding-top: 70px;
   overflow-x: hidden;
+  color: $color-ligthblack;
 }
 
 .img-responsive {
@@ -15,4 +16,44 @@ body {
 
 label, p{
   line-height: 1.5;
+}
+
+.vertical-margin{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.vertical-margin-2x{
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.divider{
+  width: 25%;
+}
+.header{
+  letter-spacing: 1px;
+  color: $color-ligthblack;
+}
+.color-text-ligthblack{
+ color: $color-ligthblack;
+}
+
+.button{
+  background: transparent;
+  border: 2px solid $color-seagreen;
+  transition: all 0.5s;
+  color: $color-seagreen;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  touch-action: manipulation;
+  cursor: pointer;
+  &:hover{
+    background-color: $color-seagreen;
+    color: $color-white;
+  }
 }

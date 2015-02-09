@@ -7,27 +7,26 @@
     position: relative;
     height: 600px;
     h1 {
-      font-size: 48px;
-      font-weight: 700;
+      letter-spacing: 1px;
     }
     .content-box {
       margin-top: 300px;
     }
     a.button-content-box {
       background: transparent;
-      border: 5px solid $color-ligthblack;
+      border: 5px solid $color-white;
       letter-spacing: 1px;
       padding: 10px 30px;
       margin-top: 50px;
-      color: $color-ligthblack;
+      color: $color-white;
       font-size: 20px;
-      transition: all 0.25s;
+      transition: all 0.5s;
       text-decoration: none;
       display: inline-block;
       width: 300px;
       &:hover, &:active {
-        border-color: $color-seagreen;
-        color: $color-seagreen;
+        border-color: $color-ligthblack;
+        color: $color-ligthblack;
       }
     }
     img {
@@ -36,6 +35,10 @@
       left: 0;
       z-index: -1;
       height: inherit;
+    }
+    .content-slide{
+      background-color: rgba(34, 170, 170, 0.75);
+      color: $color-white;
     }
   }
   .content-features {

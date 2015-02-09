@@ -1,14 +1,14 @@
 'use strict';
-function run() {
-}
-
-function config($urlRouterProvider, $locationProvider, $httpProvider) {
+var config,
+    factory,
+    run;
+config = function ($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
     //$httpProvider.interceptors.push('authInterceptor');
-}
+};
 
-function factory($sessionStorage, $q, $location) {
+factory = function ($sessionStorage, $q, $location) {
     var interceptor = {};
     interceptor.request = function (config) {
         config.headers = config.headers || {};
@@ -29,8 +29,9 @@ function factory($sessionStorage, $q, $location) {
         request: interceptor.request,
         responseError: interceptor.responseError
     }
-}
-
+};
+run = function ($rootScope, $location, auth) {
+};
 angular
     .module('electoralApp', [
         'ngResource',

@@ -1,14 +1,14 @@
-<ng-include src="'components/navbar/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
+<ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid home">
     <div class="row content-header">
         <img src="../../assets/img/vote.jpg" class="img-responsive"/>
         <div class="col-xs-12 col-sm-10 col-sm-offset-1 content-box">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 text-center">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3 content-slide text-center">
                     <h1>Demo ELECTORAL APP</h1>
 
                     <h3>Prueba nuestro servicio sin costo alguno.</h3>
-                    <a class="button-content-box" href="/cuenta/crear">Registrate</a>
+                    <a class="button-content-box vertical-margin" href="/registro">Registrate</a>
                 </div>
             </div>
         </div>
@@ -55,4 +55,4 @@
         </div>
     </div>
 </div>
-<ng-include src="'components/footer/footer.html'"></ng-include>
+<ng-include src="'/views/layouts/footer.html'"></ng-include>

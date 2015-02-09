@@ -25,10 +25,11 @@
 
 .navbar-nav > li {
   button.navbar-btn {
-    margin-left: 8px;
+    text-align: center;
     border: 2px solid $color-seagreen;
     color: $color-seagreen;
     background-color: $color-white;
+    transition: all 0.5s;
     &:hover {
       color: $color-white;
       background-color: $color-seagreen;

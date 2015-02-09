@@ -6,7 +6,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'home',
         url: '/',
-        templateUrl: 'app/home/home.html',
+        templateUrl: 'views/home/home.html',
         controller: 'homeController',
         controllerAs: 'home'
     });
@@ -14,7 +14,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'login',
         url: '/login',
-        templateUrl: 'app/login/login.html',
+        templateUrl: 'views/login/login.html',
         controller: 'loginController',
         controllerAs: 'login'
     });
@@ -22,7 +22,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'planilla',
         url: '/planilla',
-        templateUrl: 'app/planilla/planilla.html',
+        templateUrl: 'views/planilla/planilla.html',
         controller: 'planillaController',
         controllerAs: 'planilla'
     });
@@ -30,7 +30,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'resultados',
         url: '/resultados',
-        templateUrl: 'app/resultados/resultados.html',
+        templateUrl: 'views/resultados/resultados.html',
         controller: 'resultadosController',
         controllerAs: 'resultados'
     });
@@ -38,7 +38,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'configuracion',
         url: '/configuracion',
-        templateUrl: 'app/configuracion/configuracion.html',
+        templateUrl: 'views/configuracion/configuracion.html',
         controller: 'configuracionController',
         controllerAs: 'config'
     });
@@ -46,7 +46,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'configCandidato',
         url: '/configuracion/candidato',
-        templateUrl: 'app/configuracion/candidato/candidato.html',
+        templateUrl: 'views/configuracion/candidato/candidato.html',
         controller: 'configCandidatoController',
         controllerAs: 'candidato',
         resolve: {
@@ -63,17 +63,17 @@ var config = function ($stateProvider) {
     states.push({
         name: 'configCandidatoNuevo',
         url: '/configuracion/candidato/nuevo',
-        templateUrl: 'app/configuracion/candidato/nuevo/nuevo.html',
+        templateUrl: 'views/configuracion/candidato/nuevo/nuevo.html',
         controller: 'configCandidatoNuevoController',
         controllerAs: 'nuevo'
     });
 
     states.push({
-        name: 'cuentaCrear',
-        url: '/cuenta/crear',
-        templateUrl: 'app/cuenta/crear/crear.html',
-        controller: 'crearController',
-        controllerAs: 'crear'
+        name: 'registro',
+        url: '/registro',
+        templateUrl: 'views/registro/registro.html',
+        controller: 'registroController',
+        controllerAs: 'registro'
     });
 
     _.forEach(states, function (state) {

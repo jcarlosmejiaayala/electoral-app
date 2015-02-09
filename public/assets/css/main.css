@@ -1,8 +1,9 @@
 body {
   font-family: "Open Sans", Helvetica;
-  background-color: #dedede;
+  background-color: #fff;
   padding-top: 70px;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  color: #2a2a2a; }
 
 .img-responsive {
   display: block;
@@ -12,6 +13,42 @@ body {
 label, p {
   line-height: 1.5; }
 
+.vertical-margin {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+
+.vertical-margin-2x {
+  margin-top: 40px;
+  margin-bottom: 40px; }
+
+.divider {
+  width: 25%; }
+
+.header {
+  letter-spacing: 1px;
+  color: #2a2a2a; }
+
+.color-text-ligthblack {
+  color: #2a2a2a; }
+
+.button {
+  background: transparent;
+  border: 2px solid #2aa;
+  transition: all 0.5s;
+  color: #2aa;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  touch-action: manipulation;
+  cursor: pointer; }
+  .button:hover {
+    background-color: #2aa;
+    color: #fff; }
+
 .home {
   color: #2a2a2a;
   margin-top: -18px; }
@@ -19,31 +56,33 @@ label, p {
     position: relative;
     height: 600px; }
     .home div.content-header h1 {
-      font-size: 48px;
-      font-weight: 700; }
+      letter-spacing: 1px; }
     .home div.content-header .content-box {
       margin-top: 300px; }
     .home div.content-header a.button-content-box {
       background: transparent;
-      border: 5px solid #2a2a2a;
+      border: 5px solid #fff;
       letter-spacing: 1px;
       padding: 10px 30px;
       margin-top: 50px;
-      color: #2a2a2a;
+      color: #fff;
       font-size: 20px;
-      transition: all 0.25s;
+      transition: all 0.5s;
       text-decoration: none;
       display: inline-block;
       width: 300px; }
       .home div.content-header a.button-content-box:hover, .home div.content-header a.button-content-box:active {
-        border-color: #2aa;
-        color: #2aa; }
+        border-color: #2a2a2a;
+        color: #2a2a2a; }
     .home div.content-header img {
       position: absolute;
       top: 0;
       left: 0;
       z-index: -1;
       height: inherit; }
+    .home div.content-header .content-slide {
+      background-color: rgba(34, 170, 170, 0.75);
+      color: #fff; }
   .home .content-features {
     background-color: #fff;
     padding-bottom: 50px; }
@@ -95,10 +134,11 @@ label, p {
   border: none; }
 
 .navbar-nav > li button.navbar-btn {
-  margin-left: 8px;
+  text-align: center;
   border: 2px solid #2aa;
   color: #2aa;
-  background-color: #fff; }
+  background-color: #fff;
+  transition: all 0.5s; }
   .navbar-nav > li button.navbar-btn:hover {
     color: #fff;
     background-color: #2aa; }
@@ -133,14 +173,57 @@ label, p {
 @media screen and (max-width: 768px) {
   .footer {
     height: auto !important; } }
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto; }
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+  margin-bottom: 10px; }
+
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.form-signin .form-control:focus {
+  z-index: 2; }
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0; }
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
+
+.account-wall {
+  margin-top: 20px;
+  padding: 40px 0px 20px 0px;
+  background-color: #f7f7f7;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); }
+
+.profile-img {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%; }
+
 /*
-@import '../components/navbar/navbar';
-@import '../components/footer/footer';
-@import 'main/main';
-@import 'login/login';
 @import 'configuracion/configuracion';
 @import 'configuracion/candidato/nuevo/nuevo';
 @import 'configuracion/candidato/candidato';
 */
 
-/*# sourceMappingURL=app.css.map */
+/*# sourceMappingURL=main.css.map */
