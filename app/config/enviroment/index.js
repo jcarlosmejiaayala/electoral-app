@@ -19,18 +19,10 @@ all = {
         'adminisitrador',
         'candidato',
         'root'
-    ],
-    menu: [
-
-    ],
-    mongo: {
-        uri: 'mongodb://localhost/electoral',
-        options: {
-            safe: true
-        }
-    }
+    ]
 };
 
+
 module.exports = _.merge(
-    all, require('./', process.env.NODE_ENV + '.js') || {}
+    all, require('./' + process.env.NODE_ENV + '.js')
 );

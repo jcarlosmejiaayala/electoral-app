@@ -13,20 +13,18 @@
       margin-top: 300px;
     }
     a.button-content-box {
-      background: transparent;
+      @extend %button;
       border: 5px solid $color-white;
-      letter-spacing: 1px;
       padding: 10px 30px;
       margin-top: 50px;
       color: $color-white;
-      font-size: 20px;
-      transition: all 0.5s;
       text-decoration: none;
-      display: inline-block;
+      font-size: 20px;
       width: 300px;
       &:hover, &:active {
         border-color: $color-ligthblack;
-        color: $color-ligthblack;
+        background-color: $color-ligthblack;
+        color: $color-white;
       }
     }
     img {
