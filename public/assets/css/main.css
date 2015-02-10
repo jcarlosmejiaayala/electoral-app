@@ -220,6 +220,13 @@ label, p {
   -webkit-border-radius: 50%;
   border-radius: 50%; }
 
+.config-candidato-nuevo div > .radio-inline + .radio-inline {
+  margin-bottom: 15px; }
+.config-candidato-nuevo .radio-inline + .radio-inline {
+  margin-left: 0; }
+.config-candidato-nuevo div > [type="submit"] {
+  margin-top: 30px; }
+
 /*
 @import 'configuracion/configuracion';
 @import 'configuracion/candidato/nuevo/nuevo';
