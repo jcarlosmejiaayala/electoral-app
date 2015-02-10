@@ -10,10 +10,9 @@ Promise.promisifyAll(Estados);
 Promise.promisifyAll(Estados.prototype);
 Promise.promisifyAll(cache);
 
-
 exports.index = function (req, res) {
     Estados
-        .findAsync('nombre')
+        .findAsync({}, 'nombre')
         .then(function (data) {
             if (!data) {
                 req.json(204, {message: erros.messages.sinresultados});

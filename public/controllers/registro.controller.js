@@ -1,27 +1,20 @@
 'use strict';
 
-var controller = function (estados, SweetAlert, $q) {
+var controller = function (estados, SweetAlert) {
+    var that = this;
     this.form = {};
-    function getEstados() {
-        return $q(function (resolve, reject) {
-            estados.get(function (err, data) {
-                if (err) {
-                    reject(err);
-                }
-                resolve(data);
-            });
-        });
-    }
-
-    this.estados = getEstados()
+    this.estados = estados
+        .get()
         .then(function (data) {
-            return data.estados;
+            that.estados = data;
+            that.form.estados = data[0];
         }, function (err) {
-            SweetAlert.swal({
-                title: 'Ocurrio algo inesperado.',
-                text: err.message,
-                type: 'warning'
-            });
+            SweetAlert
+                .swal({
+                    title: 'Ocurrio algo inesperado',
+                    text: err,
+                    type: 'warning'
+                });
         });
 };
 
@@ -29,4 +22,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['estados', 'SweetAlert', '$q'];
+controller.$inject = ['estados', 'SweetAlert'];

@@ -3,13 +3,13 @@
 var factory = function ($http) {
     return ({
         get: function (cb) {
-            $http({
+            return $http({
                 url: '/estados',
                 method: 'get'
-            }).success(function (data) {
-                return cb(null, data);
-            }).error(function (err) {
-                return cb(err);
+            }).then(function (response) {
+                return (_.pluck(response.data.estados, 'nombre'));
+            }, function (err) {
+                throw err.data.message;
             });
         }
     });
