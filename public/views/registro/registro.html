@@ -24,8 +24,9 @@
                 </div>
                 <div class="form-group">
                     <label>Estado de procedencia</label>
-                    <select ng-model="nuevo.data.estado" class="form-control"
-                            ng-options="estado.nombre as estado.nombre for estado in ::nuevo.estados"></select>
+                    {{registro.estados}}
+                    <select ng-model="registro.form.estados" class="form-control"
+                            ng-options="estado as estado for estado in ::registro.estados"></select>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
