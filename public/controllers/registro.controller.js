@@ -37,18 +37,16 @@ var controller = function (estados, SweetAlert, usuario) {
 
     this.submit = function (isValid) {
         if (!isValid) {
-            SweetAlert.swal({
+            return SweetAlert.swal({
                 title: 'Faltan algunos campos por completar.',
                 type: 'warning'
             });
-            return null;
         }
         if (!this.checkIsEqualsThesePasswords()) {
-            SweetAlert.swal({
+            return SweetAlert.swal({
                 title: 'Verifique su contraseña nuevamente, no es igual a la contraseña ingresada.',
                 type: 'warning'
             });
-            return null;
         }
         usuario
             .save(this.form)
