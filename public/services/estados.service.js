@@ -1,16 +1,15 @@
 'use strict';
 
-var factory = function ($http) {
+var factory = function (estadosResource) {
     return ({
-        get: function (cb) {
-            return $http({
-                url: '/estados',
-                method: 'get'
-            }).then(function (response) {
-                return (_.pluck(response.data.estados, 'nombre'));
-            }, function (err) {
-                throw err.data.message;
-            });
+        get: function (data) {
+            return estadosResource
+                .get({estado: data},
+                function (response) {
+                    return (response);
+                }, function (err) {
+                    throw err.message;
+                }).$promise;
         }
     });
 };
@@ -19,4 +18,4 @@ angular
     .module('electoralApp')
     .factory('estados', factory);
 
-factory.$inject = ['$http'];
+factory.$inject = ['estadosResource'];

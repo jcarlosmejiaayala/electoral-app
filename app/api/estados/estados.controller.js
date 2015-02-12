@@ -2,34 +2,22 @@
 
 var Estados = require('./estados.model'),
     Promise = require('bluebird'),
-    NodeCache = require('node-cache'),
     _ = require('lodash'),
-    errors = require('./../../components/errors'),
-    cache = new NodeCache({checkperiod: 60 * 60 * 24});
+    errors = require('./../../components/errors');
+
 Promise.promisifyAll(Estados);
 Promise.promisifyAll(Estados.prototype);
-Promise.promisifyAll(cache);
 
-exports.index = function (req, res) {
+exports.getMunicipios = function (req, res) {
     Estados
-        .findAsync({}, 'nombre')
+        .findOneAsync({nombre: req.params.estado}, 'municipios')
         .then(function (data) {
-            if (!data) {
-                req.json(204, {message: errors[204]});
+            if (!data || _.isEmpty(data)) {
+                return req.json(204, {message: errors[204]});
             }
-            if (_.isEmpty(cache.get('estados'))) {
-                cache.set('estados', data);
-            }
-            cache
-                .getAsync('estados')
-                .then(function (value) {
-                    res.json(200, value);
-                })
-                .catch(function (err) {
-                    res.json(500, {message: errors[500]});
-                });
+            res.json(200, data);
         })
         .catch(function (err) {
-            res.json(500, {message: errors[500]});
+            return res.json(500, {message: errors[500]});
         });
 };

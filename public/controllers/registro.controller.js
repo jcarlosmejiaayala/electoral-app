@@ -1,12 +1,13 @@
 'use strict';
 
-var controller = function (estados, SweetAlert, usuario) {
+var controller = function ($scope, estados, SweetAlert, usuario) {
     var that = this;
     this.form = {};
     angular.extend(this, {
         partidos: ['pri', 'pan', 'prd', 'pt', 'morena', 'ind', 'pve', 'mc', 'panal'],
         candidaturas: ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gobernatura', 'Presidencia Nacional'],
         confirmpassword: '',
+        estados: ["AGUASCALIENTES", "BAJA CALIFORNIA", "BAJA CALIFORNIA SUR", "CAMPECHE", "COAHUILA", "COLIMA", "DISTRITO FEDERAL", "NAYARIT", "CHIAPAS", "CHIHUAHUA", "DURANGO", "GUANAJUATO", "GUERRERO", "HIDALGO", "JALISCO", "ESTADO DE MEXICO", "MICHOACAN", "MORELOS", "NUEVO LEON", "OAXACA", "PUEBLA", "QUERETARO", "QUINTANA ROO", "SAN LUIS POTOSI", "SINALOA", "SONORA", "TABASCO", "TAMAULIPAS", "TLAXCALA", "ZACATECAS", "VERACRUZ", "YUCATAN"]
     });
     angular.extend(this.form, {
         telefonos: {},
@@ -15,21 +16,24 @@ var controller = function (estados, SweetAlert, usuario) {
         candidatura: this.candidaturas[0],
         status: true,
         contraseña: '',
-        rol: 'candidato'
+        rol: 'candidato',
+        estado: that.estados[0],
+        municipio: ''
     });
-    estados
-        .get()
-        .then(function (data) {
-            that.estados = data;
-            that.form.estado = data[0];
-        }, function (err) {
-            SweetAlert
-                .swal({
+    $scope.$watchCollection('registro.form.estado', function (_new) {
+        estados
+            .get(_new)
+            .then(function (data) {
+                that.municipios = data.municipios;
+                that.form.municipio = data.municipios[0];
+            }, function (err) {
+                return SweetAlert.swal({
                     title: 'Ocurrio algo inesperado',
                     text: err,
                     type: 'warning'
                 });
-        });
+            });
+    });
 
     this.checkIsEqualsThesePasswords = function () {
         return _.isEqual(this.form.password, this.confirmpassword);
@@ -53,7 +57,7 @@ var controller = function (estados, SweetAlert, usuario) {
             .then(function (data) {
                 debugger;
             }, function (err) {
-                SweetAlert
+                return SweetAlert
                     .swal({
                         title: 'Ocurrio algo inesperado',
                         text: err,
@@ -67,4 +71,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['estados', 'SweetAlert', 'usuario'];
+controller.$inject = ['$scope', 'estados', 'SweetAlert', 'usuario'];

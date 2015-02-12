@@ -21,7 +21,7 @@ exports.index = function (req, res) {
             res.json(200, data);
         })
         .catch(function (err) {
-            res.json(500, {message: errors[500]});
+            return res.json(500, {message: errors[500]});
         });
 };
 

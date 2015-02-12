@@ -36,9 +36,14 @@
                     <div ng-messages="userForm.direccion.$error" ng-messages-include="errors"></div>
                 </div>
                 <div class="form-group">
-                    <label>Estado de procedencia</label>
+                    <label>Estado</label>
                     <select ng-model="registro.form.estado" class="form-control"
-                            ng-options="estado as estado for estado in ::registro.estados"></select>
+                            ng-options="estado for estado in ::registro.estados track by estado"></select>
+                </div>
+                <div class="form-group">
+                    <label>Municipio</label>
+                    <select ng-model="registro.form.municipio" class="form-control"
+                            ng-options="municipio.id as municipio.nombre for municipio in ::registro.municipios track by municipio.id"></select>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
@@ -121,17 +126,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Elige el tipo de candidatura</label>
+                    <label>Tipo de candidatura</label>
                     <select ng-model="registro.form.candidatura" class="form-control"
                             ng-options="candidatura as candidatura for candidatura in ::registro.candidaturas"></select>
                 </div>
-                <label class="control-label">Escoge el partido de pertenencia</label>
+                <label class="control-label">Partido de pertenencia</label>
 
                 <div class="col-xs-12">
                     <label class="radio-inline col-xs-4 col-sm-2 col-md-1"
                            ng-repeat="partido in ::registro.partidos track by partido">
                         <input type="radio" ng-model="registro.form.partido" value="{{::partido}}"/>
-                        <img src="../assets/img/{{partido}}.png"/>
+                        <img ng-src="../assets/img/{{::partido}}.png"/>
                     </label>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-sm-push-3 col-md-push-4">
