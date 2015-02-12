@@ -22,13 +22,13 @@ function factory(usuarioResource) {
             }).$promise;
     };
 
-    usuario.save = function (data, cb) {
+    usuario.save = function (data) {
         return usuarioResource.save(data,
-            function (data) {
-                return cb(null, data);
+            function (response) {
+                return response.data;
             },
             function (err) {
-                return cb(err);
+                throw err.data.message;
             }).$promise;
     };
 

@@ -1,7 +1,4 @@
 'use strict';
 
-exports.messsages = {
-    sincoincidencias: "No se encontraron coincidencias.",
-    servererror: "Error interno del servidor",
-    sinresultados: "No hubo resultados"
-};
+exports[500] = "Error interno del servidor";
+exports[204] = "No hubo resultados";

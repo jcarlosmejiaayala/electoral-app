@@ -37,6 +37,7 @@ angular
         'ngResource',
         'ngStorage',
         'ngTouch',
+        'ngMessages',
         'btford.socket-io',
         'ui.router',
         'highcharts-ng',
