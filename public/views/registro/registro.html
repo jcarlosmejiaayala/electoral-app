@@ -21,7 +21,9 @@
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" name="password" ng-model="registro.form.password" class="form-control" required/>
+                    <input type="password" name="password" ng-model="registro.form.password" class="form-control"
+                           required/>
+
                     <div ng-messages="userForm.password.$error" ng-messages-include="errors"></div>
                 </div>
                 <div class="form-group">
@@ -35,28 +37,40 @@
 
                     <div ng-messages="userForm.direccion.$error" ng-messages-include="errors"></div>
                 </div>
-                <div class="form-group">
-                    <label>Estado</label>
-                    <select ng-model="registro.form.estado" class="form-control"
-                            ng-options="estado for estado in ::registro.estados track by estado"></select>
-                </div>
-                <div class="form-group">
-                    <label>Municipio</label>
-                    <select ng-model="registro.form.municipio" class="form-control"
-                            ng-options="municipio.id as municipio.nombre for municipio in ::registro.municipios track by municipio.id"></select>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" ng-model="registro.form.email"
-                           placeholder="correo@ejemplo.com" required/>
+                <label class="control-label">Candidatura</label>
 
-                    <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
+                <div class="form-group panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <select ng-model="registro.form.candidatura" class="form-control"
+                                        ng-options="candidatura as candidatura for candidatura in ::registro.candidaturas"
+                                        ng-change="registro.changeCandidatura()"></select>
+                            </div>
+                            <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
+                                <label>Estado</label>
+                                <select ng-model="registro.form.estado" class="form-control"
+                                        ng-options="estado for estado in ::registro.estados track by estado"></select>
+                            </div>
+                            <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
+                                <label>Municipio</label>
+                                <select ng-model="registro.form.municipio" class="form-control"
+                                        ng-options="municipio.id as municipio.nombre for municipio in ::registro.municipios track by municipio.id"></select>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" ng-show="registro.availableDistrict">
+                                <label>Distrito</label>
+                                <input type="text" name="distrito" ng-model="registro.form.distrito" class="form-control" placeholder="0-300" required/>
+                             <div ng-messages="userForm.distrito.$error" ng-messages-include="errors"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <label class="control-label">Teléfonos de contacto</label>
 
-                <div class="form-group panel panel-default hidden-xs">
+                <div class="form-group panel panel-default">
                     <div class="panel-body">
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
                             <label>Local</label>
                             <input type="tel" name="telefono" class="form-control"
                                    ng-model="registro.form.telefonos.telefono"
@@ -64,7 +78,7 @@
 
                             <div ng-messages="userForm.telefono.$error" ng-messages-include="errors"></div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
                             <label>Celular</label>
                             <input type="tel" class="form-control" name="celular"
                                    ng-model="registro.form.telefonos.celular"
@@ -72,63 +86,24 @@
 
                             <div ng-messages="userForm.celular.$error" ng-messages-include="errors"></div>
 
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default visible-xs">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label>Local</label>
-                            <input type="tel" class="form-control" name="telefono"
-                                   ng-model="registro.form.telefonos.telefono"
-                                   placeholder="Ingrese teléfono con clave lada" required/>
-
-                            <div ng-messages="userForm.telefono.$error" ng-messages-include="errors"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>Celular</label>
-                            <input type="tel" class="form-control" name="celular"
-                                   ng-model="registro.form.telefonos.celular"
-                                   placeholder="Ingrese teléfono celular" required/>
-
-                            <div ng-messages="userForm.celular.$error" ng-messages-include="errors"></div>
                         </div>
                     </div>
                 </div>
                 <label class="control-label">Redes sociales</label>
 
-                <div class="form-group panel panel-default hidden-xs">
+                <div class="form-group panel panel-default">
                     <div class="panel-body">
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
                             <label>Facebook</label>
                             <input type="text" class="form-control" ng-model="registro.form.redesSociales.facebook"
                                    placeholder="Ingrese el vínculo"/>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
                             <label>Twitter</label>
                             <input type="text" class="form-control" ng-model="registro.form.redesSociales.twitter"
                                    placeholder="Ingrese el vínculo"/>
                         </div>
                     </div>
-                </div>
-                <div class="panel visible-xs">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label>Facebook</label>
-                            <input type="text" class="form-control" ng-model="registro.form.redesSociales.facebook"
-                                   placeholder="Ingrese el vínculo"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Twitter</label>
-                            <input type="text" class="form-control" ng-model="registro.form.redesSociales.twitter"
-                                   placeholder="Ingrese el vínculo"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Tipo de candidatura</label>
-                    <select ng-model="registro.form.candidatura" class="form-control"
-                            ng-options="candidatura as candidatura for candidatura in ::registro.candidaturas"></select>
                 </div>
                 <label class="control-label">Partido de pertenencia</label>
 

@@ -18,22 +18,13 @@ var controller = function ($scope, estados, SweetAlert, usuario) {
         contraseña: '',
         rol: 'candidato',
         estado: that.estados[0],
-        municipio: ''
+        municipio: '',
+        distrito: null
     });
-    $scope.$watchCollection('registro.form.estado', function (_new) {
-        estados
-            .get(_new)
-            .then(function (data) {
-                that.municipios = data.municipios;
-                that.form.municipio = data.municipios[0];
-            }, function (err) {
-                return SweetAlert.swal({
-                    title: 'Ocurrio algo inesperado',
-                    text: err,
-                    type: 'warning'
-                });
-            });
-    });
+
+    this.changeCandidatura = function() {
+        this.availableDistrict = !!/^Diputación/.test(this.form.candidatura);
+    };
 
     this.checkIsEqualsThesePasswords = function () {
         return _.isEqual(this.form.password, this.confirmpassword);
@@ -65,6 +56,20 @@ var controller = function ($scope, estados, SweetAlert, usuario) {
                     });
             });
     };
+    $scope.$watchCollection('registro.form.estado', function (_new) {
+        estados
+            .get(_new)
+            .then(function (data) {
+                that.municipios = data.municipios;
+                that.form.municipio = data.municipios[0];
+            }, function (err) {
+                return SweetAlert.swal({
+                    title: 'Ocurrio algo inesperado',
+                    text: err,
+                    type: 'warning'
+                });
+            });
+    });
 };
 
 angular
