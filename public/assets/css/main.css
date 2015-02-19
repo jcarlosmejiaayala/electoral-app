@@ -1,3 +1,5 @@
+@import url(../../bower_components/animate.css/animate.min.css);
+@import url(../../bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css);
 body {
   font-family: "Open Sans", Helvetica;
   background-color: #fff;

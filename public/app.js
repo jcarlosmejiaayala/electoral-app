@@ -5,7 +5,7 @@ var config,
 config = function ($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
-    //$httpProvider.interceptors.push('authInterceptor');
+    $httpProvider.interceptors.push('authInterceptor');
 };
 
 factory = function ($sessionStorage, $q, $location) {
@@ -20,7 +20,7 @@ factory = function ($sessionStorage, $q, $location) {
 
     interceptor.responseError = function (response) {
         if (response.status == 401) {
-            $location.path('/login');
+            $location.path('/home');
             delete $sessionStorage.token;
             return $q.reject(response);
         }
@@ -30,7 +30,8 @@ factory = function ($sessionStorage, $q, $location) {
         responseError: interceptor.responseError
     }
 };
-run = function ($rootScope, $location, auth) {
+run = function ($rootScope, $location, $log) {
+    angular.extend($rootScope, {$log: $log});
 };
 angular
     .module('electoralApp', [
@@ -42,7 +43,8 @@ angular
         'ui.router',
         'highcharts-ng',
         'ui.bootstrap',
-        'oitozero.ngSweetAlert'
+        'oitozero.ngSweetAlert',
+        'ui.utils'
     ])
     .config(config)
     .factory('authInterceptor', factory)

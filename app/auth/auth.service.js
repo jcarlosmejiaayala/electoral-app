@@ -4,11 +4,14 @@ var config = require('../config/enviroment'),
     jwt = require('jsonwebtoken'),
     expressJwt = require('express-jwt'),
     compose = require('composable-middleware'),
-    user = require('../api/usuario/usuario.model'),
+    Usuario = require('../api/usuario/usuario.model'),
     _ = require('lodash'),
+    errors = require('../components/errors'),
+    Promise = require('bluebird'),
     validateJwt = expressJwt({secret: config.secrets.session});
+Promise.promisifyAll(Usuario);
 
-function isAuthenticated() {
+exports.isAuthenticated = function () {
     return compose()
         .use(function (req, res, next) {
             if (req.query && _.has(req.query, 'access_token')) {
@@ -17,16 +20,19 @@ function isAuthenticated() {
             validateJwt(req, res, next);
         })
         .use(function (req, res, next) {
-            user.findById(req.user._id, function (err, user) {
-                if (err) return next(err);
-                if (!user) return res.send(401);
-                req.user = user;
-                next();
-            });
+            Usuario
+                .findByIdAsync(req.user._id)
+                .then(function (user) {
+                    if (!user) return res.json(403, {message: errors[401]});
+                    req.user = user;
+                    next();
+                }).catch(function (err) {
+                    next(err);
+                });
         });
-}
+};
 
-function hasRole(roleRequired) {
+exports.hasRole = function (roleRequired) {
     if (!roleRequired) throw new Error('Requiere ingresar un rol');
     return compose()
         .use(isAuthenticated())
@@ -37,20 +43,15 @@ function hasRole(roleRequired) {
                 res.send(403);
             }
         });
-}
+};
 
-function signToken(id) {
+exports.signToken = function (id) {
     return jwt.sign({_id: id}, config.secrets.session, {expires: 60 * 5});
-}
+};
 
-function setTokenCookie(req, res) {
+exports.setTokenCookie = function (req, res) {
     if (!req.user) return res.json(404, {message: 'Intentelo de nuevo'});
     var token = signToken(req.user._id);
     res.cookie('token', JSON.stringify(token));
     res.redirect('/');
-}
-
-exports.isAuthenticated = isAuthenticated;
-exports.hasRole = hasRole;
-exports.signToken = signToken;
-exports.setTokenCookie = setTokenCookie;
+};

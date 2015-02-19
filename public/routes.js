@@ -49,15 +49,6 @@ var config = function ($stateProvider) {
         templateUrl: 'views/configuracion/candidato/candidato.html',
         controller: 'configCandidatoController',
         controllerAs: 'candidato',
-        resolve: {
-            candidatos: function (usuario) {
-                return usuario.query(function (err, data) {
-                    if (data) {
-                        return data;
-                    }
-                });
-            }
-        }
     });
 
     states.push({

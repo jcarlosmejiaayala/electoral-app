@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express'),
-    config = require('../config/enviroment'),
+    config = require('../../config/enviroment'),
     passport = require('passport'),
     auth = require('../auth.service'),
     router = express.Router();

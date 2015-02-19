@@ -9,10 +9,18 @@ var crypto = require('crypto'),
         hashedPassword: String,
         salt: String,
         nombre: String,
-        direccion: String,
+        direccion: {
+            type: String,
+            lowercase: true
+        },
         estado: String,
         candidatura: String,
-        email: {type: String, lowercase: true},
+        distrito: Number,
+        email: {
+            type: String,
+            lowercase: true,
+            unique: true
+        },
         partido: String,
         telefonos: {
             telefono: Number,
@@ -25,7 +33,8 @@ var crypto = require('crypto'),
         status: Boolean,
         creado: Date,
         actualizado: Date,
-        expira: Date
+        expira: Date,
+        ip: String
     });
 
 

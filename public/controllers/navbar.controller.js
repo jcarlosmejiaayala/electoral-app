@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function ($location, auth) {
+var controller = function ($location, usuario) {
     this.isCollapsed = true;
     /*
      this.menu = [
@@ -27,7 +27,7 @@ var controller = function ($location, auth) {
      ];
      */
     this.menu = (function () {
-        if (!auth.isLoggedIn()) {
+        if (!usuario.isLoggedIn()) {
             return ([{
                 name: 'Ingresar',
                 link: '/login'
@@ -48,4 +48,4 @@ var controller = function ($location, auth) {
 angular
     .module('electoralApp')
     .controller('navbarController', controller);
-controller.$inject = ['$location', 'auth'];
+controller.$inject = ['$location', 'usuario'];

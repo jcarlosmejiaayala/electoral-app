@@ -13,7 +13,7 @@ exports.getMunicipios = function (req, res) {
         .findOneAsync({nombre: req.params.estado}, 'municipios')
         .then(function (data) {
             if (!data || _.isEmpty(data)) {
-                return req.json(204, {message: errors[204]});
+                return req.json(400, {message: errors[400]});
             }
             res.json(200, data);
         })

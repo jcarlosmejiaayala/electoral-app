@@ -28,7 +28,18 @@
                 </div>
                 <div class="form-group">
                     <label>Verificar contraseña</label>
-                    <input type="password" ng-model="registro.confirmpassword" class="form-control"/>
+                    <input type="password" name="confirmPassword" class="form-control"
+                           ng-model="registro.confirmPassword"
+                           ui-validate="{confirmPassword: '$value == registro.form.password'}"
+                           ui-validate-watch="'registro.form.password'"/>
+
+                    <div ng-messages="userForm.confirmPassword.$error" ng-messages-include="errors"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com" class="form-control" required/>
+
+                    <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
                 </div>
                 <div class="form-group">
                     <label>Dirección</label>
@@ -51,17 +62,20 @@
                             <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
                                 <label>Estado</label>
                                 <select ng-model="registro.form.estado" class="form-control"
-                                        ng-options="estado for estado in ::registro.estados track by estado"></select>
+                                        ng-options="estado for estado in ::registro.estados"></select>
                             </div>
                             <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
                                 <label>Municipio</label>
                                 <select ng-model="registro.form.municipio" class="form-control"
-                                        ng-options="municipio.id as municipio.nombre for municipio in ::registro.municipios track by municipio.id"></select>
+                                        ng-options="municipio.nombre for municipio in ::registro.municipios"></select>
                             </div>
-                            <div class="col-xs-12 col-sm-4" ng-show="registro.availableDistrict">
+                            <div class="col-xs-12 col-sm-4" ng-if="registro.availableDistrict">
                                 <label>Distrito</label>
-                                <input type="text" name="distrito" ng-model="registro.form.distrito" class="form-control" placeholder="0-300" required/>
-                             <div ng-messages="userForm.distrito.$error" ng-messages-include="errors"></div>
+                                <input type="number" name="distrito" ng-model="registro.form.distrito"
+                                       class="form-control" placeholder="1-300" required min="1"
+                                       max="300" ng-pattern="/^\d{1,3}$/"/>
+
+                                <div ng-messages="userForm.distrito.$error" ng-messages-include="errors"></div>
                             </div>
                         </div>
                     </div>
@@ -74,7 +88,8 @@
                             <label>Local</label>
                             <input type="tel" name="telefono" class="form-control"
                                    ng-model="registro.form.telefonos.telefono"
-                                   placeholder="Ingrese teléfono con clave lada" required/>
+                                   placeholder="Ingrese teléfono con clave lada" required ng-pattern="/^\d+$/"
+                                   ui-validate="{min: '$value.length >=7', max: '$value.length<9'}"/>
 
                             <div ng-messages="userForm.telefono.$error" ng-messages-include="errors"></div>
                         </div>
@@ -82,10 +97,10 @@
                             <label>Celular</label>
                             <input type="tel" class="form-control" name="celular"
                                    ng-model="registro.form.telefonos.celular"
-                                   placeholder="Ingrese teléfono celular" required/>
+                                   placeholder="Ingrese teléfono celular" required ng-pattern="/^\d+$/"
+                                   ui-validate="{min: '$value.length >=8', max: '$value.length<12'}"/>
 
                             <div ng-messages="userForm.celular.$error" ng-messages-include="errors"></div>
-
                         </div>
                     </div>
                 </div>
@@ -108,11 +123,14 @@
                 <label class="control-label">Partido de pertenencia</label>
 
                 <div class="col-xs-12">
-                    <label class="radio-inline col-xs-4 col-sm-2 col-md-1"
-                           ng-repeat="partido in ::registro.partidos track by partido">
-                        <input type="radio" ng-model="registro.form.partido" value="{{::partido}}"/>
-                        <img ng-src="../assets/img/{{::partido}}.png"/>
-                    </label>
+                    <div class="radio radio-primary radio-inline col-xs-4 col-sm-2 "
+                         ng-repeat="partido in ::registro.partidos track by partido">
+                        <input type="radio" id="radio{{$index}}" ng-model="registro.form.partido"
+                               value="{{::partido}}"/>
+                        <label for="radio{{$index}}">
+                            <img ng-src="../assets/img/{{::partido}}.png"/>
+                        </label>
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-sm-push-3 col-md-push-4">
                     <button type="submit" class="button btn-block">Enviar</button>
@@ -124,4 +142,10 @@
 <ng-include src="'/views/layouts/footer.html'"></ng-include>
 <script type="text/ng-template" id="errors">
     <span ng-message="required">Este campo es requerido.</span>
+    <span ng-message="number">Algunos carácteres no son los esperados.</span>
+    <span ng-message="email">Email invalido.</span>
+    <span ng-message="min">Es menor al mínimo de caracteres requeridos.</span>
+    <span ng-message="max">Se excede el límite de caracteres permitidos.</span>
+    <span ng-message="confirmPassword">Verifique nuevamente su contraseña.</span>
+    <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
 </script>
