@@ -1,16 +1,15 @@
 'use strict';
 
-function factory(usuarioResource, $sessionStorage, $http, $q) {
-    var usuario = {};
-
-    usuario.get = function () {
+var factory = function (usuarioResource, $sessionStorage, $http, $q) {
+    function get() {
         return usuarioResource.get(function (data) {
             return data;
         }, function (err) {
             throw err.data.message;
         }).$promise;
-    };
-    usuario.save = function (data) {
+    }
+
+    function save(data) {
         return usuarioResource.save(data,
             function (response) {
                 return $sessionStorage.token = response.token;
@@ -18,9 +17,9 @@ function factory(usuarioResource, $sessionStorage, $http, $q) {
             function (err) {
                 throw err.data.message;
             }).$promise;
-    };
+    }
 
-    usuario.login = function (data) {
+    function login(data) {
         return $q(function (resolve, reject) {
             $http.post('/auth/local', {
                 email: data.email,
@@ -33,33 +32,28 @@ function factory(usuarioResource, $sessionStorage, $http, $q) {
                 reject(err);
             });
         });
-    };
-    usuario.isLoggin = function (cb) {
-        if($sessionStorage.token){
-            usuario.get().then(function (data) {
+    }
+
+    function isLoggin(cb) {
+        if ($sessionStorage.token) {
+            get().then(function () {
                 cb(true);
-            }, function (err) {
+            }, function () {
                 cb(false);
             });
         }
         else {
             cb(false);
         }
-    };
-    usuario.logout = function () {
-        if ($sessionStorage.token) {
-            delete $sessionStorage.token;
-        }
-    };
+    }
+
     return ({
-        get: usuario.get,
-        query: usuario.query,
-        save: usuario.save,
-        isLoggin: usuario.isLoggin,
-        login: usuario.login,
-        logout: usuario.logout
+        get: get,
+        save: save,
+        isLoggin: isLoggin,
+        login: login
     });
-}
+};
 
 angular
     .module('electoralApp')

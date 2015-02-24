@@ -39,7 +39,7 @@ var controller = function ($scope, $state, estados, SweetAlert, usuario) {
         }
         usuario
             .save(this.form)
-            .then(function (data) {
+            .then(function () {
                 SweetAlert.swal({
                     title: 'Se ha registrado con éxito',
                     type: 'success'

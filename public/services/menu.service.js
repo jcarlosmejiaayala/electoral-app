@@ -9,7 +9,7 @@ var factory = function ($http, $q) {
                     .success(function (response) {
                         resolve(response);
                     })
-                    .error(function (err) {
+                    .error(function () {
                         reject();
                     });
             });

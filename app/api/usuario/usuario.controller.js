@@ -38,9 +38,8 @@ exports.me = function (req, res) {
                 return res.json(401, {message: errors[401]});
             }
             res.json(200, user);
-        }).catch(function (err) {
+        }).catch(function () {
             return res.json(500, {message: errors[500]});
-
         });
 };
 
@@ -56,16 +55,17 @@ exports.create = function (req, res) {
         return res.json(400, {message: errors[400]});
     }
     var usuario = new Usuario(req.body);
+    Promise.promisifyAll(usuario);
     usuario.rol = 'candidato';
     usuario.status = true;
     usuario.ip = req.ip;
-    usuario.save(function (err, user) {
-        if (err) {
+    usuario.saveAsync()
+        .then(function (user) {
+            var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
+            res.json(200, {token: token});
+        }).catch(function () {
             return res.json(500, {message: errors[500]});
-        }
-        var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
-        res.json(200, {token: token});
-    });
+        });
 };
 
 exports.update = function (req, res) {

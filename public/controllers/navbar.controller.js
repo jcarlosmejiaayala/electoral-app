@@ -11,9 +11,6 @@ var controller = function ($location, menu) {
         return (_.isEqual(route, $location.path()) && !_.isEqual(route, '/login'));
     };
 
-    this.sendCredentials = function () {
-    };
-
     this.isLoggin = function (name) {
         return _.isEqual(name, 'Ingresar');
     };
