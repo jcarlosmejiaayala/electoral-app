@@ -12,7 +12,8 @@ var config = require('./config/enviroment'),
         serveClient: (config.env == 'production') ? false : true,
         path: '/socket.io-client'
     });
-mongoose.connect(uriUtil.formatMongoose(config.mongo.uri), config.mongo.options);
+//mongoose.connect(uriUtil.formatMongoose(config.mongo.uri), config.mongo.options);
+mongoose.connect(config.mongo.uri, config.mongo.options);
 require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app);

@@ -9,33 +9,8 @@
         <div collapse="navbar.isCollapsed" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-repeat="item in navbar.menu track by item.name"
-                    ng-class="{active: navbar.isActive(item.link), 'visible-xs': navbar.showLogin(item.name) }">
-                    <a href="{{::item.link}}" class="text-center">{{::item.name}}</a>
-                </li>
-                <li class="hidden-xs">
-                    <div dropdown>
-                        <button type="button" class="btn dropdown-toggle navbar-btn" dropdown-toggle>
-                            Ingresar
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <form name="userForm" ng-submit="navbar.sendCredentials()">
-                                    <div class="form-group">
-                                        <label class="text-center text-muted">Ingrese sus credenciales.</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email" ng-click="$event.stopPropagation()" ng-model="navbar.email" required autofocus/>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Contraseña" ng-click="$event.stopPropagation()" ng-model="navbar.password" required/>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary btn-sm" ng-click="$event.stopPropagation()">Acceder</button>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                    ng-class="{active: navbar.isActive(item.link)}">
+                    <a href="{{::item.link}}" class="text-center" ng-class="item.name=='Ingresar'? 'navbar-btn btn':''">{{::item.name}}</a>
                 </li>
             </ul>
         </div>

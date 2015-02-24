@@ -23,21 +23,8 @@
   border: none;
 }
 
-.navbar-nav > li {
-  button.navbar-btn {
-    text-align: center;
-    border: 2px solid $color-seagreen;
-    color: $color-seagreen;
-    background-color: $color-white;
-    transition: all 0.5s;
-    &:hover {
-      color: $color-white;
-      background-color: $color-seagreen;
-    }
-  }
-  a {
-    color: $color-gray;
-  }
+.navbar-nav > li a {
+  color: $color-gray;
 }
 
 .navbar-nav li.active {
@@ -56,5 +43,26 @@
   input {
     width: 90%;
     margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-nav > li {
+    a.btn.navbar-btn {
+      text-align: center;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      border: 2px solid $color-seagreen;
+      color: $color-seagreen;
+      background-color: $color-white;
+      transition: all 0.5s;
+      &:hover {
+        color: $color-white;
+        background-color: $color-seagreen;
+      }
+    }
+    a {
+      color: $color-gray;
+    }
   }
 }

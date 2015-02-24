@@ -49,6 +49,7 @@ exports.create = function (req, res) {
     req.checkBody('telefonos.celular', 'Número invalido').isInt();
     req.checkBody('direccion', 'String invalido').isAscii();
     req.checkBody('email', 'Email invalido').isEmail();
+    req.checkBody('password', 'Password invalido').isAscii();
     req.checkBody('redesSociales.facebook', 'String invalido').isAscii();
     req.checkBody('redesSociales.twitter', 'String invalido').isAscii();
     if (req.validationErrors() && !!req.validationErrors().length) {

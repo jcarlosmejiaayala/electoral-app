@@ -24,7 +24,8 @@ var config = function ($stateProvider) {
         url: '/planilla',
         templateUrl: 'views/planilla/planilla.html',
         controller: 'planillaController',
-        controllerAs: 'planilla'
+        controllerAs: 'planilla',
+        authenticate: true
     });
 
     states.push({
@@ -32,7 +33,8 @@ var config = function ($stateProvider) {
         url: '/resultados',
         templateUrl: 'views/resultados/resultados.html',
         controller: 'resultadosController',
-        controllerAs: 'resultados'
+        controllerAs: 'resultados',
+        authenticate: true
     });
 
     states.push({
@@ -40,15 +42,23 @@ var config = function ($stateProvider) {
         url: '/configuracion',
         templateUrl: 'views/configuracion/configuracion.html',
         controller: 'configuracionController',
-        controllerAs: 'config'
+        controllerAs: 'config',
+        authenticate: true
     });
-
+    states.push({
+        name: 'logout',
+        url: '/logout',
+        controller: function($sessionStorage, $location){
+            delete $sessionStorage.token;
+            $location.path('/home');
+        }
+    });
     states.push({
         name: 'configCandidato',
         url: '/configuracion/candidato',
         templateUrl: 'views/configuracion/candidato/candidato.html',
         controller: 'configCandidatoController',
-        controllerAs: 'candidato',
+        controllerAs: 'candidato'
     });
 
     states.push({

@@ -30,8 +30,18 @@ factory = function ($sessionStorage, $q, $location) {
         responseError: interceptor.responseError
     }
 };
-run = function ($rootScope, $location, $log) {
+run = function ($rootScope, $location, $log, usuario) {
     angular.extend($rootScope, {$log: $log});
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+        usuario.isLoggin(function (loggedIn) {
+            if (next.authenticate && !loggedIn) {
+                $location.path('/home');
+            }
+            if (_.isEqual(next.name, 'home') && loggedIn) {
+                $location.path('/resultados');
+            }
+        });
+    });
 };
 angular
     .module('electoralApp', [

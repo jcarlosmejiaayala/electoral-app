@@ -40,7 +40,12 @@ var controller = function ($scope, $state, estados, SweetAlert, usuario) {
         usuario
             .save(this.form)
             .then(function (data) {
-                $state.go('home');
+                SweetAlert.swal({
+                    title: 'Se ha registrado con éxito',
+                    type: 'success'
+                }, function () {
+                    $state.go('resultados');
+                });
             }, function (err) {
                 return SweetAlert
                     .swal({

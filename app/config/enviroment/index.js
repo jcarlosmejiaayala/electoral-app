@@ -19,7 +19,28 @@ all = {
         'adminisitrador',
         'candidato',
         'root'
-    ]
+    ],
+    menu: [
+        {
+            name: 'Ingresar',
+            link: '/login'
+        },
+        {
+            name: 'resultados',
+            link: '/resultados'
+        },
+        {
+            name: 'planilla',
+            link: '/planilla'
+        },
+        {
+            name: 'configuracion',
+            link: '/configuracion'
+        },
+        {
+            name: 'salir',
+            link: '/logout'
+        }]
 };
 
 

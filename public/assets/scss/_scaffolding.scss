@@ -14,28 +14,31 @@ body {
   width: 100%;
 }
 
-label, p{
+label, p {
   line-height: 1.5;
 }
 
-.vertical-margin{
+.vertical-margin {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.vertical-margin-2x{
+
+.vertical-margin-2x {
   margin-top: 40px;
   margin-bottom: 40px;
 }
 
-.divider{
+.divider {
   width: 25%;
 }
-.header{
+
+.header {
   letter-spacing: 1px;
   color: $color-ligthblack;
 }
-.color-text-ligthblack{
- color: $color-ligthblack;
+
+.color-text-ligthblack {
+  color: $color-ligthblack;
 }
 
 %button {
@@ -50,13 +53,14 @@ label, p{
   cursor: pointer;
   letter-spacing: 1px;
 }
-.button{
+
+.button {
   @extend %button;
   border: 2px solid $color-seagreen;
   color: $color-seagreen;
   padding: 6px 12px;
   font-size: 14px;
-  &:hover{
+  &:hover {
     background-color: $color-seagreen;
     color: $color-white;
   }

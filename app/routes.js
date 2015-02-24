@@ -4,6 +4,7 @@ var errors = require('./components/errors');
 module.exports = function (app) {
     app.use('/usuario', require('./api/usuario'));
     app.use('/estados', require('./api/estados'));
+    app.use('/menu', require('./api/menu'));
     app.use('/auth', require('./auth'));
     app.route('/:url(api|auth|components|app|bower_components|assets)/*')
         .get(errors[404]);
