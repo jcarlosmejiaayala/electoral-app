@@ -2,6 +2,7 @@
 var errors = require('./components/errors');
 
 module.exports = function (app) {
+    app.use('/candidato', require('./api/candidato'));
     app.use('/usuario', require('./api/usuario'));
     app.use('/estados', require('./api/estados'));
     app.use('/menu', require('./api/menu'));

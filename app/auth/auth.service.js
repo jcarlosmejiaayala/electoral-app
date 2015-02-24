@@ -19,7 +19,7 @@ function isAuthenticated() {
             }
             validateJwt(req, res, next);
         })
-        .use(function (err, req, res, next) {
+        .use(function(req, res, next) {
             Usuario
                 .findByIdAsync(req.user._id)
                 .then(function (user) {

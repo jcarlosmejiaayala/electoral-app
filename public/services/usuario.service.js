@@ -9,14 +9,8 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
         }).$promise;
     }
 
-    function save(data) {
-        return usuarioResource.save(data,
-            function (response) {
-                return $sessionStorage.token = response.token;
-            },
-            function (err) {
-                throw err.data.message;
-            }).$promise;
+    function createSession(token){
+        return $sessionStorage.token = token;
     }
 
     function login(data) {
@@ -49,7 +43,7 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
 
     return ({
         get: get,
-        save: save,
+        createSession: createSession,
         isLoggin: isLoggin,
         login: login
     });

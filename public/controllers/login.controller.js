@@ -1,5 +1,6 @@
 'use strict';
-function controller($state, SweetAlert, usuario) {
+
+var controller = function($state, SweetAlert, usuario) {
     this.form = {};
     angular.extend(this.form, {
         email: '',
@@ -14,10 +15,10 @@ function controller($state, SweetAlert, usuario) {
         }
         usuario
             .login(this.form)
-            .then(function (data) {
+            .then(function () {
                 $state.go('resultados')
             })
-            .catch(function (err) {
+            .catch(function () {
                 SweetAlert.swal({
                     title: 'Error al iniciar sesión.',
                     text: 'Verifica nuevamente.',
@@ -25,7 +26,7 @@ function controller($state, SweetAlert, usuario) {
                 });
             });
     };
-}
+};
 
 angular
     .module('electoralApp')

@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function ($scope, $state, estados, SweetAlert, usuario) {
+var controller = function ($scope, $state, estados, SweetAlert, candidato) {
     var that = this;
     this.form = {};
     angular.extend(this, {
@@ -37,7 +37,7 @@ var controller = function ($scope, $state, estados, SweetAlert, usuario) {
                 type: 'warning'
             });
         }
-        usuario
+        candidato
             .save(this.form)
             .then(function () {
                 SweetAlert.swal({
@@ -75,4 +75,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['$scope', '$state', 'estados', 'SweetAlert', 'usuario'];
+controller.$inject = ['$scope', '$state', 'estados', 'SweetAlert', 'candidato'];
