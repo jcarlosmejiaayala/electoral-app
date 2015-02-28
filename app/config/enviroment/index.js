@@ -30,8 +30,8 @@ all = {
             link: '/resultados'
         },
         {
-            name: 'planilla',
-            link: '/planilla'
+            name: 'simpatizantes',
+            link: '/simpatizantes'
         },
         {
             name: 'configuracion',

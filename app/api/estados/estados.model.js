@@ -1,12 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    estadosSchema = new Schema({
-        id: Number,
-        capital: String,
-        nombre: String,
-        municipios: Array
-    });
+    estadosSchema = require('../../Schemas/estado');
 
 module.exports = mongoose.model('estados', estadosSchema);

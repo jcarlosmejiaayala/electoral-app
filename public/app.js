@@ -1,7 +1,10 @@
 'use strict';
 var config,
     factory,
-    run;
+    run,
+    estados,
+    candidaturas,
+    partidos;
 config = function ($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
@@ -43,6 +46,11 @@ run = function ($rootScope, $location, $log, usuario) {
         });
     });
 };
+estados = ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Distrito Federal", "Nayarit", "Chiapas", "Chihuahua", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Estado De Mexico", "Michoacan", "Morelos", "Nuevo Leon", "Oaxaca", "Puebla", "Queretaro", "Quintana Roo", "San Luis Potosi", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Zacatecas", "Veracruz", "Yucatan"];
+partidos = ['pri', 'pan', 'prd', 'pt', 'morena', 'ind', 'pve', 'mc', 'panal'];
+candidaturas = ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gobernatura', 'Presidencia Nacional'];
+
+
 angular
     .module('electoralApp', [
         'ngResource',
@@ -54,8 +62,12 @@ angular
         'highcharts-ng',
         'ui.bootstrap',
         'oitozero.ngSweetAlert',
-        'ui.utils'
+        'ui.utils',
+        'infinite-scroll'
     ])
     .config(config)
     .factory('authInterceptor', factory)
-    .run(run);
+    .run(run)
+    .value('ESTADOS', estados)
+    .value('CANDIDATURAS', candidaturas)
+    .value('PARTIDOS', partidos);

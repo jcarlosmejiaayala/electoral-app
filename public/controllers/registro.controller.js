@@ -1,12 +1,39 @@
 'use strict';
-
-var controller = function ($scope, $state, estados, SweetAlert, candidato) {
+var detallesController = function ($modalInstance, casillas, pagination, selects, casilla) {
+    var that = this;
+    this.casillas = casillas;
+    this.isBusy = false;
+    if (!_.has(pagination, 'skip')) {
+        angular.extend(pagination, {
+            skip: 50
+        });
+    }
+    this.detalles = function () {
+        that.isBusy = true;
+        casilla.get(_.merge({selects: selects}, {filters: pagination}))
+            .then(function (response) {
+                that.isBusy = false;
+                pagination.skip += 50;
+                _.forEach(response, function (item) {
+                    that.casillas.push(item);
+                });
+            }).catch(function () {
+                that.isBusy = false;
+            });
+    };
+};
+detallesController.$inject = ['$modalInstance', 'casillas', 'pagination', 'selects', 'casilla'];
+var controller = function ($scope, $state, $modal, estados, SweetAlert, candidato, casilla, ESTADOS, PARTIDOS, CANDIDATURAS) {
     var that = this;
     this.form = {};
     angular.extend(this, {
-        partidos: ['pri', 'pan', 'prd', 'pt', 'morena', 'ind', 'pve', 'mc', 'panal'],
-        candidaturas: ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gobernatura', 'Presidencia Nacional'],
-        estados: ["AGUASCALIENTES", "BAJA CALIFORNIA", "BAJA CALIFORNIA SUR", "CAMPECHE", "COAHUILA", "COLIMA", "DISTRITO FEDERAL", "NAYARIT", "CHIAPAS", "CHIHUAHUA", "DURANGO", "GUANAJUATO", "GUERRERO", "HIDALGO", "JALISCO", "ESTADO DE MEXICO", "MICHOACAN", "MORELOS", "NUEVO LEON", "OAXACA", "PUEBLA", "QUERETARO", "QUINTANA ROO", "SAN LUIS POTOSI", "SINALOA", "SONORA", "TABASCO", "TAMAULIPAS", "TLAXCALA", "ZACATECAS", "VERACRUZ", "YUCATAN"]
+        partidos: PARTIDOS,
+        candidaturas: CANDIDATURAS,
+        estados: ESTADOS,
+        sentenceCasilla: '',
+        pagination: {
+            limit: 50
+        }
     });
     angular.extend(this.form, {
         telefonos: {},
@@ -21,7 +48,24 @@ var controller = function ($scope, $state, estados, SweetAlert, candidato) {
     });
 
     this.changeCandidatura = function () {
-        this.availableDistrict = !!/^Diputación/.test(this.form.candidatura);
+        this.sentenceCasilla = {
+            'Diputacion': function () {
+                that.availableDistrict = true;
+                return ({estado: that.form.estado, distrito: that.form.distrito});
+            },
+            'Alcaldia': function () {
+                that.availableDistrict = false;
+                return ({estado: that.form.estado, municipio: that.form.municipio});
+            },
+            'Gobernatura': function () {
+                that.availableDistrict = false;
+                return ({estado: that.form.estado});
+            },
+            'Presidencia Nacional': function () {
+                that.availableDistrict = false;
+                return ({});
+            }
+        }[(!!/^Diputación/.test(this.form.candidatura)) ? 'Diputacion' : that.form.candidatura]();
     };
 
     this.checkIsEqualsThesePasswords = function () {
@@ -46,7 +90,7 @@ var controller = function ($scope, $state, estados, SweetAlert, candidato) {
                 }, function () {
                     $state.go('resultados');
                 });
-            }, function (err) {
+            }).catch(function (err) {
                 return SweetAlert
                     .swal({
                         title: 'Ocurrio algo inesperado',
@@ -55,13 +99,42 @@ var controller = function ($scope, $state, estados, SweetAlert, candidato) {
                     });
             });
     };
+    this.detalles = function () {
+        casilla.get(_.merge({selects: that.sentenceCasilla}, {filters: that.pagination}))
+            .then(function (response) {
+                $modal.open({
+                    templateUrl: 'detalles.html',
+                    controller: detallesController,
+                    controllerAs: 'detalle',
+                    size: 'lg',
+                    resolve: {
+                        casillas: function () {
+                            return (response);
+                        },
+                        pagination: function () {
+                            return (_.cloneDeep(that.pagination));
+                        },
+                        selects: function () {
+                            return (that.sentenceCasilla);
+                        }
+                    }
+                });
+            }).catch(function (err) {
+                return SweetAlert
+                    .swal({
+                        title: err,
+                        type: 'warning'
+                    });
+            });
+    };
     $scope.$watchCollection('registro.form.estado', function (_new) {
         estados
-            .get(_new)
+            .get({nombre: _new})
             .then(function (data) {
                 that.municipios = data.municipios;
-                that.form.municipio = data.municipios[0];
-            }, function (err) {
+                that.form.municipio = data.municipios[0].nombre;
+                that.changeCandidatura();
+            }).catch(function (err) {
                 return SweetAlert.swal({
                     title: 'Ocurrio algo inesperado',
                     text: err,
@@ -75,4 +148,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['$scope', '$state', 'estados', 'SweetAlert', 'candidato'];
+controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'candidato', 'casilla', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];

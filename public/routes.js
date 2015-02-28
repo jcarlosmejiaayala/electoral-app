@@ -7,33 +7,47 @@ var config = function ($stateProvider) {
         name: 'home',
         url: '/',
         templateUrl: 'views/home/home.html',
-        controller: 'homeController',
-        controllerAs: 'home'
+        controller: 'homeController as home',
     });
 
     states.push({
         name: 'login',
         url: '/login',
         templateUrl: 'views/login/login.html',
-        controller: 'loginController',
-        controllerAs: 'login'
+        controller: 'loginController as login'
     });
 
     states.push({
-        name: 'planilla',
-        url: '/planilla',
-        templateUrl: 'views/planilla/planilla.html',
-        controller: 'planillaController',
-        controllerAs: 'planilla',
+        name: 'simpatizantes',
+        url: '/simpatizantes',
+        templateUrl: 'views/simpatizantes/simpatizantes.html',
+        controller: 'simpatizantesController as simpatizantes',
         authenticate: true
+    });
+
+    states.push({
+        name: 'simpatizantesNuevo',
+        url: '/simpatizantes/nuevo',
+        templateUrl: 'views/simpatizantes/simpatizantes.nuevo.html',
+        controller: 'simpatizantesNuevoController as simpatizante',
+        authenticate: true,
+        resolve: {
+            user: function (usuario) {
+                return usuario.get()
+                    .then(function (response) {
+                        return response;
+                    }).catch(function (err) {
+                        return err;
+                    });
+            }
+        }
     });
 
     states.push({
         name: 'resultados',
         url: '/resultados',
         templateUrl: 'views/resultados/resultados.html',
-        controller: 'resultadosController',
-        controllerAs: 'resultados',
+        controller: 'resultadosController as resultados',
         authenticate: true
     });
 
@@ -41,40 +55,24 @@ var config = function ($stateProvider) {
         name: 'configuracion',
         url: '/configuracion',
         templateUrl: 'views/configuracion/configuracion.html',
-        controller: 'configuracionController',
-        controllerAs: 'config',
+        controller: 'configuracionController as config',
         authenticate: true
-    });
-    states.push({
-        name: 'logout',
-        url: '/logout',
-        controller: function($sessionStorage, $location){
-            delete $sessionStorage.token;
-            $location.path('/home');
-        }
-    });
-    states.push({
-        name: 'configCandidato',
-        url: '/configuracion/candidato',
-        templateUrl: 'views/configuracion/candidato/candidato.html',
-        controller: 'configCandidatoController',
-        controllerAs: 'candidato'
-    });
-
-    states.push({
-        name: 'configCandidatoNuevo',
-        url: '/configuracion/candidato/nuevo',
-        templateUrl: 'views/configuracion/candidato/nuevo/nuevo.html',
-        controller: 'configCandidatoNuevoController',
-        controllerAs: 'nuevo'
     });
 
     states.push({
         name: 'registro',
         url: '/registro',
         templateUrl: 'views/registro/registro.html',
-        controller: 'registroController',
-        controllerAs: 'registro'
+        controller: 'registroController as registro'
+    });
+
+    states.push({
+        name: 'logout',
+        url: '/logout',
+        controller: function ($sessionStorage, $location, usuario) {
+            usuario.logout();
+            $location.path('/home');
+        }
     });
 
     _.forEach(states, function (state) {

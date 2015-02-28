@@ -4,9 +4,12 @@ var factory = function ($http, $q) {
     return ({
         get: function (data) {
             return $q(function (resolve, reject) {
-                return $http.get('/estados', {
+                return $http.get('/casilla', {
                     params: data
-                }).success(function (response) {
+                }).success(function (response, status) {
+                    if (status == 204) {
+                        reject("No hay casillas registradas en la base de datos.");
+                    }
                     resolve(response);
                 }).error(function () {
                     return reject();
@@ -15,9 +18,7 @@ var factory = function ($http, $q) {
         }
     });
 };
-
 angular
     .module('electoralApp')
-    .factory('estados', factory);
-
+    .factory('casilla', factory);
 factory.$inject = ['$http', '$q'];

@@ -6,18 +6,17 @@ var Estados = require('./estados.model'),
     errors = require('./../../components/errors');
 
 Promise.promisifyAll(Estados);
-Promise.promisifyAll(Estados.prototype);
 
-exports.getMunicipios = function (req, res) {
+exports.index = function (req, res) {
     Estados
-        .findOneAsync({nombre: req.params.estado}, 'municipios')
+        .findOneAsync(req.query, 'municipios')
         .then(function (data) {
-            if (!data || _.isEmpty(data)) {
-                return req.json(400, {message: errors[400]});
+            if (_.isEmpty(data)) {
+                return res.status(204).end();
             }
             res.json(200, data);
         })
-        .catch(function (err) {
+        .catch(function () {
             return res.json(500, {message: errors[500]});
         });
 };

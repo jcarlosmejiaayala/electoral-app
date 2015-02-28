@@ -17,6 +17,7 @@ exports.create = function (req, res) {
     req.checkBody('password', 'Password invalido').isAscii();
     req.checkBody('redesSociales.facebook', 'String invalido').isAscii();
     req.checkBody('redesSociales.twitter', 'String invalido').isAscii();
+    req.checkBody('municipio', 'String invalido').isAscii();
     if (req.validationErrors() && !!req.validationErrors().length) {
         return res.json(400, {message: errors[400]});
     }
@@ -29,6 +30,6 @@ exports.create = function (req, res) {
             return res.json(500, {message: errors[500]});
         }
         var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
-        res.json(200, {token: token});
+        res.json(200, {token: token, perfil: user.perfil});
     });
 };

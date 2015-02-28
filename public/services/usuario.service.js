@@ -9,8 +9,11 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
         }).$promise;
     }
 
-    function createSession(token){
-        return $sessionStorage.token = token;
+    function createSession(data) {
+        return angular.extend($sessionStorage, {
+            token: data.token,
+            perfil: data.perfil
+        });
     }
 
     function login(data) {
@@ -19,13 +22,20 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
                 email: data.email,
                 password: data.password
             }).success(function (response) {
-                $sessionStorage.token = response.token;
+                createSession(response);
                 resolve(response);
             }).error(function (err) {
-                usuario.logout();
+                logout();
                 reject(err);
             });
         });
+    }
+
+    function logout() {
+        if ($sessionStorage.token) {
+            delete $sessionStorage.token;
+            delete $sessionStorage.perfil;
+        }
     }
 
     function isLoggin(cb) {
@@ -45,7 +55,8 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
         get: get,
         createSession: createSession,
         isLoggin: isLoggin,
-        login: login
+        login: login,
+        logout: logout
     });
 };
 

@@ -5,6 +5,7 @@ module.exports = function (app) {
     app.use('/candidato', require('./api/candidato'));
     app.use('/usuario', require('./api/usuario'));
     app.use('/estados', require('./api/estados'));
+    app.use('/casilla', require('./api/casilla'));
     app.use('/menu', require('./api/menu'));
     app.use('/auth', require('./auth'));
     app.route('/:url(api|auth|components|app|bower_components|assets)/*')

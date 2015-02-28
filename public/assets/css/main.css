@@ -5,6 +5,7 @@ body {
   background-color: #fff;
   padding-top: 70px;
   overflow-x: hidden;
+  overflow-y: auto;
   color: #2a2a2a; }
 
 .img-responsive {
@@ -33,7 +34,7 @@ label, p {
 .color-text-ligthblack {
   color: #2a2a2a; }
 
-.button, .home div.content-header a.button-content-box {
+.button, .button-info, .home div.content-header a.button-content-box {
   background: transparent;
   transition: all 0.5s;
   display: inline-block;
@@ -53,6 +54,23 @@ label, p {
   .button:hover {
     background-color: #2aa;
     color: #fff; }
+
+.button-info {
+  border: 2px solid #5bc0de;
+  color: #5bc0de;
+  padding: 6px 12px;
+  font-size: 14px; }
+  .button-info:hover {
+    background-color: #5bc0de;
+    color: #fff; }
+
+a.button {
+  text-decoration: none; }
+
+.panel-casilla h4 {
+  color: #2a2a2a; }
+.panel-casilla hr {
+  border-top: 1px solid #223; }
 
 .home {
   color: #2a2a2a;
@@ -239,11 +257,5 @@ div > [type="submit"] {
 
 [ng-messages] span {
   color: #CB0000; }
-
-/*
-@import 'configuracion/configuracion';
-@import 'configuracion/candidato/nuevo/nuevo';
-@import 'configuracion/candidato/candidato';
-*/
 
 /*# sourceMappingURL=main.css.map */

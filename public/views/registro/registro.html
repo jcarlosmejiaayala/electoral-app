@@ -37,7 +37,8 @@
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com" class="form-control" required/>
+                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com"
+                           class="form-control" required/>
 
                     <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
                 </div>
@@ -59,23 +60,33 @@
                                         ng-options="candidatura as candidatura for candidatura in ::registro.candidaturas"
                                         ng-change="registro.changeCandidatura()"></select>
                             </div>
-                            <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
-                                <label>Estado</label>
-                                <select ng-model="registro.form.estado" class="form-control"
-                                        ng-options="estado for estado in ::registro.estados"></select>
-                            </div>
-                            <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
-                                <label>Municipio</label>
-                                <select ng-model="registro.form.municipio" class="form-control"
-                                        ng-options="municipio.nombre for municipio in ::registro.municipios"></select>
-                            </div>
-                            <div class="col-xs-12 col-sm-4" ng-if="registro.availableDistrict">
-                                <label>Distrito</label>
-                                <input type="number" name="distrito" ng-model="registro.form.distrito"
-                                       class="form-control" placeholder="1-300" required min="1"
-                                       max="300" ng-pattern="/^\d{1,3}$/"/>
+                            <div class="row form-group">
+                                <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
+                                    <label>Estado</label>
+                                    <select ng-model="registro.form.estado" class="form-control"
+                                            ng-options="estado for estado in ::registro.estados"></select>
+                                </div>
+                                <div ng-class="['col-xs-12', (registro.availableDistrict) ? 'col-sm-4' : 'col-sm-6']">
+                                    <label>Municipio</label>
+                                    <select ng-model="registro.form.municipio" class="form-control"
+                                            ng-options="municipio.nombre as municipio.nombre for municipio in ::registro.municipios"
+                                            ng-change="registro.changeCandidatura()"></select>
+                                </div>
+                                <div class="col-xs-12 col-sm-4" ng-if="registro.availableDistrict">
+                                    <label>Distrito</label>
+                                    <input type="number" name="distrito" ng-model="registro.form.distrito"
+                                           class="form-control" placeholder="1-300" required min="1"
+                                           max="300" ng-pattern="/^\d{1,3}$/" ng-change="registro.changeCandidatura()"/>
 
-                                <div ng-messages="userForm.distrito.$error" ng-messages-include="errors"></div>
+                                    <div ng-messages="userForm.distrito.$error" ng-messages-include="errors"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                                    <button type="button" class="button-info btn-block" ng-click="registro.detalles()">
+                                        Ver casillas
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,4 +159,75 @@
     <span ng-message="max">Se excede el límite de caracteres permitidos.</span>
     <span ng-message="confirmPassword">Verifique nuevamente su contraseña.</span>
     <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
+</script>
+<script type="text/ng-template" id="detalles.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$close()"><i class="fa fa-close"></i></button>
+        <h4 class="modal-title">
+            commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
+            auctor nibh consequat sollicitudin.
+        </h4>
+    </div>
+    <div class="modal-body" infinite-scroll="detalle.detalles()" infinite-scroll-container="'.modal'">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div class="row panel-casilla" ng-repeat="casilla in detalle.casillas track by $index">
+                    <div class="vertical-margin">
+                        <h4>Domicilio</h4>
+
+                        <span class="text-muted">{{::casilla.domicilio}}</span>
+                    </div>
+                    <div class="vertical-margin">
+                        <h4>Referencia</h4>
+                        <span class="text-muted">{{::casilla.referencia}}</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Distrito</th>
+                                <th>Sección</th>
+                                <th>Localidad</th>
+                                <th>Manzana</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-muted">
+                                <td>{{::casilla.distrito}}</td>
+                                <td>{{::casilla.seccion}}</td>
+                                <td>{{::casilla.localidad}}</td>
+                                <td>{{::casilla.manzana}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Código postal</th>
+                                <th>Municipio</th>
+                                <th>Estado</th>
+                                <th>Ubicación</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-muted">
+                                <td>{{::casilla.cp}}</td>
+                                <td>{{::casilla.municipio}}</td>
+                                <td>{{::casilla.estado}}</td>
+                                <td>{{::casilla.ubicacion}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="row text-center" ng-show="detalle.isBusy">
+                    <i class="fa fa-refresh fa-spin fa-3x"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </script>

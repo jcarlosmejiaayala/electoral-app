@@ -1,0 +1,117 @@
+<ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
+<div class="container-fluid vertical-margin">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <p class="lead text-left">
+                commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
+                auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla condimentum in est in
+                rutrum. Proin et erat fringilla, dignissim diam sit amet, pharetra nisl. Morbi in risus leo
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 vertical-margin-2x">
+            <form name="userForm" ng-submit="simpatizante.submit(userForm.$valid)" novalidate>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" ng-model="simpatizante.form.nombre" class="form-control"
+                           placeholder="Ingrese nombre completo" required/>
+
+                    <div ng-messages="userForm.nombre.$error" ng-messages-include="errors"></div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="simpatizante.form.email" placeholder="tu@correo.com"
+                           class="form-control" required/>
+
+                    <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
+                </div>
+                <label class="control-label">Domicilio</label>
+
+                <div class="form-group panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input type="text" name="direccion" class="form-control" ng-model="simpatizante.form.direccion"
+                                   placeholder="Ingrese dirección completa" required/>
+
+                            <div ng-messages="userForm.direccion.$error" ng-messages-include="errors"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Estado</label>
+                            <select ng-model="simpatizante.form.estado" class="form-control"
+                                    ng-options="estado for estado in ::simpatizante.estados"></select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Municipio</label>
+                            <select ng-model="simpatizante.form.municipio" class="form-control"
+                                    ng-options="municipio.nombre as municipio.nombre for municipio  in ::simpatizante.municipios"></select>
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label">Teléfonos de contacto</label>
+
+                <div class="form-group panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Local</label>
+                            <input type="tel" name="telefono" class="form-control"
+                                   ng-model="simpatizante.form.telefonos.telefono"
+                                   placeholder="Ingrese teléfono con clave lada" required ng-pattern="/^\d+$/"
+                                   ui-validate="{min: '$value.length >=7', max: '$value.length<9'}"/>
+
+                            <div ng-messages="userForm.telefono.$error" ng-messages-include="errors"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Celular</label>
+                            <input type="tel" class="form-control" name="celular"
+                                   ng-model="simpatizante.form.telefonos.celular"
+                                   placeholder="Ingrese teléfono celular" required ng-pattern="/^\d+$/"
+                                   ui-validate="{min: '$value.length >=8', max: '$value.length<12'}"/>
+
+                            <div ng-messages="userForm.celular.$error" ng-messages-include="errors"></div>
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label">Redes sociales</label>
+
+                <div class="form-group panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Facebook</label>
+                            <input type="text" class="form-control" ng-model="simpatizante.form.redesSociales.facebook"
+                                   placeholder="Ingrese el vínculo"/>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Twitter</label>
+                            <input type="text" class="form-control" ng-model="simpatizante.form.redesSociales.twitter"
+                                   placeholder="Ingrese el vínculo"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                        <button type="submit" class="button btn-block">Enviar</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <small class="text-muted">
+                        commodo magna sed mauris luctus sagittis. <span class="text-danger">Nullam vel nisi</span> et
+                        orci vehicula interdum. Nulla
+                        commodo nunc
+                        auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla condimentum
+                        in est in
+                    </small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<ng-include src="'/views/layouts/footer.html'"></ng-include>
+<script type="text/ng-template" id="errors">
+    <span ng-message="required">Este campo es requerido.</span>
+    <span ng-message="number">Algunos carácteres no son los esperados.</span>
+    <span ng-message="email">Email invalido.</span>
+    <span ng-message="min">Es menor al mínimo de caracteres requeridos.</span>
+    <span ng-message="max">Se excede el límite de caracteres permitidos.</span>
+    <span ng-message="confirmPassword">Verifique nuevamente su contraseña.</span>
+    <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
+</script>

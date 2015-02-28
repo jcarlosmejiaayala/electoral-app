@@ -13,7 +13,9 @@ var crypto = require('crypto'),
             type: String,
             lowercase: true
         },
+        municipio: String,
         estado: String,
+        partido: String,
         email: {
             type: String,
             lowercase: true,
@@ -32,7 +34,7 @@ var crypto = require('crypto'),
         actualizado: Date,
         expira: Date,
         ip: String
-    }, {collection: 'usuario'});
+    }, {collection: 'usuario', discriminatorKey: 'rol'});
 
 
 usuarioSchema
@@ -61,7 +63,8 @@ usuarioSchema
     .virtual('perfil')
     .get(function () {
         return {
-            rol: this.rol
+            nombre: this.nombre,
+            partido: this.partido
         };
     });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express'),
-    controller = require('./estados.controller'),
+    controller = require('./casilla.controller'),
     router = express.Router();
 
 router.get('/', controller.index);

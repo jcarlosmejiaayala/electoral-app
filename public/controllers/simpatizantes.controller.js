@@ -6,7 +6,7 @@ function controller() {
 
 angular
     .module('electoralApp')
-    .controller('planillaController', controller);
+    .controller('simpatizantesController', controller);
 
 controller.$inject = [];
 

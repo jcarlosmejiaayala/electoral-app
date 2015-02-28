@@ -3,7 +3,7 @@
 var factory = function (candidatoResource, usuario) {
     function save(data) {
         return candidatoResource.save(data, function (response) {
-            return usuario.createSession(response.token);
+            return usuario.createSession(response);
         }, function (err) {
             throw err.data.message;
         }).$promise;

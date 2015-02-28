@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
             return res.json(401, {message: errors[401]});
         }
         token = auth.signToken(user._id);
-        res.json({token: token});
+        res.json({token: token, perfil: user.perfil});
     })(req, res, next);
 });
 

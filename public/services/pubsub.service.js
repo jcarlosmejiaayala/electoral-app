@@ -1,6 +1,6 @@
 'use strict';
 
-function factory() {
+var factory = function() {
     var pubsub = {
         cache: {}
     };
@@ -38,7 +38,7 @@ function factory() {
         subscribe: pubsub.subscribe,
         unsubscribe: pubsub.unsubscribe
     };
-}
+};
 
 angular
     .module('electoralApp')
