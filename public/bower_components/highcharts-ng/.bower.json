@@ -1,0 +1,20 @@
+{
+  "name": "highcharts-ng",
+  "main": "dist/highcharts-ng.js",
+  "dependencies": {},
+  "devDependencies": {
+    "angular": "latest",
+    "angular-mocks": "latest",
+    "jquery": "latest"
+  },
+  "homepage": "https://github.com/pablojim/highcharts-ng",
+  "_release": "eff3fa4232",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "eff3fa42327accdd5b1910f19a3982763f11ff74"
+  },
+  "_source": "git://github.com/pablojim/highcharts-ng.git",
+  "_target": "master",
+  "_originalSource": "highcharts-ng"
+}
