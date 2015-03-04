@@ -1,6 +1,6 @@
 'use strict';
 
-var factory = function (usuarioResource, $sessionStorage, $http, $q) {
+var factory = function (usuarioResource, candidatoResource, administradorResource, $sessionStorage, $http, $q) {
     function get() {
         return usuarioResource.get(function (data) {
             return data;
@@ -10,10 +10,12 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
     }
 
     function createSession(data) {
-        return angular.extend($sessionStorage, {
-            token: data.token,
-            perfil: data.perfil
-        });
+        if (data.token) {
+            return angular.extend($sessionStorage, {
+                token: data.token,
+                perfil: data.perfil
+            });
+        }
     }
 
     function login(data) {
@@ -51,12 +53,33 @@ var factory = function (usuarioResource, $sessionStorage, $http, $q) {
         }
     }
 
+    function getInstanciaForRol(rol) {
+        return ({
+            'candidato': function () {
+                return (candidatoResource);
+            },
+            'administrador': function () {
+                return (administradorResource)
+            }
+        }[rol]());
+    }
+
+    function save(data) {
+        return getInstanciaForRol(data.rol)
+            .save(data, function (response) {
+                return createSession(response);
+            }, function (err) {
+                throw err.data.message;
+            }).$promise;
+    }
+
     return ({
         get: get,
         createSession: createSession,
         isLoggin: isLoggin,
         login: login,
-        logout: logout
+        logout: logout,
+        save: save
     });
 };
 
@@ -64,4 +87,4 @@ angular
     .module('electoralApp')
     .factory('usuario', factory);
 
-factory.$inject = ['usuarioResource', '$sessionStorage', '$http', '$q'];
+factory.$inject = ['usuarioResource', 'candidatoResource', 'administradorResource', '$sessionStorage', '$http', '$q'];

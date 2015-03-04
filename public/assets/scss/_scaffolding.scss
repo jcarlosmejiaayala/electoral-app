@@ -8,6 +8,7 @@ body {
   overflow-y: auto;
   color: $color-ligthblack;
 }
+
 .img-responsive {
   display: block;
   height: auto;
@@ -64,28 +65,50 @@ label, p {
     background-color: $color-seagreen;
     color: $color-white;
   }
-  }
+}
 
-  .button-info {
-    @extend %button;
-    border: 2px solid $color-blue-info;
-    color: $color-blue-info;
-    padding: 6px 12px;
-    font-size: 14px;
-    &:hover {
-      background-color: $color-blue-info;
-      color: $color-white;
+.button-info {
+  @extend %button;
+  border: 2px solid $color-blue-info;
+  color: $color-blue-info;
+  padding: 6px 12px;
+  font-size: 14px;
+  &:hover {
+    background-color: $color-blue-info;
+    color: $color-white;
   }
 }
 
-a.button {
+a.button, a.button-info {
   text-decoration: none;
 }
-.panel-casilla{
-  h4{
+
+.panel-casilla {
+  h4 {
     color: $color-ligthblack;
   }
-  hr{
+  hr {
     border-top: 1px solid $color-strong-blue;
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 20px;
+}
+
+.margin-bottom-2x {
+  margin-bottom: 40px;
+}
+
+.margin-bottom-4x {
+  margin-bottom: 80px;
+}
+
+.icon-detalles-simpatizantes {
+  color: $color-seagreen;
+  transition: all 0.5s;
+  &:hover {
+    cursor: pointer;
+    color: $color-ligthblack;
   }
 }

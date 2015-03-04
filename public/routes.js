@@ -21,7 +21,7 @@ var config = function ($stateProvider) {
         name: 'simpatizantes',
         url: '/simpatizantes',
         templateUrl: 'views/simpatizantes/simpatizantes.html',
-        controller: 'simpatizantesController as simpatizantes',
+        controller: 'simpatizantesController as simpatizante',
         authenticate: true
     });
 
@@ -32,12 +32,12 @@ var config = function ($stateProvider) {
         controller: 'simpatizantesNuevoController as simpatizante',
         authenticate: true,
         resolve: {
-            user: function (usuario) {
-                return usuario.get()
+            user: function (casilla) {
+                return casilla.getForCandidato()
                     .then(function (response) {
-                        return response;
+                        return (response);
                     }).catch(function (err) {
-                        return err;
+                        return (err);
                     });
             }
         }

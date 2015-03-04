@@ -12,33 +12,33 @@ config = function ($urlRouterProvider, $locationProvider, $httpProvider) {
 };
 
 factory = function ($sessionStorage, $q, $location) {
-    var interceptor = {};
-    interceptor.request = function (config) {
+    function request(config) {
         config.headers = config.headers || {};
         if ($sessionStorage.token) {
             config.headers.Authorization = 'Bearer ' + $sessionStorage.token;
         }
         return config;
-    };
+    }
 
-    interceptor.responseError = function (response) {
+    function responseError(response) {
         if (response.status == 401) {
-            $location.path('/home');
+            $location.path('/login');
             delete $sessionStorage.token;
             return $q.reject(response);
         }
-    };
-    return {
-        request: interceptor.request,
-        responseError: interceptor.responseError
     }
+
+    return ({
+        request: request,
+        responseError: responseError
+    });
 };
 run = function ($rootScope, $location, $log, usuario) {
     angular.extend($rootScope, {$log: $log});
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {
-                $location.path('/home');
+                $location.path('/login');
             }
             if (_.isEqual(next.name, 'home') && loggedIn) {
                 $location.path('/resultados');
@@ -48,7 +48,7 @@ run = function ($rootScope, $location, $log, usuario) {
 };
 estados = ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Distrito Federal", "Nayarit", "Chiapas", "Chihuahua", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Estado De Mexico", "Michoacan", "Morelos", "Nuevo Leon", "Oaxaca", "Puebla", "Queretaro", "Quintana Roo", "San Luis Potosi", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Zacatecas", "Veracruz", "Yucatan"];
 partidos = ['pri', 'pan', 'prd', 'pt', 'morena', 'ind', 'pve', 'mc', 'panal'];
-candidaturas = ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gobernatura', 'Presidencia Nacional'];
+candidaturas = ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gubernatura', 'Presidencia Nacional'];
 
 
 angular
@@ -63,7 +63,8 @@ angular
         'ui.bootstrap',
         'oitozero.ngSweetAlert',
         'ui.utils',
-        'infinite-scroll'
+        'infinite-scroll',
+        'ngTagsInput'
     ])
     .config(config)
     .factory('authInterceptor', factory)

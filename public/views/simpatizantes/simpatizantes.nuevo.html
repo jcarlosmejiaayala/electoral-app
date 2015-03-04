@@ -24,30 +24,32 @@
 
                     <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
                 </div>
-                <label class="control-label">Domicilio</label>
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" name="direccion" class="form-control"
+                           ng-model="simpatizante.form.direccion"
+                           placeholder="Ingrese dirección completa" required/>
 
+                    <div ng-messages="userForm.direccion.$error" ng-messages-include="errors"></div>
+
+                </div>
+                <label>Detalles del simpatizante</label>
+                <ng-include src="['views/partials/simpatizantes/', simpatizante.me.rol, '.html'].join('')"></ng-include>
                 <div class="form-group panel panel-default">
                     <div class="panel-body">
-                        <div class="form-group">
-                            <label>Dirección</label>
-                            <input type="text" name="direccion" class="form-control" ng-model="simpatizante.form.direccion"
-                                   placeholder="Ingrese dirección completa" required/>
-
-                            <div ng-messages="userForm.direccion.$error" ng-messages-include="errors"></div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <label>Estado</label>
-                            <select ng-model="simpatizante.form.estado" class="form-control"
-                                    ng-options="estado for estado in ::simpatizante.estados"></select>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <label>Municipio</label>
-                            <select ng-model="simpatizante.form.municipio" class="form-control"
-                                    ng-options="municipio.nombre as municipio.nombre for municipio  in ::simpatizante.municipios"></select>
+                        <label class="col-xs-12 margin-bottom">Verifica en <i class="text-info">Ver casillas</i> el
+                            total de casillas que podrá monitorear tu nuevo simpatizante.</label>
+                        <div class="row form-group">
+                            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                                <button type="button" class="button-info btn-block"
+                                        ng-click="simpatizante.detalles()">
+                                    Ver casillas
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <label class="control-label">Teléfonos de contacto</label>
+                <label>Teléfonos de contacto</label>
 
                 <div class="form-group panel panel-default">
                     <div class="panel-body">
@@ -77,12 +79,14 @@
                     <div class="panel-body">
                         <div class="col-xs-12 col-sm-6">
                             <label>Facebook</label>
-                            <input type="text" class="form-control" ng-model="simpatizante.form.redesSociales.facebook"
+                            <input type="text" class="form-control"
+                                   ng-model="simpatizante.form.redesSociales.facebook"
                                    placeholder="Ingrese el vínculo"/>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <label>Twitter</label>
-                            <input type="text" class="form-control" ng-model="simpatizante.form.redesSociales.twitter"
+                            <input type="text" class="form-control"
+                                   ng-model="simpatizante.form.redesSociales.twitter"
                                    placeholder="Ingrese el vínculo"/>
                         </div>
                     </div>
@@ -94,10 +98,12 @@
                 </div>
                 <div class="form-group">
                     <small class="text-muted">
-                        commodo magna sed mauris luctus sagittis. <span class="text-danger">Nullam vel nisi</span> et
+                        commodo magna sed mauris luctus sagittis. <span
+                            class="text-danger">Nullam vel nisi</span> et
                         orci vehicula interdum. Nulla
                         commodo nunc
-                        auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla condimentum
+                        auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla
+                        condimentum
                         in est in
                     </small>
                 </div>
@@ -114,4 +120,78 @@
     <span ng-message="max">Se excede el límite de caracteres permitidos.</span>
     <span ng-message="confirmPassword">Verifique nuevamente su contraseña.</span>
     <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
+</script>
+<script type="text/ng-template" id="detalles.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$close()"><i class="fa fa-close"></i></button>
+        <h4 class="modal-title">
+            commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
+            auctor nibh consequat sollicitudin.
+        </h4>
+
+        <div class="row text-right">
+            <label class="col-xs-12">No. de casillas: {{detalle.filtradas}} /{{detalle.total}}</label>
+        </div>
+    </div>
+    <div class="modal-body" infinite-scroll="detalle.detalles()" infinite-scroll-container="'.modal'"
+         infinite-scroll-disabled="detalle.isBusy">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="row panel-casilla" ng-repeat="casilla in detalle.casillas track by $index">
+                    <div class="vertical-margin">
+                        <h4>Domicilio</h4>
+
+                        <span class="text-muted">{{::casilla.domicilio}}</span>
+                    </div>
+                    <div class="vertical-margin">
+                        <h4>Referencia</h4>
+                        <span class="text-muted">{{::casilla.referencia}}</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Distrito</th>
+                                <th>Sección</th>
+                                <th>Localidad</th>
+                                <th>Manzana</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-muted">
+                                <td>{{::casilla.distrito}}</td>
+                                <td>{{::casilla.seccion}}</td>
+                                <td>{{::casilla.localidad}}</td>
+                                <td>{{::casilla.manzana}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Municipio</th>
+                                <th>Estado</th>
+                                <th>Ubicación</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-muted">
+                                <td>{{::casilla.municipio}}</td>
+                                <td>{{::casilla.estado}}</td>
+                                <td>{{::casilla.ubicacion}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="row text-center" ng-show="detalle.isBusy">
+                    <i class="fa fa-refresh fa-spin fa-3x"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </script>

@@ -6,13 +6,12 @@ var path = require('path'),
 
 all = {
     env: process.env.NODE_ENV,
-    port: process.env.PORT || 9000,
+    port: process.env.PORT || 5000,
     root: path.normalize(__dirname + '/../../..'),
     secrets: {
         session: 'electoral'
     },
     roles: [
-        'invitado',
         'simpatizante',
         'representante de casilla',
         'representante general',

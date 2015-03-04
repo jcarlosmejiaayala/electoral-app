@@ -1,8 +1,16 @@
 'use strict';
 
-function controller() {
+var controller = function () {
+    this.simpatizantes = [{
+        nombre: 'Aurora',
+        rol: 'administrador'
+    },
+        {
+            nombre: 'Luis',
+            rol: 'representate general'
+        }];
 
-}
+};
 
 angular
     .module('electoralApp')

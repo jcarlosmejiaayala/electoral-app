@@ -1,8 +1,30 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row margin-bottom-4x">
         <div class="col-xs-12 col-sm-4 col-sm-offset-4">
             <a href="/simpatizantes/nuevo" class="button-info btn-block">Nuevo simpatizante</a>
+        </div>
+    </div>
+    <div class="row margin-bottom">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Puesto</th>
+                        <th class="text-center">Detalles</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-muted">
+                    <tr ng-repeat="simpatizante in ::simpatizante.simpatizantes">
+                        <td>{{::simpatizante.nombre}}</td>
+                        <td>{{::simpatizante.rol}}</td>
+                        <td><i class="fa fa-plus-circle fa-2x icon-detalles-simpatizantes"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

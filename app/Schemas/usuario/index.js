@@ -34,7 +34,7 @@ var crypto = require('crypto'),
         actualizado: Date,
         expira: Date,
         ip: String
-    }, {collection: 'usuario', discriminatorKey: 'rol'});
+    }, {collection: 'usuario', discriminatorKey: '_type'});
 
 
 usuarioSchema

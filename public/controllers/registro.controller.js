@@ -1,29 +1,6 @@
 'use strict';
-var detallesController = function ($modalInstance, casillas, pagination, selects, casilla) {
-    var that = this;
-    this.casillas = casillas;
-    this.isBusy = false;
-    if (!_.has(pagination, 'skip')) {
-        angular.extend(pagination, {
-            skip: 50
-        });
-    }
-    this.detalles = function () {
-        that.isBusy = true;
-        casilla.get(_.merge({selects: selects}, {filters: pagination}))
-            .then(function (response) {
-                that.isBusy = false;
-                pagination.skip += 50;
-                _.forEach(response, function (item) {
-                    that.casillas.push(item);
-                });
-            }).catch(function () {
-                that.isBusy = false;
-            });
-    };
-};
-detallesController.$inject = ['$modalInstance', 'casillas', 'pagination', 'selects', 'casilla'];
-var controller = function ($scope, $state, $modal, estados, SweetAlert, candidato, casilla, ESTADOS, PARTIDOS, CANDIDATURAS) {
+
+var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, casilla, ESTADOS, PARTIDOS, CANDIDATURAS) {
     var that = this;
     this.form = {};
     angular.extend(this, {
@@ -31,6 +8,7 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, candidat
         candidaturas: CANDIDATURAS,
         estados: ESTADOS,
         sentenceCasilla: '',
+        availableSecciones: false,
         pagination: {
             limit: 50
         }
@@ -39,30 +17,30 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, candidat
         telefonos: {},
         redesSociales: {},
         partido: this.partidos[0],
+        rol: 'candidato',
         candidatura: this.candidaturas[0],
-        contraseña: '',
+        password: '',
         estado: that.estados[0],
         municipio: '',
         email: '',
-        distrito: 1
+        distrito: {
+            numero: 1,
+            secciones: []
+        }
     });
 
     this.changeCandidatura = function () {
         this.sentenceCasilla = {
             'Diputacion': function () {
-                that.availableDistrict = true;
-                return ({estado: that.form.estado, distrito: that.form.distrito});
+                return ({distrito: that.form.distrito.numero});
             },
             'Alcaldia': function () {
-                that.availableDistrict = false;
                 return ({estado: that.form.estado, municipio: that.form.municipio});
             },
-            'Gobernatura': function () {
-                that.availableDistrict = false;
+            'Gubernatura': function () {
                 return ({estado: that.form.estado});
             },
             'Presidencia Nacional': function () {
-                that.availableDistrict = false;
                 return ({});
             }
         }[(!!/^Diputación/.test(this.form.candidatura)) ? 'Diputacion' : that.form.candidatura]();
@@ -71,42 +49,12 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, candidat
     this.checkIsEqualsThesePasswords = function () {
         return _.isEqual(this.form.password, this.confirmpassword);
     };
-    this.submit = function (isValid) {
-        if (!this.availableDistrict) {
-            delete this.form.distrito;
-        }
-        if (!isValid) {
-            return SweetAlert.swal({
-                title: 'Faltan algunos campos por completar.',
-                type: 'warning'
-            });
-        }
-        candidato
-            .save(this.form)
-            .then(function () {
-                SweetAlert.swal({
-                    title: 'Se ha registrado con éxito',
-                    type: 'success'
-                }, function () {
-                    $state.go('resultados');
-                });
-            }).catch(function (err) {
-                return SweetAlert
-                    .swal({
-                        title: 'Ocurrio algo inesperado',
-                        text: err,
-                        type: 'warning'
-                    });
-            });
-    };
     this.detalles = function () {
         casilla.get(_.merge({selects: that.sentenceCasilla}, {filters: that.pagination}))
             .then(function (response) {
                 $modal.open({
-                    templateUrl: 'detalles.html',
-                    controller: detallesController,
-                    controllerAs: 'detalle',
-                    size: 'lg',
+                    templateUrl: 'views/partials/casilla/detalles.html',
+                    controller: 'casillaDetalles as detalle',
                     resolve: {
                         casillas: function () {
                             return (response);
@@ -123,6 +71,47 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, candidat
                 return SweetAlert
                     .swal({
                         title: err,
+                        type: 'warning'
+                    });
+            });
+    };
+    this.submit = function (isValid) {
+        if (!isValid) {
+            return SweetAlert.swal({
+                title: 'Faltan algunos campos por completar.',
+                type: 'warning'
+            });
+        }
+        if (!/^Diputación/.test(this.form.candidatura)) {
+            delete this.form.distrito;
+        }
+        if (!this.availableSecciones) {
+            delete this.form.distrito.secciones;
+        }
+        if (this.form.distrito.secciones) {
+            this.form.distrito.secciones = _.map(_.pluck(this.form.distrito.secciones, 'text'), _.parseInt);
+        }
+
+        if (_.contains(['Presidencia Nacional', 'Diputación Federal'], this.form.candidatura)) {
+            delete this.form.estado;
+        }
+        if (_.contains(['Presidencia Nacional', 'Gubernatura', 'Diputación Federal', 'Diputación Local'], this.form.candidatura)) {
+            delete this.form.municipio;
+        }
+        usuario
+            .save(this.form)
+            .then(function () {
+                SweetAlert.swal({
+                    title: 'Se ha registrado con éxito',
+                    type: 'success'
+                }, function () {
+                    $state.go('resultados');
+                });
+            }).catch(function (err) {
+                return SweetAlert
+                    .swal({
+                        title: 'Ocurrio algo inesperado',
+                        text: err,
                         type: 'warning'
                     });
             });
@@ -148,4 +137,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'candidato', 'casilla', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];
+controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'usuario', 'casilla', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];

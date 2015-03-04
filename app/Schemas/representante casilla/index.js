@@ -2,11 +2,11 @@
 
 var extend = require('mongoose-schema-extend'),
     usuarioSchema = require('../../Schemas/usuario'),
+    simpatizanteSchema = require('../../Schemas/simpatizante'),
     representanteSchema = usuarioSchema.extend({
-        puesto: String,
         suplente: String,
-        'representante general': {type: ObjectId, ref: 'usuario'},
-        casilla: {type: ObjectId, ref: 'casilla'}
+        seccion: Number,
+        simpatizante: [simpatizanteSchema]
     });
 
 module.exports = representanteSchema;

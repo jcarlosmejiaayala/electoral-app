@@ -11,8 +11,11 @@ router.post('/', function (req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         var error = err || info,
             token;
-        if (error || !user) {
+        if (error) {
             return res.json(401, {message: errors[401]});
+        }
+        if (!user) {
+            return res.json(404, {message: errors[404]});
         }
         token = auth.signToken(user._id);
         res.json({token: token, perfil: user.perfil});

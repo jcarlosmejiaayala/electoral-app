@@ -1,5 +1,11 @@
+@import url(../../bower_components/fontawesome/css/font-awesome.min.css);
+@import url(../../bower_components/bootstrap/dist/css/bootstrap.min.css);
+@import url(../../bower_components/bootstrap/dist/css/bootstrap-theme.min.css);
+@import url(../../bower_components/sweetalert/lib/sweet-alert.css);
 @import url(../../bower_components/animate.css/animate.min.css);
 @import url(../../bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css);
+@import url(../../bower_components/ng-tags-input/ng-tags-input.min.css);
+@import url(../../bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css);
 body {
   font-family: "Open Sans", Helvetica;
   background-color: #fff;
@@ -64,13 +70,29 @@ label, p {
     background-color: #5bc0de;
     color: #fff; }
 
-a.button {
+a.button, a.button-info {
   text-decoration: none; }
 
 .panel-casilla h4 {
   color: #2a2a2a; }
 .panel-casilla hr {
   border-top: 1px solid #223; }
+
+.margin-bottom {
+  margin-bottom: 20px; }
+
+.margin-bottom-2x {
+  margin-bottom: 40px; }
+
+.margin-bottom-4x {
+  margin-bottom: 80px; }
+
+.icon-detalles-simpatizantes {
+  color: #2aa;
+  transition: all 0.5s; }
+  .icon-detalles-simpatizantes:hover {
+    cursor: pointer;
+    color: #2a2a2a; }
 
 .home {
   color: #2a2a2a;

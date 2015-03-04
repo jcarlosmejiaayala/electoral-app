@@ -1,6 +1,7 @@
 'use strict';
 
 var Candidato = require('./candidato.model'),
+    Casilla = require('../casilla/casilla.model'),
     config = require('../../config/enviroment'),
     errors = require('../../components/errors'),
     jwt = require('jsonwebtoken'),
@@ -10,21 +11,12 @@ var Candidato = require('./candidato.model'),
 Promise.promisifyAll(Candidato);
 
 exports.create = function (req, res) {
-    req.checkBody('telefonos.telefono', 'Número invalido').isInt();
-    req.checkBody('telefonos.celular', 'Número invalido').isInt();
-    req.checkBody('direccion', 'String invalido').isAscii();
-    req.checkBody('email', 'Email invalido').isEmail();
-    req.checkBody('password', 'Password invalido').isAscii();
-    req.checkBody('redesSociales.facebook', 'String invalido').isAscii();
-    req.checkBody('redesSociales.twitter', 'String invalido').isAscii();
-    req.checkBody('municipio', 'String invalido').isAscii();
-    if (req.validationErrors() && !!req.validationErrors().length) {
-        return res.json(400, {message: errors[400]});
-    }
     var candidato = new Candidato(req.body);
-    candidato.rol = 'candidato';
     candidato.status = true;
     candidato.ip = req.ip;
+    if(!candidato.secciones){
+        debugger;
+    }
     candidato.save(function (err, user) {
         if (err) {
             return res.json(500, {message: errors[500]});
