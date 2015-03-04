@@ -116,7 +116,10 @@
                             </div>
 
                             <div class="row vertical-margin-2x">
-                                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                                <div class="col-sm-1 col-sm-offset-3 text-right" ng-show="registro.loadDetalles">
+                                    <i class="fa fa-refresh fa-spin fa-2x"></i>
+                                </div>
+                                <div class="col-xs-12 col-sm-4" ng-class="(!registro.loadDetalles)? 'col-sm-offset-4': ''">
                                     <button type="button" class="button-info btn-block" ng-click="registro.detalles()">
                                         Ver casillas
                                     </button>

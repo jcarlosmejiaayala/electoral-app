@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, casilla, ESTADOS, PARTIDOS, CANDIDATURAS) {
+var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, casilla, pubsub, ESTADOS, PARTIDOS, CANDIDATURAS) {
     var that = this;
     this.form = {};
     angular.extend(this, {
@@ -11,7 +11,8 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         availableSecciones: false,
         pagination: {
             limit: 50
-        }
+        },
+        loadDetalles: false
     });
     angular.extend(this.form, {
         telefonos: {},
@@ -50,6 +51,7 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         return _.isEqual(this.form.password, this.confirmpassword);
     };
     this.detalles = function () {
+        that.loadDetalles = true;
         casilla.get(_.merge({selects: that.sentenceCasilla}, {filters: that.pagination}))
             .then(function (response) {
                 $modal.open({
@@ -116,6 +118,9 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
                     });
             });
     };
+    pubsub.subscribe('modal:close', function () {
+        that.loadDetalles = false;
+    });
     $scope.$watchCollection('registro.form.estado', function (_new) {
         estados
             .get({nombre: _new})
@@ -137,4 +142,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'usuario', 'casilla', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];
+controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'usuario', 'casilla', 'pubsub', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];

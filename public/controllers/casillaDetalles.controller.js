@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function ($modalInstance, casillas, pagination, selects, casilla) {
+var controller = function ($modalInstance, casillas, pagination, selects, casilla, pubsub) {
     var that = this;
     this.casillas = casillas.casillas;
     this.total = casillas.total;
@@ -9,6 +9,7 @@ var controller = function ($modalInstance, casillas, pagination, selects, casill
     if (!pagination.skip) {
         pagination.skip = 50;
     }
+    pubsub.publish('modal:close');
     this.detalles = function () {
         if (!_.isEqual(that.filtradas, that.total)) {
             that.isBusy = true;
@@ -32,4 +33,4 @@ angular
     .module('electoralApp')
     .controller('casillaDetalles', controller);
 
-controller.$inject = ['$modalInstance', 'casillas', 'pagination', 'selects', 'casilla'];
+controller.$inject = ['$modalInstance', 'casillas', 'pagination', 'selects', 'casilla', 'pubsub'];
