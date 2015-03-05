@@ -40,7 +40,10 @@ label, p {
 .color-text-ligthblack {
   color: #2a2a2a; }
 
-.button, .button-info, .home div.content-header a.button-content-box {
+.color-text-seagreen {
+  color: #2aa; }
+
+.button, .button-info, .button-link, .home div.content-header a.button-content-box {
   background: transparent;
   transition: all 0.5s;
   display: inline-block;
@@ -69,6 +72,14 @@ label, p {
   .button-info:hover {
     background-color: #5bc0de;
     color: #fff; }
+
+.button-link {
+  text-decoration: underline;
+  color: #fff;
+  background: transparent;
+  padding: 6px 12px;
+  font-size: 18px;
+  border: none; }
 
 a.button, a.button-info {
   text-decoration: none; }

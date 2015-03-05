@@ -34,7 +34,7 @@
 
                 </div>
                 <label>Detalles del simpatizante</label>
-                <ng-include src="['views/partials/simpatizantes/', simpatizante.me.rol, '.html'].join('')"></ng-include>
+                <ng-include src="'views/partials/simpatizantes/' + simpatizante.me.rol + '.html'"></ng-include>
                 <div class="form-group panel panel-default">
                     <div class="panel-body">
                         <label class="col-xs-12 margin-bottom">Verifica en <i class="text-info">Ver casillas</i> el
@@ -120,78 +120,4 @@
     <span ng-message="max">Se excede el límite de caracteres permitidos.</span>
     <span ng-message="confirmPassword">Verifique nuevamente su contraseña.</span>
     <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
-</script>
-<script type="text/ng-template" id="detalles.html">
-    <div class="modal-header">
-        <button type="button" class="close" ng-click="$close()"><i class="fa fa-close"></i></button>
-        <h4 class="modal-title">
-            commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
-            auctor nibh consequat sollicitudin.
-        </h4>
-
-        <div class="row text-right">
-            <label class="col-xs-12">No. de casillas: {{detalle.filtradas}} /{{detalle.total}}</label>
-        </div>
-    </div>
-    <div class="modal-body" infinite-scroll="detalle.detalles()" infinite-scroll-container="'.modal'"
-         infinite-scroll-disabled="detalle.isBusy">
-        <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-                <div class="row panel-casilla" ng-repeat="casilla in detalle.casillas track by $index">
-                    <div class="vertical-margin">
-                        <h4>Domicilio</h4>
-
-                        <span class="text-muted">{{::casilla.domicilio}}</span>
-                    </div>
-                    <div class="vertical-margin">
-                        <h4>Referencia</h4>
-                        <span class="text-muted">{{::casilla.referencia}}</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Distrito</th>
-                                <th>Sección</th>
-                                <th>Localidad</th>
-                                <th>Manzana</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="text-muted">
-                                <td>{{::casilla.distrito}}</td>
-                                <td>{{::casilla.seccion}}</td>
-                                <td>{{::casilla.localidad}}</td>
-                                <td>{{::casilla.manzana}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Municipio</th>
-                                <th>Estado</th>
-                                <th>Ubicación</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="text-muted">
-                                <td>{{::casilla.municipio}}</td>
-                                <td>{{::casilla.estado}}</td>
-                                <td>{{::casilla.ubicacion}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr/>
-                </div>
-                <div class="row text-center" ng-show="detalle.isBusy">
-                    <i class="fa fa-refresh fa-spin fa-3x"></i>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </script>

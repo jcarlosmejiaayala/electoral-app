@@ -41,6 +41,9 @@ label, p {
 .color-text-ligthblack {
   color: $color-ligthblack;
 }
+.color-text-seagreen{
+  color: $color-seagreen;
+}
 
 %button {
   background: transparent;
@@ -77,6 +80,15 @@ label, p {
     background-color: $color-blue-info;
     color: $color-white;
   }
+}
+.button-link{
+  @extend %button;
+  text-decoration: underline;
+  color: $color-white;
+  background: transparent;
+  padding: 6px 12px;
+  font-size: 18px;
+  border: none;
 }
 
 a.button, a.button-info {

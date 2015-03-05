@@ -1,27 +1,29 @@
 <div class="container-fluid footer">
-    <div class="row">
-        <span class="visible-xs">
-                <div class="col-xs-6">
-                    <i class="fa fa-copyright"></i>
-                    <label>Demo Electoral App</label>
-                </div>
-            <div class="col-xs-6">
-                <i class="fa fa-envelope-o"></i>
-                <label>demo@ejemplo.com.</label>
-            </div>
-            <div class="col-xs-6 col-xs-offset-6">
-                <i class="fa fa-phone"></i>
-                <label>333-3333333.</label>
-            </div>
-        </span>
-        <span class="hidden-xs">
-            <div class="col-sm-6">
-                <i class="fa fa-copyright"></i>
-                <label>Demo Electoral App</label>
-            </div>
-        <div class="col-sm-6 text-right">
-            <i class="fa fa-envelope-o"></i> demo@ejemplo.com. <i class="fa fa-phone"></i> 333-3333333.
+    <div class="row hidden-xs">
+        <div class="col-xs-6">
+            <i class="fa fa-copyright"></i>
+            <label>Demo Electoral App</label>
         </div>
-        </span>
+        <div class="col-xs-6 text-right">
+            <i class="fa fa-envelope-o"></i>
+            <label>demo@ejemplo.com.</label>
+            <i class="fa fa-phone"></i>
+            <label>333-3333333.</label>
+        </div>
+    </div>
+    <div class="row visible-xs text-center">
+        <div class="col-xs-12">
+            <button class="button-link" ng-init="isCollapsedFooter=true"
+                    ng-click="isCollapsedFooter = !isCollapsedFooter">Contáctanos
+            </button>
+        </div>
+    </div>
+    <div class="col-xs-12 margin-bottom text-center" collapse="isCollapsedFooter">
+        <i class="fa fa-envelope-o fa-lg"></i>
+        <label> demo@ejemplo.com.</label>
+    </div>
+    <div class="col-xs-12 margin-bottom text-center" collapse="isCollapsedFooter">
+        <i class="fa fa-phone fa-lg"></i>
+        <label> 333-3333333.</label>
     </div>
 </div>
