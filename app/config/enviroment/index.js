@@ -6,7 +6,7 @@ var path = require('path'),
 
 all = {
     env: process.env.NODE_ENV,
-    port: process.env.PORT || 9000,
+    port: process.env.PORT || 8080,
     root: path.normalize(__dirname + '/../../..'),
     secrets: {
         session: 'electoral'
