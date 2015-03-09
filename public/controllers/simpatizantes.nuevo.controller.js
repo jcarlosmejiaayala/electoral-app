@@ -3,6 +3,7 @@
 var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
     var that = this;
     that.me = user;
+    this.form = {};
     angular.extend(this.form, {
         telefonos: {},
         redesSociales: {},
