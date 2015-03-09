@@ -2,7 +2,6 @@
 
 var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, casilla, pubsub, ESTADOS, PARTIDOS, CANDIDATURAS) {
     var that = this;
-    this.form = {};
     angular.extend(this, {
         partidos: PARTIDOS,
         candidaturas: CANDIDATURAS,
@@ -12,24 +11,22 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         pagination: {
             limit: 50
         },
-        loadDetalles: false
-    });
-    angular.extend(this.form, {
-        telefonos: {},
-        redesSociales: {},
-        partido: this.partidos[0],
-        rol: 'candidato',
-        candidatura: this.candidaturas[0],
-        password: '',
-        estado: that.estados[0],
-        municipio: '',
-        email: '',
-        distrito: {
-            numero: 1,
-            secciones: []
+        loadDetalles: false,
+        form: {
+            telefonos: {},
+            redesSociales: {},
+            partido: this.partidos[0],
+            rol: 'candidato',
+            candidatura: this.candidaturas[0],
+            password: '',
+            estado: that.estados[0],
+            municipio: '',
+            email: '',
+            distrito: {
+                secciones: {}
+            }
         }
     });
-
     this.changeCandidatura = function () {
         this.sentenceCasilla = {
             'Diputacion': function () {
@@ -87,12 +84,6 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         if (!/^Diputación/.test(this.form.candidatura)) {
             delete this.form.distrito;
         }
-        if (!this.availableSecciones) {
-            delete this.form.distrito.secciones;
-        }
-        if (this.form.distrito.secciones) {
-            this.form.distrito.secciones = _.map(_.pluck(this.form.distrito.secciones, 'text'), _.parseInt);
-        }
 
         if (_.contains(['Presidencia Nacional', 'Diputación Federal'], this.form.candidatura)) {
             delete this.form.estado;
@@ -110,11 +101,13 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
                     $state.go('resultados');
                 });
             }).catch(function (err) {
-                return SweetAlert
+                SweetAlert
                     .swal({
                         title: 'Ocurrio algo inesperado',
                         text: err,
                         type: 'warning'
+                    }, function () {
+                        $state.reload();
                     });
             });
     };

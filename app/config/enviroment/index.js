@@ -6,7 +6,7 @@ var path = require('path'),
 
 all = {
     env: process.env.NODE_ENV,
-    port: process.env.PORT || 8080,
+    port: process.env.PORT || 5000,
     root: path.normalize(__dirname + '/../../..'),
     secrets: {
         session: 'electoral'
@@ -25,19 +25,19 @@ all = {
             link: '/login'
         },
         {
-            name: 'resultados',
+            name: 'Resultados',
             link: '/resultados'
         },
         {
-            name: 'simpatizantes',
+            name: 'Simpatizantes',
             link: '/simpatizantes'
         },
         {
-            name: 'configuracion',
+            name: 'Configuración',
             link: '/configuracion'
         },
         {
-            name: 'salir',
+            name: 'Salir',
             link: '/logout'
         }]
 };

@@ -1,107 +1,49 @@
 'use strict';
 
-var controller = function ($scope, $modal, $state, user, usuario, estados, casilla, SweetAlert, ESTADOS) {
+var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
     var that = this;
-    this.me = user.user;
-    this.distritos = user.distritos;
-    this.form = {};
-    angular.extend(this, {
-        sentenceCasilla: '',
-        pagination: {
-            limit: 50
-        },
-        estados: (that.me.estado) ? that.me.estado : ESTADOS
-    });
-
+    that.me = user;
     angular.extend(this.form, {
         telefonos: {},
         redesSociales: {},
-        estado: (angular.isArray(that.estados)) ? that.estados[0] : that.estados,
-        municipio: (that.me.municipio) ? that.me.municipio : '',
-        email: ''
+        distrito: {
+            numero: that.me.distrito[0].numero,
+            secciones: {}
+        }
     });
-    if (this.me.rol) {
-        this.form.rol = {
-            'candidato': function () {
-                that.roles = ['administrador', 'representante general'];
-                return (that.roles[0]);
-            },
-            'administrador': function () {
-                return ('representante general');
-            },
-            'representante general': function () {
-                return ('representante de casilla');
-            },
-            'representante de casilla': function () {
-                return ('simpatizante');
-            }
-        }[this.me.rol]();
-        this.form.distrito = that.distritos[0];
-        getSecciones();
-    }
+    angular.extend(this, {
+        secciones: getSecciones(),
+        pagination: {
+            limit: 50
+        }
+    });
     this.getSecciones = getSecciones;
+    if (that.me.estado) {
+        this.form.estado = this.me.estado
+    }
+    if (that.me.municipio) {
+        this.form.municipio = this.me.municipio;
+    }
+
+    this.form.rol = {
+        'candidato': function () {
+            that.roles = ['administrador', 'representante general'];
+            return (that.roles[0]);
+        },
+        'administrador': function () {
+            return ('representante general');
+        },
+        'representante general': function () {
+            return ('representante de casilla');
+        },
+        'representante de casilla': function () {
+            return ('simpatizante');
+        }
+    }[this.me.rol]();
 
     function getSecciones() {
-        casilla.getSecciones({distrito: that.form.distrito})
-            .then(function (secciones) {
-                that.secciones = secciones;
-                that.form.secciones = [that.secciones[0]];
-            }).catch(function () {
-                return SweetAlert
-                    .swal({
-                        title: 'No hay secciones para este distrito',
-                        type: 'warning'
-                    });
-            });
+        return _(user.distrito).chain().filter({numero: that.form.distrito.numero}).pluck('secciones').reduce().value();
     }
-
-    this.changeCandidatura = function () {
-        this.sentenceCasilla = {
-            'Diputacion': function () {
-                that.availableDistrict = true;
-                return ({estado: that.form.estado, distrito: that.form.distrito});
-            },
-            'Alcaldia': function () {
-                that.availableDistrict = false;
-                return ({estado: that.form.estado, municipio: that.form.municipio});
-            },
-            'Gubernatura': function () {
-                that.availableDistrict = false;
-                return ({estado: that.form.estado, municipio: that.form.municipio});
-            },
-            'Presidencia Nacional': function () {
-                that.availableDistrict = false;
-                return ({estado: that.form.estado, municipio: that.form.municipio});
-            }
-        }[(!!/^Diputación/.test(this.form.candidatura)) ? 'Diputacion' : that.form.candidatura]();
-    };
-    this.detalles = function () {
-        casilla.get(_.merge({selects: that.sentenceCasilla}, {filters: that.pagination}))
-            .then(function (response) {
-                $modal.open({
-                    templateUrl: 'views/partials/casilla/detalles.html',
-                    controller: casillaDetalles,
-                    controllerAs: 'detalle',
-                    resolve: {
-                        casillas: function () {
-                            return (response);
-                        },
-                        pagination: function () {
-                            return (_.cloneDeep(that.pagination));
-                        },
-                        selects: function () {
-                            return (that.sentenceCasilla);
-                        }
-                    }
-                });
-            }).catch(function (err) {
-                return SweetAlert
-                    .swal({
-                        title: err,
-                        type: 'warning'
-                    });
-            });
-    };
 
     this.submit = function (isValid) {
         if (!isValid) {
@@ -128,20 +70,10 @@ var controller = function ($scope, $modal, $state, user, usuario, estados, casil
                     });
             });
     };
-    $scope.$watchCollection('simpatizante.form.estado', function (_new) {
-        estados
-            .get({nombre: _new})
-            .then(function (data) {
-                if (!that.me.municipio) {
-                    that.municipios = data.municipios;
-                    that.form.municipio = data.municipios[0].nombre;
-                }
-            });
-    });
 };
 
 angular
     .module('electoralApp')
     .controller('simpatizantesNuevoController', controller);
 
-controller.$inject = ['$scope', '$modal', '$state', 'user', 'usuario', 'estados', 'casilla', 'SweetAlert', 'ESTADOS'];
+controller.$inject = ['$scope', '$modal', '$state', 'user', 'usuario', 'SweetAlert'];

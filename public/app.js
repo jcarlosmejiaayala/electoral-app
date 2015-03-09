@@ -34,7 +34,6 @@ factory = function ($sessionStorage, $q, $location) {
     });
 };
 run = function ($rootScope, $location, $log, usuario) {
-    angular.extend($rootScope, {$log: $log});
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {
@@ -64,11 +63,12 @@ angular
         'oitozero.ngSweetAlert',
         'ui.utils',
         'infinite-scroll',
-        'ngTagsInput'
+        'ngTagsInput',
+        'ui-rangeSlider'
     ])
     .config(config)
     .factory('authInterceptor', factory)
     .run(run)
-    .value('ESTADOS', estados)
-    .value('CANDIDATURAS', candidaturas)
-    .value('PARTIDOS', partidos);
+    .constant('ESTADOS', estados)
+    .constant('CANDIDATURAS', candidaturas)
+    .constant('PARTIDOS', partidos);

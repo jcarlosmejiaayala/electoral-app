@@ -5,6 +5,7 @@ var Casilla = require('./casilla.model'),
     _ = require('lodash'),
     errors = require('../../components/errors'),
     join = Promise.join;
+
 Promise.promisifyAll(Casilla);
 
 exports.index = function (req, res) {
@@ -39,12 +40,12 @@ exports.getForCandidato = function (req, res) {
             },
             'Diputación Local': function () {
                 return ({
-                    distrito: req.user.distrito
+                    distrito: req.user.distrito.numero
                 });
             },
             'Diputación Federal': function () {
                 return ({
-                    distrito: req.user.distrito
+                    distrito: req.user.distrito.numero
                 });
             }
         }[req.user.candidatura]();

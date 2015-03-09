@@ -1,50 +1,39 @@
-<div class="col-xs-12 form-group">
-    <label>Puesto</label>
-    <select ng-model="simpatizante.form.rol" class="form-control"
-            ng-options="rol for rol in ::simpatizante.roles"></select>
-</div>
-<div ng-if="simpatizante.form.rol == 'representante general'">
-    <div class="col-xs-12 col-sm-6 form-group">
-        <label>Estados</label>
-        <select ng-model="simpatizante.form.estado" class="form-control"
-                ng-options="estado for estado in ::simpatizante.estados"></select>
-    </div>
-    <div class="col-xs-12 col-sm-6 form-group">
-        <label>Municipios</label>
-        <select ng-model="simpatizante.form.municipio" class="form-control"
-                ng-options="municipio.nombre as municipio.nombre for municipio  in ::simpatizante.municipios"></select>
-    </div>
-    <div class="col-xs-12 form-group">
+<div class="row form-group">
+    <div class="col-xs-12">
         <label>Puesto</label>
-        <input type="text" class="form-control" ng-model="simpatizante.form.rol"
+        <select ng-model="simpatizante.form.rol" class="form-control"
+                ng-options="rol for rol in ::simpatizante.roles"></select>
+    </div>
+</div>
+<div class="row form-group" ng-if="simpatizante.form.rol == 'representante general'">
+    <div class="col-xs-12 form-group" ng-if="::simpatizante.form.estado">
+        <label>Estado</label>
+        <input type="text" class="form-control" ng-model="::simpatizante.form.estado"
                readonly/>
     </div>
-    <div class="col-xs-12 col-sm-4 form-group">
-        <label>Estado</label>
-        <select ng-model="simpatizante.form.estado" class="form-control"
-                ng-options="estado for estado in ::simpatizante.estados"></select>
-    </div>
-    <div class="col-xs-12 col-sm-4 form-group">
+    <div class="col-xs-12 form-group" ng-if="::simpatizante.form.municipio">
         <label>Municipio</label>
-        <select ng-model="simpatizante.form.municipio" class="form-control"
-                ng-options="municipio.nombre as municipio.nombre for municipio  in ::simpatizante.municipios"></select>
+        <input type="text" class="form-control" ng-model="::simpatizante.form.municipio"
+               readonly/>
     </div>
-    <div class="col-xs-12 col-sm-4 form-group">
-        <label>Distritos</label>
-        <select ng-model="simpatizante.form.distrito" class="form-control"
-                ng-options="distrito for distrito in ::simpatizante.distritos"
-                ng-change="simpatizante.getSecciones()"></select>
+    <div class="col-xs-4">
+        <label>Distrito</label>
+        <select ng-model="simpatizante.form.distrito.numero" class="form-control"
+                ng-options="distrito.numero as distrito.numero for distrito in ::simpatizante.me.distrito"></select>
     </div>
-    <div class="col-xs-12 form-group">
-        <label>Secciones</label>
-        <ui-select multiple ng-model="simpatizante.form.secciones"
-                   ng-if="simpatizante.secciones">
-            <ui-select-match placeholder="Seleccione las secciones...">{{$item}}
-            </ui-select-match>
-            <ui-select-choices
-                    repeat="seccion in ::simpatizante.secciones | filter:$select.search">
-                {{seccion}}
-            </ui-select-choices>
-        </ui-select>
+    <div class="col-xs-4">
+        <label>Inicial</label>
+        <select ng-model="simpatizante.form.distrito.secciones.min" class="form-control"
+                ng-options="seccion for seccion in simpatizante.secciones"></select>
+    </div>
+    <div class="col-xs-4">
+        <label>Final</label>
+        <select ng-model="simpatizante.form.distrito.secciones.max" name="seccionesmax" class="form-control"
+                ng-options="seccion for seccion in simpatizante.secciones"
+                ui-validate="{distinctMinValue: '$value < registro.form.distrito.secciones.min'}"
+                ui-validate-watch="'registro.form.distrito.secciones.min'"></select>
+        <div ng-messages="userForm.seccionesmax.$error"
+             ng-messages-include="views/partials/errors/errors.html"></div>
+
     </div>
 </div>

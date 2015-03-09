@@ -7,7 +7,7 @@ var config = function ($stateProvider) {
         name: 'home',
         url: '/',
         templateUrl: 'views/home/home.html',
-        controller: 'homeController as home',
+        controller: 'homeController as home'
     });
 
     states.push({
@@ -32,13 +32,8 @@ var config = function ($stateProvider) {
         controller: 'simpatizantesNuevoController as simpatizante',
         authenticate: true,
         resolve: {
-            user: function (casilla) {
-                return casilla.getForCandidato()
-                    .then(function (response) {
-                        return (response);
-                    }).catch(function (err) {
-                        return (err);
-                    });
+            user: function (usuario) {
+                return usuario.get();
             }
         }
     });
@@ -69,7 +64,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'logout',
         url: '/logout',
-        controller: function ($sessionStorage, $location, usuario) {
+        controller: function ($location, usuario) {
             usuario.logout();
             $location.path('/home');
         }

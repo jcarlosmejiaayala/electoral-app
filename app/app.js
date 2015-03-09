@@ -1,7 +1,6 @@
 'use strict';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
-
 var config = require('./config/enviroment'),
     express = require('express'),
     mongoose = require('mongoose'),

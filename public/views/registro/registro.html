@@ -17,14 +17,16 @@
                     <input type="text" name="nombre" ng-model="registro.form.nombre" class="form-control"
                            placeholder="Ingrese nombre completo" required/>
 
-                    <div ng-messages="userForm.nombre.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.nombre.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
                     <input type="password" name="password" ng-model="registro.form.password" class="form-control"
                            required/>
 
-                    <div ng-messages="userForm.password.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.password.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
                     <label>Verificar contraseña</label>
@@ -33,28 +35,32 @@
                            ui-validate="{confirmPassword: '$value == registro.form.password'}"
                            ui-validate-watch="'registro.form.password'"/>
 
-                    <div ng-messages="userForm.confirmPassword.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.confirmPassword.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com"
                            class="form-control" required/>
 
-                    <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.email.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
                     <label>Dirección</label>
                     <input type="text" name="direccion" class="form-control" ng-model="registro.form.direccion"
                            placeholder="Ingrese dirección completa" required/>
 
-                    <div ng-messages="userForm.direccion.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.direccion.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <label class="control-label">Detalles de la candidatura</label>
 
                 <div class="form-group panel panel-default">
                     <div class="panel-body">
                         <div class="col-xs-12">
-                            <label class="margin-bottom">En <i class="text-primary">Ver casillas</i> podra ver información a detalle de los
+                            <label class="margin-bottom">En <i class="text-primary">Ver secciones</i> podra ver
+                                información a detalle de los
                                 distritos y secciones.</label>
 
                             <div class="form-group">
@@ -78,40 +84,42 @@
                                             ng-disabled="['Presidencia Nacional','Gubernatura', 'Diputación Federal', 'Diputación Local'].indexOf(registro.form.candidatura) > -1"></select>
                                 </div>
                             </div>
-                            <div ng-show="['Diputación Local', 'Diputación Federal'].indexOf(registro.form.candidatura) > -1">
-                                <div class="row form-group">
-                                    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                            <div ng-if="['Diputación Local', 'Diputación Federal'].indexOf(registro.form.candidatura) > -1">
+                                <label>Ingresa el distrito y su rango de secciones que lo integran.</label>
+
+                                <div class="row">
+                                    <div class="col-xs-4">
                                         <label>Distrito</label>
-                                        <input type="number" name="distrito" ng-model="registro.form.distrito.numero"
-                                               class="form-control" placeholder="1-300" required min="1"
-                                               max="300" ng-pattern="/^\d{1,3}$/"
+                                        <input type="text" name="distrito" ng-model="registro.form.distrito.numero"
+                                               class="form-control" placeholder="0" required ng-pattern="/^\d{1,3}$/"
                                                ng-change="registro.changeCandidatura()"/>
 
-                                        <div ng-messages="userForm.distrito.$error" ng-messages-include="errors"></div>
+                                        <div ng-messages="userForm.distrito.$error"
+                                             ng-messages-include="views/partials/errors/errors.html"></div>
                                     </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-xs-12">
-                                        <label class="margin-bottom">Si no encuentra sus secciones no se preocupe, puede ingresarlas
-                                            habilitando
-                                            la opción siguiente.</label>
+                                    <div class="col-xs-4">
+                                        <label>Inicial</label>
+                                        <input type="text" class="form-control" name="seccionesmin"
+                                               ng-model="registro.form.distrito.secciones.min"
+                                               ng-disabled="!registro.form.distrito.numero"
+                                               ng-pattern="/^\d{1,4}$/" placeholder="0" required/>
 
-                                        <div class="checkbox checkbox-inline checkbox-primary checkbox-circle">
-                                            <input id="availableSecciones" type="checkbox"
-                                                   ng-model="registro.availableSecciones"/>
-                                            <label for="availableSecciones">
-                                                Ingresar mis secciones manualmente.
-                                            </label>
-                                        </div>
+                                        <div ng-messages="userForm.seccionesmin.$error"
+                                             ng-messages-include="views/partials/errors/errors.html"></div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row form-group" ng-if="registro.availableSecciones">
-                                <div class="col-xs-12">
-                                    <tags-input name="secciones" ng-model="registro.form.distrito.secciones"
-                                                placeholder="Ingrese sus secciones" min-length="1" max-length="3"
-                                                min-tags="1" max-tags="10"></tags-input>
-                                    <div ng-messages="userForm.secciones.$error" ng-messages-include="errors"></div>
+                                    <div class="col-xs-4">
+                                        <label>Final</label>
+                                        <input type="text" class="form-control" name="seccionesmax"
+                                               ng-model="registro.form.distrito.secciones.max"
+                                               ng-disabled="!registro.form.distrito.numero"
+                                               ng-pattern="/^\d{1,4}$/" placeholder="1000"
+                                               ui-validate="{distinctMinValue: '$value > registro.form.distrito.secciones.min'}"
+                                               ui-validate-watch="'registro.form.distrito.secciones.min'" required/>
+
+                                        <div ng-messages="userForm.seccionesmax.$error"
+                                             ng-messages-include="views/partials/errors/errors.html"></div>
+
+                                    </div>
                                 </div>
                             </div>
 
@@ -119,7 +127,8 @@
                                 <div class="col-sm-1 col-sm-offset-3 text-right" ng-show="registro.loadDetalles">
                                     <i class="fa fa-refresh fa-spin fa-2x"></i>
                                 </div>
-                                <div class="col-xs-12 col-sm-4" ng-class="(!registro.loadDetalles)? 'col-sm-offset-4': ''">
+                                <div class="col-xs-12 col-sm-4"
+                                     ng-class="(!registro.loadDetalles)? 'col-sm-offset-4': ''">
                                     <button type="button" class="button-info btn-block" ng-click="registro.detalles()">
                                         Ver casillas
                                     </button>
@@ -142,7 +151,8 @@
                                    placeholder="Ingrese teléfono con clave lada" required ng-pattern="/^\d+$/"
                                    ui-validate="{min: '$value.length >=7', max: '$value.length<9'}"/>
 
-                            <div ng-messages="userForm.telefono.$error" ng-messages-include="errors"></div>
+                            <div ng-messages="userForm.telefono.$error"
+                                 ng-messages-include="views/partials/errors/errors.html"></div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <label>Celular</label>
@@ -151,7 +161,8 @@
                                    placeholder="Ingrese teléfono celular" required ng-pattern="/^\d+$/"
                                    ui-validate="{min: '$value.length >=8', max: '$value.length<12'}"/>
 
-                            <div ng-messages="userForm.celular.$error" ng-messages-include="errors"></div>
+                            <div ng-messages="userForm.celular.$error"
+                                 ng-messages-include="views/partials/errors/errors.html"></div>
                         </div>
                     </div>
                 </div>
@@ -178,7 +189,7 @@
                          ng-repeat="partido in ::registro.partidos track by partido">
                         <input type="radio" id="radio{{$index}}" ng-model="registro.form.partido"
                                value="{{::partido}}"/>
-                        <label for="radio{{$index}}">
+                        <label for="radio{{$index}}" tooltip="{{::partido}}" tooltip-trigger="mouseenter" tooltip-placement="right">
                             <img ng-src="../assets/img/{{::partido}}.png"/>
                         </label>
                     </div>
@@ -191,14 +202,3 @@
     </div>
 </div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>
-<script type="text/ng-template" id="errors">
-    <span ng-message="required">Este campo es requerido.</span>
-    <span ng-message="number">Algunos carácteres no son los esperados.</span>
-    <span ng-message="email">Email invalido.</span>
-    <span ng-message="min">Es menor al mínimo de caracteres requeridos.</span>
-    <span ng-message="max">Se excede el límite de caracteres permitidos.</span>
-    <span ng-message="confirmPassword">Verifique nuevamente su contraseña.</span>
-    <span ng-message="minTags">Ingrese mínimo una sección.</span>
-    <span ng-message="maxTags">Límite de secciones sobrepasado.</span>
-    <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
-</script>

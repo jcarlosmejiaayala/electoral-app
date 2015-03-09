@@ -9,24 +9,29 @@
                     <label>Email</label>
                     <input type="email" name="email" ng-model="login.form.email" class="form-control"/>
 
-                    <div ng-messages="userForm.email.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.email.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
                     <label>Contraseña</label>
                     <input type="password" name="password" ng-model="login.form.password" class="form-control"/>
 
-                    <div ng-messages="userForm.password.$error" ng-messages-include="errors"></div>
+                    <div ng-messages="userForm.password.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="col-xs-12 col-sm-6  col-sm-offset-3 form-group">
                     <button type="submit" class="button btn-block">Entrar</button>
                 </div>
+                <div class="clearfix"></div>
+                <hr/>
+                <div class="row text-center">
+                    <div class="col-xs-12">
+                        <a href="/registro">Deseo registrarme gratuitamente</a>
+                    </div>
+                </div>
+                <hr/>
             </form>
         </div>
     </div>
 </div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>
-<script type="text/ng-template" id="errors">
-    <span ng-message="number">Algunos carácteres no son los esperados.</span>
-    <span ng-message="email">Email invalido.</span>
-    <span ng-message="pattern">Algunos carácteres no son los esperados.</span>
-</script>
