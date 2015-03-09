@@ -2,6 +2,7 @@
 
 var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, casilla, pubsub, ESTADOS, PARTIDOS, CANDIDATURAS) {
     var that = this;
+    this.form = {};
     angular.extend(this, {
         partidos: PARTIDOS,
         candidaturas: CANDIDATURAS,
@@ -11,20 +12,20 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         pagination: {
             limit: 50
         },
-        loadDetalles: false,
-        form: {
-            telefonos: {},
-            redesSociales: {},
-            partido: this.partidos[0],
-            rol: 'candidato',
-            candidatura: this.candidaturas[0],
-            password: '',
-            estado: that.estados[0],
-            municipio: '',
-            email: '',
-            distrito: {
-                secciones: {}
-            }
+        loadDetalles: false
+    });
+    angular.extend(this.form, {
+        telefonos: {},
+        redesSociales: {},
+        partido: this.partidos[0],
+        rol: 'candidato',
+        candidatura: this.candidaturas[0],
+        password: '',
+        estado: that.estados[0],
+        municipio: '',
+        email: '',
+        distrito: {
+            secciones: {}
         }
     });
     this.changeCandidatura = function () {
