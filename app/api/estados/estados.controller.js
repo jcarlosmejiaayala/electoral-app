@@ -1,6 +1,6 @@
 'use strict';
 
-var Estados = require('./estados.model'),
+var Estados = require('../../model/estado'),
     Promise = require('bluebird'),
     _ = require('lodash'),
     errors = require('./../../components/errors');

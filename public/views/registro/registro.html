@@ -85,9 +85,10 @@
                                 </div>
                             </div>
                             <div ng-if="['Diputación Local', 'Diputación Federal'].indexOf(registro.form.candidatura) > -1">
-                                <label>Ingresa el distrito y su rango de secciones que lo integran.</label>
+                                <label class="form-group">Ingresa el distrito y su rango de secciones que lo
+                                    integran.</label>
 
-                                <div class="row">
+                                <div class="row form-group">
                                     <div class="col-xs-4">
                                         <label>Distrito</label>
                                         <input type="text" name="distrito" ng-model="registro.form.distrito.numero"
@@ -121,6 +122,13 @@
 
                                     </div>
                                 </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-12">
+                                        <small class="text-muted">Para ofrecerte un mejor control, usted tendra que
+                                            eligir su distrito y sus secciones.
+                                        </small>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row vertical-margin-2x">
@@ -135,7 +143,8 @@
                                 </div>
                             </div>
                             <small class="text-muted">Algunos campos pueden estar deshabilitados y no se tomaran en
-                                cuenta para la busqueda de las casillas.
+                                cuenta para la busqueda de las casillas. <br/>
+                                Commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum.
                             </small>
                         </div>
                     </div>
@@ -189,7 +198,8 @@
                          ng-repeat="partido in ::registro.partidos track by partido">
                         <input type="radio" id="radio{{$index}}" ng-model="registro.form.partido"
                                value="{{::partido}}"/>
-                        <label for="radio{{$index}}" tooltip="{{::partido}}" tooltip-trigger="mouseenter" tooltip-placement="right">
+                        <label for="radio{{$index}}" tooltip="{{::partido}}" tooltip-trigger="mouseenter"
+                               tooltip-placement="right">
                             <img ng-src="../assets/img/{{::partido}}.png"/>
                         </label>
                     </div>

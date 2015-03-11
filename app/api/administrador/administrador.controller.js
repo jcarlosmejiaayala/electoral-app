@@ -1,6 +1,6 @@
 'use strict';
 
-var Administrador = require('./administrador.model'),
+var Administrador = require('../../model/administrador'),
     config = require('../../config/enviroment'),
     errors = require('../../components/errors'),
     _ = require('lodash'),
@@ -14,7 +14,8 @@ exports.create = function (req, res) {
     administrador.ip = req.ip;
     administrador.password = '1234';
     administrador.candidato = req.user._id;
-    administrador.save(function (err, user) {
+    administrador.partido = req.user.partido;
+    administrador.save(function (err) {
         if (err) {
             return res.json(500, {message: errors[500]});
         }

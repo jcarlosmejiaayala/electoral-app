@@ -1,0 +1,52 @@
+<div ng-controller="candidatoNuevoCandiatoController as candidato">
+    <div class="row form-group">
+        <div class="col-xs-12">
+            <label>Puesto</label>
+            <select ng-model="candidato.form.rol" class="form-control"
+                    ng-options="rol for rol in ::candidato.roles"
+                    ng-change="candidato.changeRol()"></select>
+        </div>
+    </div>
+    <div class="row form-group" ng-if="candidato.form.rol == 'representante general'">
+        <div class="col-xs-12 form-group" ng-if="::candidato.form.estado">
+            <label>Estado</label>
+            <input type="text" class="form-control" ng-model="::candidato.form.estado"
+                   readonly/>
+        </div>
+        <div class="col-xs-12 form-group" ng-if="::candidato.form.municipio">
+            <label>Municipio</label>
+            <input type="text" class="form-control" ng-model="::candidato.form.municipio"
+                   readonly/>
+        </div>
+    <span ng-show="candidato.distritos">
+        <div class="col-xs-4">
+            <label>Distrito</label>
+            <select ng-model="candidato.form.distrito.numero" class="form-control"
+                    ng-options="distrito.numero.id as distrito.numero.id for distrito in ::candidato.me.distrito"></select>
+        </div>
+        <div class="col-xs-4">
+            <label>Inicial</label>
+            <select ng-model="candidato.form.distrito.secciones.min" class="form-control"
+                    ng-options="seccion.numero as seccion.numero for seccion in candidato.secciones"></select>
+        </div>
+        <div class="col-xs-4">
+            <label>Final</label>
+            <select ng-model="candidato.form.distrito.secciones.max" name="seccionesmax" class="form-control"
+                    ng-options="seccion.numero as seccion.numero for seccion in candidato.secciones"
+                    ui-validate="{distinctMinValue: '$value > candidato.form.distrito.secciones.min'}"
+                    ui-validate-watch="'registro.form.distrito.secciones.min'"></select>
+
+            <div ng-messages="userForm.seccionesmax.$error"
+                 ng-messages-include="views/partials/errors/errors.html"></div>
+
+        </div>
+    </span>
+    <span ng-show="!candidato.distritos">
+        <div class="col-xs-12">
+            <div class="alert alert-info text-center">
+                <label>Todas las secciones han sido asignadas.</label>
+            </div>
+        </div>
+    </span>
+    </div>
+</div>

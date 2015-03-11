@@ -1,6 +1,6 @@
 'use strict';
 
-var Casilla = require('./casilla.model'),
+var Casilla = require('../../model/casilla'),
     Promise = require('bluebird'),
     _ = require('lodash'),
     errors = require('../../components/errors'),

@@ -9,4 +9,4 @@ var mongoose = require('mongoose'),
         municipios: Array
     }, {collection: 'estados'});
 
-module.exports = estadosSchema;
+module.exports = mongoose.model('estados', estadosSchema);

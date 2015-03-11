@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express'),
-    Usuario = require('../api/usuario/usuario.model'),
+    Usuario = require('../model/usuario'),
     router = express.Router();
 
 require('./local/passport').setup(Usuario);

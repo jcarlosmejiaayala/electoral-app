@@ -4,47 +4,37 @@ var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
     var that = this;
     that.me = user;
     this.form = {};
+
     angular.extend(this.form, {
         telefonos: {},
-        redesSociales: {},
-        distrito: {
-            numero: that.me.distrito[0].numero,
-            secciones: {}
-        }
+        redesSociales: {}
     });
-    angular.extend(this, {
-        secciones: getSecciones(),
-        pagination: {
-            limit: 50
-        }
-    });
-    this.getSecciones = getSecciones;
     if (that.me.estado) {
         this.form.estado = this.me.estado
     }
     if (that.me.municipio) {
         this.form.municipio = this.me.municipio;
     }
-
     this.form.rol = {
         'candidato': function () {
             that.roles = ['administrador', 'representante general'];
+            that.template = that.me.rol;
             return (that.roles[0]);
         },
         'administrador': function () {
+            that.template = that.me.rol;
             return ('representante general');
         },
         'representante general': function () {
+            that.template = 'representant-general';
             return ('representante de casilla');
         },
         'representante de casilla': function () {
+            that.template = 'representant-casilla';
             return ('simpatizante');
         }
     }[this.me.rol]();
 
-    function getSecciones() {
-        return _(user.distrito).chain().filter({numero: that.form.distrito.numero}).pluck('secciones').reduce().value();
-    }
 
     this.submit = function (isValid) {
         if (!isValid) {

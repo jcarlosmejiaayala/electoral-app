@@ -1,6 +1,8 @@
 'use strict';
 
-var Usuario = require('./usuario.model'),
+var Usuario = require('../../model/usuario'),
+    Distrito = require('../../model/distrito'),
+    Seccion = require('../../model/seccion'),
     config = require('../../config/enviroment'),
     errors = require('../../components/errors'),
     Promise = require('bluebird');

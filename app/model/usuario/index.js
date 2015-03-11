@@ -1,6 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    usuarioSchema = require('../../Schemas/usuario');
+    usuarioSchema = require('../../schema/usuario');
 
 module.exports = mongoose.model('usuario', usuarioSchema);

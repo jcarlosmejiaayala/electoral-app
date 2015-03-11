@@ -1,7 +1,9 @@
 'use strict';
 
-var Candidato = require('./candidato.model'),
-    Casilla = require('../casilla/casilla.model'),
+var Candidato = require('../../model/candidato'),
+    Casilla = require('../../model/casilla'),
+    Distrito = require('../../model/distrito'),
+    Seccion = require('../../model/seccion'),
     config = require('../../config/enviroment'),
     errors = require('../../components/errors'),
     jwt = require('jsonwebtoken'),
@@ -10,6 +12,8 @@ var Candidato = require('./candidato.model'),
 
 Promise.promisifyAll(Candidato);
 Promise.promisifyAll(Casilla);
+Promise.promisifyAll(Distrito);
+Promise.promisifyAll(Seccion);
 
 function getSecciones(candidato) {
     return new Promise(function (resolve) {
@@ -26,31 +30,66 @@ function getSecciones(candidato) {
                 {$group: {_id: '$distrito', secciones: {$push: '$seccion'}}}
             ]).then(function (data) {
                 resolve(_.transform(data, function (result, object) {
-                    return result.push({numero: object._id, secciones: object.secciones});
+                    return result.push({
+                        numero: object._id,
+                        secciones: _.transform(object.secciones, function (result, item) {
+                            return result.push(item);
+                        })
+                    });
                 }));
             });
         }
         else {
-            resolve({
+            resolve([{
                 numero: candidato.distrito.numero,
-                secciones: _.range(candidato.distrito.secciones.min, candidato.distrito.secciones.max)
-            });
+                secciones: _.transform(_.range(candidato.distrito.secciones.min, candidato.distrito.secciones.max), function (result, item) {
+                    return result.push(item);
+                })
+            }]);
         }
     });
 }
 
-exports.create = function (req, res) {
-    getSecciones(req.body).then(function (distritos) {
-        var candidato = new Candidato(req.body);
-        candidato.distrito = distritos;
+function setCandidato(request) {
+    return new Promise(function (resolve, reject) {
+        var candidato = new Candidato(request.body);
         candidato.status = true;
-        candidato.ip = req.ip;
+        candidato.ip = request.ip;
         candidato.save(function (err, user) {
             if (err) {
-                return res.json(500, {message: errors[500]});
+                return reject();
             }
-            var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
-            res.json(200, {token: token, perfil: user.perfil});
+            resolve(user);
         });
     });
+}
+
+function setDistritosAndSecciones(idUser, distritos) {
+    var mapDistritos = _.map(distritos, function (distrito) {
+        return Distrito.createAsync({
+            numero: distrito.numero,
+            candidato: idUser
+        }).then(function (resultDistrito) {
+            return Promise.map(distrito.secciones, function(seccion){
+                return Seccion.createAsync({
+                    numero: seccion,
+                    candidato: idUser,
+                    distrito: resultDistrito._id
+                });
+            });
+        });
+    });
+    return Promise.all(mapDistritos);
+}
+
+exports.create = function (req, res) {
+    Promise.all([setCandidato(req), getSecciones(req.body)])
+        .spread(function (user, distritos) {
+            return [user, setDistritosAndSecciones(user._id, distritos)];
+        }).spread(function (user) {
+            var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
+            res.json(200, {token: token, perfil: user.perfil});
+        }).catch(function () {
+            return res.json(500, {message: errors[500]});
+        });
 };

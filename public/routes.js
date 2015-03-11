@@ -6,8 +6,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'home',
         url: '/',
-        templateUrl: 'views/home/home.html',
-        controller: 'homeController as home'
+        templateUrl: 'views/home/home.html'
     });
 
     states.push({
@@ -20,7 +19,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'simpatizantes',
         url: '/simpatizantes',
-        templateUrl: 'views/simpatizantes/simpatizantes.html',
+        templateUrl: 'views/simpatizantes/index.html',
         controller: 'simpatizantesController as simpatizante',
         authenticate: true
     });
@@ -28,7 +27,7 @@ var config = function ($stateProvider) {
     states.push({
         name: 'simpatizantesNuevo',
         url: '/simpatizantes/nuevo',
-        templateUrl: 'views/simpatizantes/simpatizantes.nuevo.html',
+        templateUrl: 'views/simpatizantes/nuevo.html',
         controller: 'simpatizantesNuevoController as simpatizante',
         authenticate: true,
         resolve: {

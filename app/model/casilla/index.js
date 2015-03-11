@@ -16,4 +16,4 @@ var mongoose = require('mongoose'),
         punto: String
     }, {collection: 'casilla'});
 
-module.exports = casillaSchema;
+module.exports = mongoose.model('casilla', casillaSchema);
