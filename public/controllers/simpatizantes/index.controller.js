@@ -1,14 +1,6 @@
 'use strict';
 
 var controller = function () {
-    this.simpatizantes = [{
-        nombre: 'Aurora',
-        rol: 'administrador'
-    },
-        {
-            nombre: 'Luis',
-            rol: 'representate general'
-        }];
 
 };
 
