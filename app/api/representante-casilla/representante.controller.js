@@ -1,6 +1,6 @@
 'use strict';
 
-var Representante = require('../../model/representante-general'),
+var Representante = require('../../model/representante-casilla'),
     config = require('../../config/enviroment'),
     errors = require('../../components/errors'),
     _ = require('lodash'),
@@ -15,8 +15,9 @@ exports.create = function (req, res) {
     representante.password = '1234';
     representante.partido = req.user.partido;
     representante.candidato = req.body.candidato;
-    representante.distrito = req.body.distSecciones.distrito;
-    representante.secciones = req.body.distSecciones.secciones;
+    representante.distrito = req.body.distrito;
+    representante.rgeneral = req.body.rgeneral;
+    representante.seccion = req.body.seccion;
     representante.save(function (err) {
         if (err) {
             return res.json(500, {message: errors[500]});

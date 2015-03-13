@@ -1,11 +1,14 @@
 'use strict';
 
-var extend = require('mongoose-schema-extend'),
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    extend = require('mongoose-schema-extend'),
     usuarioSchema = require('../../schema/usuario'),
     representanteSchema = usuarioSchema.extend({
-        suplente: String,
-        seccion: {type: Schema.Types.ObjectId, ref: 'seccion'},
-        simpatizantes: [{type: Schema.Types.ObjectId, ref: 'simpatizante'}]
+        candidato: {type: Schema.Types.ObjectId, ref: 'usuario'},
+        rgeneral: {type: Schema.Types.ObjectId, ref: 'usuario'},
+        distrito: {type: Schema.Types.ObjectId, ref: 'distrito'},
+        seccion: {type: Schema.Types.ObjectId, ref: 'seccion'}
     });
 
-module.exports = representanteSchema;
+module.exports = mongoose.model('representante-casilla', representanteSchema);

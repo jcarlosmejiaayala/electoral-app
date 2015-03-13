@@ -2,39 +2,46 @@
 
 var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
     var that = this;
-    that.me = user;
+    that.user = user;
     this.form = {};
+    this.form.candidato = (this.user.me.rol == 'candidato') ? this.user.me._id : this.user.me.candidato;
 
     angular.extend(this.form, {
         telefonos: {},
         redesSociales: {}
     });
-    if (that.me.estado) {
-        this.form.estado = this.me.estado
+    if (this.user.me.estado) {
+        this.form.estado = this.user.me.estado
     }
-    if (that.me.municipio) {
-        this.form.municipio = this.me.municipio;
+    if (that.user.me.municipio) {
+        this.form.municipio = this.user.me.municipio;
     }
     this.form.rol = {
         'candidato': function () {
             that.roles = ['administrador', 'representante general'];
-            that.template = that.me.rol;
+            that.template = that.user.me.rol;
             return (that.roles[0]);
         },
         'administrador': function () {
-            that.template = that.me.rol;
+            that.template = that.user.me.rol;
             return ('representante general');
         },
         'representante general': function () {
-            that.template = 'representant-general';
+            that.template = 'representante-general';
             return ('representante de casilla');
         },
         'representante de casilla': function () {
             that.template = 'representant-casilla';
             return ('simpatizante');
         }
-    }[this.me.rol]();
+    }[this.user.me.rol]();
 
+    if(this.user.me.rol == 'representante de casilla'){
+        this.form.rgeneral =  this.user.me.rgeneral;
+        this.form.rcasilla = this.user.me._id;
+        this.form.distrito =  this.user.me.distrito;
+        this.form.seccion =  this.user.me.seccion;
+    }
 
     this.submit = function (isValid) {
         if (!isValid) {
@@ -43,6 +50,7 @@ var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
                 type: 'warning'
             });
         }
+
         usuario
             .save(this.form)
             .then(function () {

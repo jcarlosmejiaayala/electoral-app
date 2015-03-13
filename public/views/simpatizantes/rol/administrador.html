@@ -1,0 +1,51 @@
+<div ng-controller="candidatoNuevoCandiatoController as candidato">
+    <div class="row form-group">
+        <div class="col-xs-12 form-group">
+            <label>Puesto</label>
+            <input ng-model="candidato.form.rol" class="form-control" ng-change="candidato.getRepresentante()" readonly />
+        </div>
+        <div class="col-xs-12 form-group" ng-if="::candidato.form.estado">
+            <label>Estado</label>
+            <input type="text" class="form-control" ng-model="::candidato.form.estado"
+                   readonly/>
+        </div>
+        <div class="col-xs-12 form-group" ng-if="::candidato.form.municipio">
+            <label>Municipio</label>
+            <input type="text" class="form-control" ng-model="::candidato.form.municipio"
+                   readonly/>
+        </div>
+    </div>
+    <div class="row form-group">
+    <span ng-show="candidato.user.distSecciones">
+        <div class="col-xs-4">
+            <label>Distrito</label>
+            <select ng-model="candidato.distrito" class="form-control"
+                    ng-options="distrito.numero for distrito in ::candidato.distritos track by distrito._id"
+                    ng-change="candidato.getSecciones()"></select>
+        </div>
+        <div class="col-xs-4">
+            <label>Inicial</label>
+            <select ng-model="candidato.interval.seccionesMin" class="form-control"
+                    ng-options="seccion.numero for seccion in ::candidato.secciones track by seccion._id"></select>
+        </div>
+        <div class="col-xs-4">
+            <label>Final</label>
+            <select ng-model="candidato.interval.seccionesMax" name="seccionesmax" class="form-control"
+                    ng-options="seccion.numero for seccion in ::candidato.secciones track by seccion._id"
+                    ui-validate="{distinctMinValue: '$value >= candidato.interval.seccionesMin'}"
+                    ui-validate-watch="'candidato.interval.seccionesMin'"></select>
+
+            <div ng-messages="userForm.seccionesmax.$error"
+                 ng-messages-include="views/partials/errors/errors.html"></div>
+
+        </div>
+    </span>
+    <span ng-show="!candidato.user.distSecciones">
+        <div class="col-xs-12">
+            <div class="alert alert-info text-center">
+                <label>Todas las secciones han sido asignadas.</label>
+            </div>
+        </div>
+    </span>
+    </div>
+</div>

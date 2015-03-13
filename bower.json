@@ -25,6 +25,7 @@
     "awesome-bootstrap-checkbox": "~0.2.3",
     "ngInfiniteScroll": "~1.2.0",
     "ng-tags-input": "~2.2.0",
-    "angular-rangeslider": "~0.0.13"
+    "angular-rangeslider": "~0.0.13",
+    "angular-loading-bar": "~0.7.1"
   }
 }

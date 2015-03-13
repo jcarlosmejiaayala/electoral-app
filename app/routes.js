@@ -3,7 +3,10 @@
 module.exports = function (app) {
     app.use('/candidato', require('./api/candidato'));
     app.use('/administrador', require('./api/administrador'));
-    app.use('/representante-general', require('./api//representante-general'));
+    app.use('/representante-general', require('./api/representante-general'));
+    app.use('/representante-casilla', require('./api/representante-casilla'));
+    app.use('/simpatizante', require('./api/simpatizante'));
+    app.use('/distrito', require('./api/distrito'));
     app.use('/usuario', require('./api/usuario'));
     app.use('/estados', require('./api/estados'));
     app.use('/casilla', require('./api/casilla'));

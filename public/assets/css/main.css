@@ -7,6 +7,7 @@
 @import url(../../bower_components/ng-tags-input/ng-tags-input.min.css);
 @import url(../../bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css);
 @import url(../../bower_components/angular-rangeslider/angular.rangeSlider.css);
+@import url(../../bower_components/angular-loading-bar/build/loading-bar.min.css);
 body {
   font-family: "Open Sans", Helvetica;
   background-color: #fff;

@@ -85,8 +85,7 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         if (!/^Diputación/.test(this.form.candidatura)) {
             delete this.form.distrito;
         }
-
-        if (_.contains(['Presidencia Nacional', 'Diputación Federal'], this.form.candidatura)) {
+        if (_.contains(['Presidencia Nacional'], this.form.candidatura)) {
             delete this.form.estado;
         }
         if (_.contains(['Presidencia Nacional', 'Gubernatura', 'Diputación Federal', 'Diputación Local'], this.form.candidatura)) {

@@ -74,7 +74,7 @@
                                     <label>Estado</label>
                                     <select ng-model="registro.form.estado" class="form-control"
                                             ng-options="estado for estado in ::registro.estados"
-                                            ng-disabled="['Presidencia Nacional', 'Diputación Federal'].indexOf(registro.form.candidatura) > -1"></select>
+                                            ng-disabled="['Presidencia Nacional'].indexOf(registro.form.candidatura) > -1"></select>
                                 </div>
                                 <div class="col-xs-12 col-sm-6">
                                     <label>Municipio</label>

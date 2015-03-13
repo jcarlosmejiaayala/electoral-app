@@ -12,7 +12,7 @@ var factory = function ($resource) {
             changePassword: {
                 method: 'PUT',
                 params: {
-                    password: 'password'
+                    controller: 'password'
                 }
             },
             get: {

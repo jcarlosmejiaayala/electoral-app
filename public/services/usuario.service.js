@@ -1,6 +1,6 @@
 'use strict';
 
-var factory = function (usuarioResource, candidatoResource, administradorResource, representanteGeneralResource, representanteCasillaResource, $sessionStorage, $http, $q) {
+var factory = function (usuarioResource, candidatoResource, administradorResource, representanteGeneralResource, representanteCasillaResource, simpatizanteResource, $sessionStorage, $http, $q) {
     function get() {
         return usuarioResource.get(function (data) {
             return data;
@@ -66,6 +66,9 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
             },
             'representante de casilla': function () {
                 return (representanteCasillaResource);
+            },
+            'simpatizante': function(){
+                return (simpatizanteResource);
             }
         }[rol]());
     }
@@ -93,4 +96,4 @@ angular
     .module('electoralApp')
     .factory('usuario', factory);
 
-factory.$inject = ['usuarioResource', 'candidatoResource', 'administradorResource', 'representanteGeneralResource', 'representanteCasillaResource', '$sessionStorage', '$http', '$q'];
+factory.$inject = ['usuarioResource', 'candidatoResource', 'administradorResource', 'representanteGeneralResource', 'representanteCasillaResource', 'simpatizanteResource', '$sessionStorage', '$http', '$q'];

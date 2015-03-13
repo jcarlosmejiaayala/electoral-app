@@ -1,6 +1,8 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid vertical-margin">
     <div class="row">
+        <h1 class="text-center header">Registro del nuevo simpatizante</h1>
+        <hr class="divider"/>
         <div class="col-xs-12 col-sm-8 col-sm-offset-2">
             <p class="lead text-left">
                 commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
@@ -36,6 +38,7 @@
                          ng-messages-include="views/partials/errors/errors.html"></div>
 
                 </div>
+                <span ng-if="simpatizante.user.me.rol != 'representante de casilla'">
                 <label>Detalles del simpatizante</label>
 
                 <div class="form-group panel panel-default">
@@ -43,6 +46,7 @@
                         <ng-include src="'views/simpatizantes/rol/' + simpatizante.template + '.html'"></ng-include>
                     </div>
                 </div>
+                </span>
 
                 <label>Teléfonos de contacto</label>
 

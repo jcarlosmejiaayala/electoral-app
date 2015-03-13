@@ -4,7 +4,8 @@ var config,
     run,
     estados,
     candidaturas,
-    partidos;
+    partidos,
+    roles;
 config = function ($urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
@@ -48,7 +49,7 @@ run = function ($rootScope, $location, $log, usuario) {
 estados = ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Distrito Federal", "Nayarit", "Chiapas", "Chihuahua", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Estado De Mexico", "Michoacan", "Morelos", "Nuevo Leon", "Oaxaca", "Puebla", "Queretaro", "Quintana Roo", "San Luis Potosi", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Zacatecas", "Veracruz", "Yucatan"];
 partidos = ['pri', 'pan', 'prd', 'pt', 'morena', 'ind', 'pve', 'mc', 'panal'];
 candidaturas = ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gubernatura', 'Presidencia Nacional'];
-
+roles = ['simpatizante', 'representante de casilla', 'representante general', 'adminisitrador', 'candidato', 'root'];
 
 angular
     .module('electoralApp', [
@@ -64,11 +65,13 @@ angular
         'ui.utils',
         'infinite-scroll',
         'ngTagsInput',
-        'ui-rangeSlider'
+        'ui-rangeSlider',
+        'angular-loading-bar'
     ])
     .config(config)
     .factory('authInterceptor', factory)
     .run(run)
     .constant('ESTADOS', estados)
     .constant('CANDIDATURAS', candidaturas)
-    .constant('PARTIDOS', partidos);
+    .constant('PARTIDOS', partidos)
+    .constant('ROLES', roles);

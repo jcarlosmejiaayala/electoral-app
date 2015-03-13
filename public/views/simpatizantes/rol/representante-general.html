@@ -1,0 +1,39 @@
+<div ng-controller="candidatoNuevoCandiatoController as candidato">
+    <div class="row form-group">
+        <div class="col-xs-12 form-group">
+            <label>Puesto</label>
+            <input ng-model="candidato.form.rol" class="form-control" readonly ng-change="candidato.getRepresentante()" />
+        </div>
+        <div class="col-xs-12 form-group" ng-if="::candidato.form.estado">
+            <label>Estado</label>
+            <input type="text" class="form-control" ng-model="::candidato.form.estado"
+                   readonly/>
+        </div>
+        <div class="col-xs-12 form-group" ng-if="::candidato.form.municipio">
+            <label>Municipio</label>
+            <input type="text" class="form-control" ng-model="::candidato.form.municipio"
+                   readonly/>
+        </div>
+    </div>
+    <div class="row form-group">
+    <span ng-show="candidato.user.distSecciones">
+        <div class="col-xs-6">
+            <label>Distrito</label>
+            <input ng-model="candidato.distrito.numero" class="form-control" readonly/>
+        </div>
+        <div class="col-xs-6">
+            <label>Sección</label>
+            <select ng-model="candidato.seccion" class="form-control"
+                    ng-options="seccion.numero for seccion in ::candidato.secciones track by seccion._id"
+                    ng-change="candidato.changeSeccion()"></select>
+        </div>
+    </span>
+    <span ng-show="!candidato.user.distSecciones">
+        <div class="col-xs-12">
+            <div class="alert alert-info text-center">
+                <label>Todas las secciones han sido asignadas.</label>
+            </div>
+        </div>
+    </span>
+    </div>
+</div>

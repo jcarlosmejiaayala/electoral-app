@@ -27,14 +27,14 @@ function getSecciones(candidato) {
             }
             Casilla.aggregateAsync([
                 {$match: ubicacion},
-                {$group: {_id: '$distrito', secciones: {$push: '$seccion'}}}
+                {$group: {_id: '$distrito', secciones: {$addToSet: '$seccion'}}}
             ]).then(function (data) {
                 resolve(_.transform(data, function (result, object) {
                     return result.push({
                         numero: object._id,
-                        secciones: _.transform(object.secciones, function (result, item) {
+                        secciones: _(object.secciones).chain().transform(function (result, item) {
                             return result.push(item);
-                        })
+                        }).sortBy().value()
                     });
                 }));
             });
@@ -42,9 +42,7 @@ function getSecciones(candidato) {
         else {
             resolve([{
                 numero: candidato.distrito.numero,
-                secciones: _.transform(_.range(candidato.distrito.secciones.min, candidato.distrito.secciones.max), function (result, item) {
-                    return result.push(item);
-                })
+                secciones: _.range(candidato.distrito.secciones.min, _.parseInt(candidato.distrito.secciones.max) + 1)
             }]);
         }
     });
@@ -70,7 +68,7 @@ function setDistritosAndSecciones(idUser, distritos) {
             numero: distrito.numero,
             candidato: idUser
         }).then(function (resultDistrito) {
-            return Promise.map(distrito.secciones, function(seccion){
+            return Promise.map(distrito.secciones, function (seccion) {
                 return Seccion.createAsync({
                     numero: seccion,
                     candidato: idUser,

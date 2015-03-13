@@ -31,8 +31,14 @@ var config = function ($stateProvider) {
         controller: 'simpatizantesNuevoController as simpatizante',
         authenticate: true,
         resolve: {
-            user: function (usuario) {
-                return usuario.get();
+            user: function ($q, usuario, distrito) {
+                return $q.all([usuario.get(), distrito.getDistritoAndSecciones()])
+                    .then(function (results) {
+                        return ({
+                            me: results[0],
+                            distSecciones: results[1]
+                        });
+                    });
             }
         }
     });
