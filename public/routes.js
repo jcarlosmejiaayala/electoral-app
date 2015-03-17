@@ -21,7 +21,12 @@ var config = function ($stateProvider) {
         url: '/simpatizantes',
         templateUrl: 'views/simpatizantes/index.html',
         controller: 'simpatizantesController as simpatizante',
-        authenticate: true
+        authenticate: true,
+        resolve: {
+            simpatizantes: function (usuario) {
+                return usuario.getPlanilla();
+            }
+        }
     });
 
     states.push({
@@ -44,10 +49,10 @@ var config = function ($stateProvider) {
     });
 
     states.push({
-        name: 'resultados',
-        url: '/resultados',
-        templateUrl: 'views/resultados/resultados.html',
-        controller: 'resultadosController as resultados',
+        name: 'conteo',
+        url: '/conteo',
+        templateUrl: 'views/conteo/conteo.html',
+        controller: 'conteoController as conteo',
         authenticate: true
     });
 
@@ -64,6 +69,12 @@ var config = function ($stateProvider) {
         url: '/registro',
         templateUrl: 'views/registro/registro.html',
         controller: 'registroController as registro'
+    });
+    states.push({
+        name: 'votos',
+        url: '/votos',
+        templateUrl: 'views/votos/votos.html',
+        controller: 'votosController as voto'
     });
 
     states.push({

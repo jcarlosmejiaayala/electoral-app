@@ -35,13 +35,14 @@ factory = function ($sessionStorage, $q, $location) {
     });
 };
 run = function ($rootScope, $location, $log, usuario) {
+    $rootScope.$log = $log;
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {
                 $location.path('/login');
             }
             if (_.isEqual(next.name, 'home') && loggedIn) {
-                $location.path('/resultados');
+                $location.path('/conteo');
             }
         });
     });
@@ -66,7 +67,8 @@ angular
         'infinite-scroll',
         'ngTagsInput',
         'ui-rangeSlider',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'smart-table'
     ])
     .config(config)
     .factory('authInterceptor', factory)

@@ -67,7 +67,7 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
             'representante de casilla': function () {
                 return (representanteCasillaResource);
             },
-            'simpatizante': function(){
+            'simpatizante': function () {
                 return (simpatizanteResource);
             }
         }[rol]());
@@ -82,13 +82,34 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
             }).$promise;
     }
 
+    function getPlanilla() {
+        return usuarioResource.getPlanilla(function (response) {
+            return (response);
+        }).$promise;
+    }
+
+    function update(data) {
+        return usuarioResource.update(data, function (response) {
+            return (response);
+        }).$promise;
+    }
+
+    function remove(id) {
+        return usuarioResource.remove(id, function (response) {
+            return (response);
+        }).$promise;
+    }
+
     return ({
         get: get,
         createSession: createSession,
         isLoggin: isLoggin,
         login: login,
         logout: logout,
-        save: save
+        save: save,
+        update: update,
+        remove: remove,
+        getPlanilla: getPlanilla
     });
 };
 

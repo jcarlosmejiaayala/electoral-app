@@ -52,10 +52,21 @@ function securityMenu() {
                 req.headers.authorization = 'Bearer ' + req.query['access_token'];
             }
             validateJwt(req, res, next);
-        })
-        .use(function (err, req, res, next) {
-            if (err) {
+        }).use(function (err, req, res, next) {
                 req.menu = _.filter(config.menu, {name: 'Ingresar'});
+                next();
+        }).use(function(req, res, next){
+            if(!req.menu){
+                Usuario
+                    .findByIdAsync(req.user._id)
+                    .then(function (user) {
+                        req.menu = _.reject(config.menu, {name: 'Ingresar'});
+                        if(!_.isEqual(user.rol, 'representante de casilla')){
+                            req.menu = _.reject(req.menu, {name: 'Votos'});
+                        }
+                        next();
+                    });
+            }else{
                 next();
             }
         });

@@ -12,9 +12,17 @@ Promise.promisifyAll(Seccion);
 exports.index = function (req, res) {
 
 };
-
+function distSeccionesFromOrigin(user) {
+    return ({
+        candidato: user.candidato,
+        distrito: (user.distrito) ? user.distrito : undefined,
+        secciones: (user.secciones) ? user.secciones : undefined,
+        seccion: (user.seccion) ? user.seccion : undefined,
+        rol: user.rol
+    });
+}
 exports.getDistristrosAndSecciones = function (req, res) {
-
+    var sentences = (!req.query.simpatizante) ? distSeccionesFromOrigin(req.user) : distSeccionesFromOrigin(JSON.parse(req.query.simpatizante));
     var sentence = {
         'candidato': function () {
             return ({
@@ -27,7 +35,7 @@ exports.getDistristrosAndSecciones = function (req, res) {
         'administrador': function () {
             return ({
                 distrito: {
-                    candidato: req.user.candidato
+                    candidato: sentences.candidato
                 },
                 seccion: {}
             });
@@ -35,24 +43,24 @@ exports.getDistristrosAndSecciones = function (req, res) {
         'representante general': function () {
             return ({
                 distrito: {
-                    candidato: req.user.candidato,
-                    _id: req.user.distrito
+                    candidato: sentences.candidato,
+                    _id: sentences.distrito
                 },
-                seccion: {_id: {$in: req.user.secciones}}
+                seccion: {_id: {$in: sentences.secciones}}
             });
         },
         'representante de casilla': function () {
             return ({
                 distrito: {
-                    candidato: req.user.candidato,
-                    _id: req.user.distrito
+                    candidato: sentences.candidato,
+                    _id: sentences.distrito
                 },
                 seccion: {
-                    seccion: req.user.seccion
+                    seccion: sentences.seccion
                 }
             });
         }
-    }[req.user.rol]();
+    }[sentences.rol]();
     Distrito.findAsync(sentence.distrito)
         .then(function (distritos) {
             return Promise.map(distritos, function (distrito) {

@@ -5,6 +5,6 @@ var controller = function () {
 };
 angular
     .module('electoralApp')
-    .controller('resultadosController', controller);
+    .controller('votosController', controller);
 
 controller.$inject = [];

@@ -24,9 +24,14 @@ all = {
             name: 'Ingresar',
             link: '/login'
         },
+
         {
-            name: 'Resultados',
-            link: '/resultados'
+            name: 'Votos',
+            link: '/votos'
+        },
+        {
+            name: 'Conteo',
+            link: '/conteo'
         },
         {
             name: 'Simpatizantes',

@@ -2,10 +2,13 @@
 
 var factory = function ($q, $http) {
     return ({
-        getDistritoAndSecciones: function () {
+        getDistritoAndSecciones: function (simpatizante) {
             return $q(function (resolve) {
-                return $http.get('/distrito/secciones')
-                    .success(function (response) {
+                return $http.get('/distrito/secciones', {
+                    params: {
+                        simpatizante: simpatizante
+                    }
+                }).success(function (response) {
                         resolve(response);
                     });
             });

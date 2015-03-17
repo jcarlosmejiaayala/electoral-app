@@ -2,17 +2,18 @@
 
 var controller = function ($scope) {
     angular.extend(this, $scope.$parent.$parent.simpatizante);
-    this.user.distSecciones = this.user.distSecciones.sort(function (prev, next) {
-        return (prev.distrito.numero - next.distrito.numero);
-    });
-    this.distritos = _(this.user.distSecciones).chain().pluck('distrito').map(function (object) {
-        if (!object.numero.isBusy) {
-            return object;
-        }
-    }).thru(function (value) {
-        return (!value.length) ? [value] : value;
-    }).value();
-
+    if (this.user.distSecciones.length) {
+        this.user.distSecciones = this.user.distSecciones.sort(function (prev, next) {
+            return (prev.distrito.numero - next.distrito.numero);
+        });
+        this.distritos = _(this.user.distSecciones).chain().pluck('distrito').map(function (object) {
+            if (!object.isBusy) {
+                return object;
+            }
+        }).thru(function (value) {
+            return (!value.length) ? [value] : value;
+        }).sortByAll('numero').value();
+    }
     var that = this;
     that.distrito = (that.distritos) ? that.distritos[0] : that.distritos;
     this.getSecciones = getSecciones;
@@ -26,12 +27,14 @@ var controller = function ($scope) {
     }
 
     function getSecciones() {
-        that.form.distSecciones.distrito = that.distrito._id;
-        setSecciones();
-        that.interval = {
-            seccionesMin: that.secciones[0],
-            seccionesMax: that.secciones[that.secciones.length - 1]
-        };
+        if (that.user.distSecciones.length) {
+            that.form.distSecciones.distrito = that.distrito._id;
+            setSecciones();
+            that.interval = {
+                seccionesMin: that.secciones[0],
+                seccionesMax: that.secciones[that.secciones.length - 1]
+            };
+        }
     }
 
     function getRepresentante() {
@@ -51,7 +54,7 @@ var controller = function ($scope) {
             }
         }
     };
-    this.changeSeccion = function(){
+    this.changeSeccion = function () {
         that.form.seccion = that.seccion._id;
     };
 

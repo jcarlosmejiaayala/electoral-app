@@ -1,31 +1,180 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
-    <div class="row margin-bottom-4x">
+    <div class="row margin-bottom-4x vertical-margin">
         <div class="col-xs-12 col-sm-4 col-sm-offset-4">
             <a href="/simpatizantes/nuevo" class="button-info btn-block">Nuevo simpatizante</a>
         </div>
     </div>
-    <div class="row margin-bottom">
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="row margin-bottom-4x">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3" ng-if="simpatizante.simpatizantes.length">
             <div class="table-responsive">
-                <table class="table text-center">
+                <table st-table="simpatizante.simpatizantes" class="table table-striped text-center">
                     <thead>
                     <tr>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Puesto</th>
+                        <th st-sort="nombre" class="text-center"><span class="fa-stack" style="cursor:pointer;"><i
+                                class="fa fa-sort-asc fa-stack-1x"></i><i
+                                class="fa fa-sort-desc fa-stack-1x"></i></span>Nombre
+                        </th>
+                        <th st-sort="rol" class="text-center"><span class="fa-stack" style="cursor:pointer;"><i
+                                class="fa fa-sort-asc fa-stack-1x"></i><i
+                                class="fa fa-sort-desc fa-stack-1x"></i></span>Puesto
+                        </th>
                         <th class="text-center">Detalles</th>
+                        <th clas="text-center">Eliminar</th>
+                    </tr>
+                    <tr class="form-inline">
+                        <th class="text-center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input st-search="nombre" st-delay="50" class="form-control input-sm" type="search"
+                                       placeholder="Buscar por nombre"/>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input st-search="rol" st-delay="50" class="form-control input-sm" type="search"
+                                       placeholder="Buscar por puesto"/>
+                            </div>
+                        </th>
+                        <th class="text-center">&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody class="text-muted">
-                    <tr ng-repeat="simpatizante in ::simpatizante.simpatizantes">
-                        <td>{{::simpatizante.nombre}}</td>
-                        <td>{{::simpatizante.rol}}</td>
-                        <td><i class="fa fa-plus-circle fa-2x icon-detalles-simpatizantes"></i></td>
+                    <tr ng-repeat="person in simpatizante.simpatizantes">
+                        <td>{{person.nombre}}</td>
+                        <td>{{person.rol}}</td>
+                        <td>
+                            <button class="btn btn-info" ng-click="simpatizante.getDetalles(person)"><i
+                                    class="fa fa-eye fa-lg"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="simpatizante.delete(person)"><i
+                                    class="fa fa-remove fa-lg"></i></button>
+                        </td>
                     </tr>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <div st-pagination="" st-items-by-page="20"></div>
+                        </td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center" ng-if="!simpatizante.simpatizantes.length">
+            <div class="alert alert-info">
+                <p>No tiene simpatizantes registrados en su planilla.</p></div>
         </div>
     </div>
 </div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>
+<script type="text/ng-template" id="detalles.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$close()"><i class="fa fa-close"></i></button>
+        <h4 class="modal-title text-center">
+            Detalles del simpatizante
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div class="row" style="font-size:16px;">
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3">
+                    <label>Nombre:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.nombre}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3">
+                    <label>Puesto:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.rol}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3">
+                    <label>Dirección:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.direccion}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group" ng-if="simpatizante.municipio">
+                <div class="col-xs-3">
+                    <label>Municipio:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.municipio}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group" ng-if="simpatizante.estado">
+                <div class="col-xs-3">
+                    <label>Estado:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.estado}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3">
+                    <label>Email:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.email}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3">
+                    <label>Teléfono:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.telefonos.telefono}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-3">
+                    <label>Celular:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.telefonos.celular}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group" ng-if="simpatizante.redesSociales.facebook">
+                <div class="col-xs-3">
+                    <label>Facebook:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.redesSociales.facebook}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group" ng-if="simpatizante.redesSociales.twitter">
+                <div class="col-xs-3">
+                    <label>Twitter:</label>
+                </div>
+                <div class="col-xs-9">
+                    {{::simpatizante.redesSociales.twitter}}
+                </div>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="col-xs-6">
+                    <label>Distrito</label>
+                    <select ng-model="simpatizante.distrito" class="form-control"
+                            ng-options="distrito.numero for distrito in ::simpatizante.distritos track by distrito._id"
+                            ng-change="simpatizante.getSecciones()" ng-if="simpatizante.distritos.length > 1"></select>
+                    {{$log.log(simpatizante.distrito)}}
+                    <input ng-model="simpatizante.distrito.numero" class="form-control" ng-if="simpatizante.distritos.length == 1" disabled/>
+                </div>
+                <div class="col-xs-6">
+                    <label>Secciones</label>
+                    <select ng-model="simpatizante.seccion" class="form-control"
+                            ng-options="seccion.numero for seccion in ::simpatizante.secciones track by seccion._id"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

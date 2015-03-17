@@ -26,6 +26,7 @@
     "ngInfiniteScroll": "~1.2.0",
     "ng-tags-input": "~2.2.0",
     "angular-rangeslider": "~0.0.13",
-    "angular-loading-bar": "~0.7.1"
+    "angular-loading-bar": "~0.7.1",
+    "angular-smart-table": "~2.0.1"
   }
 }

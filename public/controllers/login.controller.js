@@ -16,7 +16,7 @@ var controller = function($state, SweetAlert, usuario) {
         usuario
             .login(this.form)
             .then(function () {
-                $state.go('resultados')
+                $state.go('conteo');
             })
             .catch(function () {
                 SweetAlert.swal({

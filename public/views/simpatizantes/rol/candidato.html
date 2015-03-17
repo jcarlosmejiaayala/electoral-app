@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="row form-group" ng-if="candidato.form.rol == 'representante general'">
-    <span ng-show="candidato.user.distSecciones">
+    <span ng-show="candidato.user.distSecciones.length">
         <div class="col-xs-4">
             <label>Distrito</label>
             <select ng-model="candidato.distrito" class="form-control"
@@ -42,10 +42,10 @@
 
         </div>
     </span>
-    <span ng-show="!candidato.user.distSecciones">
+    <span ng-show="!candidato.user.distSecciones.length">
         <div class="col-xs-12">
             <div class="alert alert-info text-center">
-                <label>Todas las secciones han sido asignadas.</label>
+                <p>Todas las secciones han sido asignadas.</p>
             </div>
         </div>
     </span>

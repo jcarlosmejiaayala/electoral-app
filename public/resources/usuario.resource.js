@@ -20,6 +20,13 @@ var factory = function ($resource) {
                 params: {
                     id: 'me'
                 }
+            },
+            getPlanilla:{
+                method: 'GET',
+                params: {
+                    controller: 'planilla'
+                },
+                isArray: true
             }
         });
 };
