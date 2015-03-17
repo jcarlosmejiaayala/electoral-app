@@ -34,8 +34,7 @@ factory = function ($sessionStorage, $q, $location) {
         responseError: responseError
     });
 };
-run = function ($rootScope, $location, $log, usuario) {
-    $rootScope.$log = $log;
+run = function ($rootScope, $location, usuario) {
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {

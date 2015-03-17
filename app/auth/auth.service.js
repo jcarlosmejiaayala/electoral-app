@@ -19,11 +19,13 @@ function isAuthenticated() {
             }
             validateJwt(req, res, next);
         })
-        .use(function(req, res, next) {
+        .use(function (req, res, next) {
             Usuario
                 .findByIdAsync(req.user._id)
                 .then(function (user) {
-                    if (!user) return res.json(401, {message: errors[401]});
+                    if (!user || !user.status) {
+                        return res.json(401, {message: errors[401]});
+                    }
                     req.user = user;
                     next();
                 }).catch(function (err) {
@@ -53,26 +55,26 @@ function securityMenu() {
             }
             validateJwt(req, res, next);
         }).use(function (err, req, res, next) {
-                req.menu = _.filter(config.menu, {name: 'Ingresar'});
-                next();
-        }).use(function(req, res, next){
-            if(!req.menu){
+            req.menu = _.filter(config.menu, {name: 'Ingresar'});
+            next();
+        }).use(function (req, res, next) {
+            if (!req.menu) {
                 Usuario
                     .findByIdAsync(req.user._id)
                     .then(function (user) {
                         req.menu = _.reject(config.menu, {name: 'Ingresar'});
-                        if(!_.isEqual(user.rol, 'representante de casilla')){
+                        if (!_.isEqual(user.rol, 'representante de casilla')) {
                             req.menu = _.reject(req.menu, {name: 'Votos'});
                         }
                         next();
                     });
-            }else{
+            } else {
                 next();
             }
         });
 }
 function signToken(id) {
-    return jwt.sign({ _id: id }, config.secrets.session, { expiresInMinutes: 60*5 });
+    return jwt.sign({_id: id}, config.secrets.session, {expiresInMinutes: 60 * 5});
 }
 exports.isAuthenticated = isAuthenticated;
 exports.hasRole = hasRole;

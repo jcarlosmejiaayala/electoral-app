@@ -28,7 +28,7 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
                 resolve(response);
             }).error(function (err) {
                 logout();
-                reject(err);
+                reject(err.message);
             });
         });
     }

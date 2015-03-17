@@ -18,10 +18,10 @@ var controller = function($state, SweetAlert, usuario) {
             .then(function () {
                 $state.go('conteo');
             })
-            .catch(function () {
+            .catch(function (err) {
                 SweetAlert.swal({
                     title: 'Error al iniciar sesión.',
-                    text: 'Verifica nuevamente.',
+                    text: err,
                     type: 'warning'
                 });
             });
