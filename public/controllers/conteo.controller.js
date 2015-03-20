@@ -1,10 +1,9 @@
 'use strict';
 
-var controller = function () {
-
+var controller = function (simpatizantes, distSecciones) {
 };
 angular
     .module('electoralApp')
     .controller('conteoController', controller);
 
-controller.$inject = [];
+controller.$inject = ['simpatizantes', 'distSecciones'];

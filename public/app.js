@@ -23,7 +23,7 @@ factory = function ($sessionStorage, $q, $location) {
 
     function responseError(response) {
         if (response.status == 401) {
-            $location.path('/login');
+            $location.path('login');
             delete $sessionStorage.token;
             return $q.reject(response);
         }
@@ -38,10 +38,10 @@ run = function ($rootScope, $location, usuario) {
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {
-                $location.path('/login');
+                $location.path('login');
             }
             if (_.isEqual(next.name, 'home') && loggedIn) {
-                $location.path('/conteo');
+                $location.path('conteo');
             }
         });
     });

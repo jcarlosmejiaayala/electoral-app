@@ -14,7 +14,7 @@ Promise.promisifyAll(Seccion);
 
 exports.me = function (req, res) {
     Usuario
-        .findOneAsync({_id: req.user._id}, '-salt -hashedPassword -ip -expira -creado -actualizado -status', {})
+        .findOneAsync({_id: req.user._id}, '-salt -hashedPassword -ip -status', {})
         .then(function (user) {
             if (!user) {
                 return res.json(401, {message: errors[401]});
@@ -46,6 +46,13 @@ exports.getPlanilla = function (req, res) {
 };
 
 exports.update = function (req, res) {
+    Usuario.findByIdAsync(req.user._id).then(function(user){
+        _.extend(user, req.body);
+        user.save();
+        res.status(200).end();
+    }).catch(function(){
+        return res.json(404, {message: errors[404]});
+    });
 };
 
 exports.remove = function (req, res) {
@@ -62,8 +69,8 @@ exports.remove = function (req, res) {
                     return ({rcasilla: user._id});
                 }
             }[user.rol]();
-            return Usuario.removeAsync(sentence).then(function(){
-               return user.remove();
+            return Usuario.removeAsync(sentence).then(function () {
+                return user.remove();
             });
         }).then(function () {
             res.status(200).end();

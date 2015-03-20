@@ -172,7 +172,8 @@
                 <div class="col-xs-6">
                     <label>Secciones</label>
                     <select ng-model="simpatizante.seccion" class="form-control"
-                            ng-options="seccion.numero for seccion in ::simpatizante.secciones track by seccion._id"></select>
+                            ng-options="seccion.numero for seccion in ::simpatizante.secciones track by seccion._id" ng-if="simpatizante.secciones.length > 1"></select>
+                    <input ng-model="simpatizante.seccion.numero" class="form-control" ng-if="simpatizante.secciones.length == 1" disabled/>
                 </div>
             </div>
         </div>

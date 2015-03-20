@@ -2,12 +2,14 @@
 
 var factory = function ($resource) {
     return $resource('/simpatizante/:id/:controller',
-        {
-            id: '@_id'
-        },
+        {},
         {
             update: {
                 method: 'PUT'
+            },
+            get: {
+                method: 'GET',
+                isArray: true
             }
         });
 };

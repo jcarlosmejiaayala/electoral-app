@@ -1,2 +1,46 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="text-center header">Registro de votos</h1>
+        <hr class="divider"/>
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="table-responsive">
+                <table class="table table-striped text-center" st-table="voto.simpatizantes">
+                    <thead>
+                    <tr>
+                        <th st-sort="nombre" class="text-center"><span class="fa-stack" style="cursor:pointer;"><i
+                                class="fa fa-sort-asc fa-stack-1x"></i><i
+                                class="fa fa-sort-desc fa-stack-1x"></i></span>Nombre
+                        </th>
+                        <th class="text-center">Validar Voto
+                        </th>
+                    </tr>
+                    <tr class="form-inline">
+                        <th class="text-center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input st-search="nombre" st-delay="50" class="form-control" type="search"
+                                       placeholder="Buscar por nombre"/>
+                            </div>
+                        </th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="simpatizante in voto.simpatizantes">
+                        <td>{{simpatizante.nombre}}</td>
+                        <td>
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" id="simpatizante{{$index}}" ng-model="simpatizante.voto" ng-change="voto.emitirVoto(simpatizante)"/>
+                                <label for="simpatizante{{$index}}">
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>

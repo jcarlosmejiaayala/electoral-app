@@ -100,6 +100,12 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
         }).$promise;
     }
 
+    function getSimpatizantes() {
+        return simpatizanteResource.get(function (response) {
+            return (response);
+        }).$promise;
+    }
+
     return ({
         get: get,
         createSession: createSession,
@@ -109,7 +115,8 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
         save: save,
         update: update,
         remove: remove,
-        getPlanilla: getPlanilla
+        getPlanilla: getPlanilla,
+        getSimpatizantes: getSimpatizantes
     });
 };
 

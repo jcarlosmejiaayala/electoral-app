@@ -7,7 +7,7 @@ var express = require('express'),
     router = express.Router();
 
 router.get('/me', auth.isAuthenticated(), controller.me);
-router.put('/:id', auth.isAuthenticated(), controller.update);
+router.put('/', auth.isAuthenticated(), controller.update);
 router.delete('/:id', auth.isAuthenticated(), controller.remove);
 router.get('/planilla', auth.isAuthenticated(), controller.getPlanilla);
 

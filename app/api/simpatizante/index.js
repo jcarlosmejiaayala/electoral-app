@@ -6,6 +6,8 @@ var express = require('express'),
     auth = require('../../auth/auth.service'),
     router = express.Router();
 
+router.get('/', auth.isAuthenticated(), controller.index);
 router.post('/', auth.isAuthenticated(), controller.create);
+router.post('/voto', auth.isAuthenticated(), controller.setVoto);
 
 module.exports = router;

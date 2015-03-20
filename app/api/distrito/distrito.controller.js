@@ -56,7 +56,18 @@ exports.getDistristrosAndSecciones = function (req, res) {
                     _id: sentences.distrito
                 },
                 seccion: {
-                    seccion: sentences.seccion
+                    _id: sentences.seccion
+                }
+            });
+        },
+        'simpatizante': function () {
+            return ({
+                distrito: {
+                    candidato: sentences.candidato,
+                    _id: sentences.distrito
+                },
+                seccion: {
+                    _id: sentences.seccion
                 }
             });
         }
@@ -67,7 +78,7 @@ exports.getDistristrosAndSecciones = function (req, res) {
                 return Seccion.findAsync(_.merge({distrito: distrito._id}, sentence.seccion)).then(function (secciones) {
                     return ({distrito: distrito, secciones: secciones});
                 });
-            })
+            });
         }).then(function (results) {
             res.json(200, results);
         });

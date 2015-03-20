@@ -1,5 +1,132 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
-            
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 margin-bottom-4x">
+        <alert type="warning" close="" class="text-center form-group" ng-if="config.isCuentaDisabled">Faltan <strong>{{::config.cuentaDisabled}}</strong>
+            dias para que caduque su cuenta.
+        </alert>
+        <div class="form-group row text-center">
+            <div class="col-xs-12">
+                <button class="button-info col-xs-5" ng-click="config.isDisabled = !config.isDisabled">Habilitar edición
+                </button>
+                <div class="col-xs-2">&nbsp;</div>
+                <button class="button-info col-xs-5" ng-click="config.changePassword()">Cambiar contraseña</button>
+            </div>
+        </div>
+
+        <form name="userForm" ng-submit="config.submit(userForm.$valid)" novalidate>
+            <div class="form-group">
+                <label>Nombre</label>
+                <input ng-model="config.nombre" class="form-control" ng-disabled="config.isDisabled"/>
+            </div>
+            <div class="form-group">
+                <label>Dirección</label>
+                <input ng-model="config.direccion" class="form-control" ng-disabled="config.isDisabled"/>
+            </div>
+            <div class="form-group">
+                <label>Estado</label>
+                <input ng-model="config.estado" class="form-control" ng-disabled="config.isDisabled"/>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input ng-model="config.email" class="form-control" ng-disabled="config.isDisabled"/>
+            </div>
+            <div class="form-group">
+                <label>Puesto</label>
+                <input ng-model="config.rol" class="form-control" disabled/>
+            </div>
+            <div class="form-group" ng-if="config.rol == 'candidato'">
+                <label>Candidatura</label>
+                <input ng-model="config.candidatura" class="form-control" disabled/>
+            </div>
+            <label>Teléfonos de contacto</label>
+
+            <div class="form-group panel panel-default">
+                <div class="panel-body row">
+                    <div class="col-xs-6">
+                        <label>Local</label>
+                        <input ng-model="config.telefonos.telefono" name="telefono" class="form-control"
+                               ng-disabled="config.isDisabled" ng-pattern="/^\d+$/"/>
+                        <div ng-messages="userForm.telefono.$error"
+                             ng-messages-include="views/partials/errors/errors.html"></div>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Celular</label>
+                        <input ng-model="config.telefonos.celular" name="celular" class="form-control"
+                               ng-disabled="config.isDisabled" ng-pattern="/^\d+$/"/>
+                        <div ng-messages="userForm.celular.$error"
+                             ng-messages-include="views/partials/errors/errors.html"></div>
+                    </div>
+                </div>
+            </div>
+            <label>Redes Sociales</label>
+
+            <div class="form-group panel panel-default">
+                <div class="panel-body row">
+                    <div class="col-xs-6">
+                        <label>Facebook</label>
+                        <input ng-model="config.redesSociales.facebook" class="form-control"
+                               ng-disabled="config.isDisabled"/>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Twitter</label>
+                        <input ng-model="config.redesSociales.twitter" class="form-control"
+                               ng-disabled="config.isDisabled"/>
+                    </div>
+                </div>
+            </div>
+            <label>Información sobre registro de la cuenta</label>
+
+            <div class="form-group panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-6">
+                        <label>Fecha de registro</label>
+                        <input ng-model="config.registroInit" class="form-control" disabled/>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Fecha de vencimiento</label>
+                        <input ng-model="config.registroVencimiento" class="form-control" disabled/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <button type="submit" class="button-info btn-block">Actualizar campos</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>
+<script type="text/ng-template" id="change-password.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$close()"><i class="fa fa-close"></i></button>
+        <h1 class="modal-title text-center">Cambiar Contraseña</h1>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <form name="userForm" ng-submit="pass.setNewPassword(userForm.$valid)" ng-validate>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label>Nueva Contraseña</label>
+                        <input type="password" ng-model="pass.newPassword" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Confimar Nueva Contraseña</label>
+                        <input type="password" name="confirmPassword" ng-model="pass.comfirmPassword"
+                               class="form-control"
+                               ui-validate="{confirmPassword: '$value == pass.newPassword'}"
+                               ui-validate-watch="'pass.newPassword'"/>
+
+                        <div ng-messages="userForm.confirmPassword.$error"
+                             ng-messages-include="views/partials/errors/errors.html"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                            <button class="button-info btn-block" type="submit">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>

@@ -31,8 +31,9 @@ var controller = function ($modal, $state, simpatizantes, SweetAlert, usuario, d
                     SweetAlert.swal({
                         title: 'El simpatizante fue eliminado con éxito.',
                         type: 'success'
+                    }, function () {
+                        $state.reload();
                     });
-                    $state.reload();
                 });
         });
     }

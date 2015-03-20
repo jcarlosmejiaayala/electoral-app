@@ -53,7 +53,15 @@ var config = function ($stateProvider) {
         url: '/conteo',
         templateUrl: 'views/conteo/conteo.html',
         controller: 'conteoController as conteo',
-        authenticate: true
+        authenticate: true,
+        resolve: {
+            simpatizantes: function (usuario) {
+                return (usuario.getSimpatizantes());
+            },
+            distSecciones: function (distrito) {
+                return (distrito.getDistritoAndSecciones());
+            }
+        }
     });
 
     states.push({
@@ -61,7 +69,12 @@ var config = function ($stateProvider) {
         url: '/configuracion',
         templateUrl: 'views/configuracion/configuracion.html',
         controller: 'configuracionController as config',
-        authenticate: true
+        authenticate: true,
+        resolve: {
+            me: function (usuario) {
+                return usuario.get();
+            }
+        }
     });
 
     states.push({
@@ -74,7 +87,12 @@ var config = function ($stateProvider) {
         name: 'votos',
         url: '/votos',
         templateUrl: 'views/votos/votos.html',
-        controller: 'votosController as voto'
+        controller: 'votosController as voto',
+        resolve: {
+            simpatizantes: function (usuario) {
+                return usuario.getPlanilla();
+            }
+        }
     });
 
     states.push({

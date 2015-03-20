@@ -2,18 +2,10 @@
 
 var factory = function ($resource) {
     return $resource('/usuario/:id/:controller',
-        {
-            id: '@_id'
-        },
+        {},
         {
             update: {
                 method: 'PUT'
-            },
-            changePassword: {
-                method: 'PUT',
-                params: {
-                    controller: 'password'
-                }
             },
             get: {
                 method: 'GET',

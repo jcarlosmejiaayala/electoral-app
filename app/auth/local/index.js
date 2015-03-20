@@ -21,16 +21,19 @@ router.post('/', function (req, res, next) {
         if (!user) {
             return res.json(401, {message: 'Verifica nuevamente tus credenciales.'});
         }
+        /*
         if(!user.status){
             return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
         }
-        if (user.expira < Date.now()) {
+
+        if (user.expira > Date.now()) {
             var idCandidato = (user.rol == 'candidato')? user._id: user.candidato;
             return Usuario.updateAsync({$or:[{_id: idCandidato }, {candidato: idCandidato}]}, {$set:{status: false}}, {multi: true})
                 .then(function(){
                    return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
                 });
         }
+        */
         token = auth.signToken(user._id);
         res.json({token: token, perfil: user.perfil});
     })(req, res, next);
