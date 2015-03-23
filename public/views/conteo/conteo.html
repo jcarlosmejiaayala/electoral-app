@@ -8,13 +8,13 @@
                 <div class="panel panel-primary">
                     <div class="panel-body bg-primary">
                         <label>Distritos</label>
-                        <select class="form-control" ng-model="conteo.distrito" ng-init="conteo.distrito = conteo.distritos[0]"
+                        <select class="form-control" ng-model="conteo.distrito"
                                 ng-options="distrito.numero for distrito in ::conteo.distritos track by distrito._id"></select>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-7">
-
+                <highchart id="chart1" config="conteo.chartConfig"></highchart>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <div class="panel panel-danger">
@@ -36,7 +36,7 @@
                                 <tbody>
                                 <tr ng-repeat="person in conteo.simpatizantes track by person._id">
                                     <td>{{::person.nombre}}</td>
-                                    <td>{{::person.seccion.numero}}</td>
+                                    <td>{{::person.seccion}}</td>
                                 </tr>
                                 </tbody>
                                 <tfoot>

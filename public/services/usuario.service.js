@@ -106,6 +106,12 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
         }).$promise;
     }
 
+    function getSimpatizantesPorDistrito(distrito){
+        return simpatizanteResource.get(distrito, function(response){
+            return (response);
+        }).$promise;
+    }
+
     return ({
         get: get,
         createSession: createSession,
@@ -116,7 +122,8 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
         update: update,
         remove: remove,
         getPlanilla: getPlanilla,
-        getSimpatizantes: getSimpatizantes
+        getSimpatizantes: getSimpatizantes,
+        getSimpatizantesPorDistrito: getSimpatizantesPorDistrito
     });
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "highcharts-ng",
-  "version": "0.0.8-dev",
+  "version": "0.0.8",
   "description": "highcharts-ng",
   "keywords": [
     "angular"
@@ -47,5 +47,6 @@
   },
   "scripts": {
     "test": "grunt test"
-  }
+  },
+  "browser": "./dist/highcharts-ng.js"
 }

@@ -29,10 +29,7 @@
     "morgan": "~1.0.0",
     "node-cache": "^1.1.0",
     "passport": "~0.2.0",
-    "passport-local": "~0.1.6",
-    "socket.io": "^1.0.6",
-    "socket.io-client": "^1.0.6",
-    "socketio-jwt": "^2.0.2"
+    "passport-local": "~0.1.6"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.1.7",

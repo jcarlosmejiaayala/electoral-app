@@ -1,15 +1,11 @@
 'use strict';
 
 var factory = function ($resource) {
-    return $resource('/simpatizante/:id/:controller',
+    return $resource('/simpatizante/:id/:distrito/:controller',
         {},
         {
             update: {
                 method: 'PUT'
-            },
-            get: {
-                method: 'GET',
-                isArray: true
             }
         });
 };

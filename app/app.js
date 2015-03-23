@@ -6,13 +6,9 @@ var config = require('./config/enviroment'),
     mongoose = require('mongoose'),
     uriUtil = require('mongodb-uri'),
     app = express(),
-    server = require('http').createServer(app),
-    socketio = require('socket.io')(server, {
-        serveClient: (config.env == 'production') ? false : true,
-        path: '/socket.io-client'
-    });
+    server = require('http').createServer(app);
+
 mongoose.connect(uriUtil.formatMongoose(config.mongo.uri), config.mongo.options);
-require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app);
 
