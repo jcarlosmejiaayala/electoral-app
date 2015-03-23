@@ -1,12 +1,14 @@
 'use strict';
 
 var Simpatizante = require('../../model/simpatizante'),
+    Seccion = require('../../model/seccion'),
     config = require('../../config/enviroment'),
     errors = require('../../components/errors'),
     _ = require('lodash'),
     Promise = require('bluebird');
 
 Promise.promisifyAll(Simpatizante);
+Promise.promisifyAll(Seccion);
 
 exports.create = function (req, res) {
     var simpatizante = new Simpatizante(req.body);
@@ -63,6 +65,12 @@ exports.index = function (req, res) {
         }
     }[req.user.rol]();
     Simpatizante.findAsync(_.merge(sentence, {rol: 'simpatizante'})).then(function (users) {
+        return Promise.map(users, function (user) {
+            return Seccion.findByIdAsync(user.seccion, 'numero distrito', {}).then(function (seccion) {
+                return _.extend(user._doc, {seccion: seccion});
+            });
+        });
+    }).then(function (users) {
         res.json(200, users);
     });
 };

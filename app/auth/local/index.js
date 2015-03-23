@@ -21,6 +21,7 @@ router.post('/', function (req, res, next) {
         if (!user) {
             return res.json(401, {message: 'Verifica nuevamente tus credenciales.'});
         }
+        /*
         if(!user.status){
             return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
         }
@@ -32,6 +33,7 @@ router.post('/', function (req, res, next) {
                    return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
                 });
         }
+        */
         token = auth.signToken(user._id);
         res.json({token: token, perfil: user.perfil});
     })(req, res, next);

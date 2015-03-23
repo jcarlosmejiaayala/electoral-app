@@ -1,5 +1,57 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
+    <div class="row">
+        <h1 class="text-center header">Conteo de resultados</h1>
+        <hr class="divider"/>
+        <div class="col-xs-12">
+            <div class="col-xs-12 col-sm-2">
+                <div class="panel panel-primary">
+                    <div class="panel-body bg-primary">
+                        <label>Distritos</label>
+                        <select class="form-control" ng-model="conteo.distrito" ng-init="conteo.distrito = conteo.distritos[0]"
+                                ng-options="distrito.numero for distrito in ::conteo.distritos track by distrito._id"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-7">
 
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <div class="panel panel-danger">
+                    <div class="panel-body bg-danger">
+                        <h4 class="text-center">Simpatizantes sin votar</h4>
+                        <hr/>
+                        <h5 class="text-center form-group">
+                            Faltan por votar:&nbsp;&nbsp;&nbsp;<strong class="text-danger" style="font-size:2rem;">{{conteo.noVotosTotal}}</strong>
+                        </h5>
+
+                        <div class="table-responsive">
+                            <table st-table="conteo.simpatizantes" class="table table-striped text-center bg-white">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Sección</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="person in conteo.simpatizantes track by person._id">
+                                    <td>{{::person.nombre}}</td>
+                                    <td>{{::person.seccion.numero}}</td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <div st-pagination="" st-items-by-page="10"></div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>

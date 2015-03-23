@@ -9,8 +9,15 @@ var factory = function ($q, $http) {
                         simpatizante: simpatizante
                     }
                 }).success(function (response) {
-                        resolve(response);
-                    });
+                    resolve(response);
+                });
+            });
+        },
+        get: function () {
+            return $q(function (resolve) {
+                return $http.get('/distrito').success(function (response) {
+                    resolve(response);
+                });
             });
         }
     });

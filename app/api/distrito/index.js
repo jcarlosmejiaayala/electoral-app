@@ -5,7 +5,7 @@ var express = require('express'),
     controller = require('./distrito.controller'),
     router = express.Router();
 
-router.get('/', controller.index);
+router.get('/', auth.isAuthenticated(), controller.index);
 router.get('/secciones', auth.isAuthenticated(), controller.getDistristrosAndSecciones);
 
 module.exports = router;

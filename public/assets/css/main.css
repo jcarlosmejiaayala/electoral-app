@@ -45,6 +45,9 @@ label, p {
 .color-text-seagreen {
   color: #2aa; }
 
+.bg-white {
+  background-color: #fff; }
+
 .button, .button-info, .button-link, .home div.content-header a.button-content-box {
   background: transparent;
   transition: all 0.5s;

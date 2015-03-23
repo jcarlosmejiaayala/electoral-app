@@ -9,9 +9,6 @@ var Distrito = require('../../model/distrito'),
 Promise.promisifyAll(Distrito);
 Promise.promisifyAll(Seccion);
 
-exports.index = function (req, res) {
-
-};
 function distSeccionesFromOrigin(user) {
     return ({
         candidato: user.candidato,
@@ -82,4 +79,41 @@ exports.getDistristrosAndSecciones = function (req, res) {
         }).then(function (results) {
             res.json(200, results);
         });
+};
+
+exports.index = function (req, res) {
+    var sentence = {
+        'candidato': function () {
+            return ({
+                candidato: req.user._id
+            });
+        },
+        'administrador': function () {
+            return ({
+                candidato: req.user.candidato
+            });
+        },
+        'representante general': function () {
+            return ({
+                candidato: req.user.candidato,
+                _id: req.user.distrito
+            });
+        },
+        'representante de casilla': function () {
+            return ({
+                candidato: req.user.candidato,
+                _id: req.user.distrito
+            });
+        },
+        'simpatizante': function () {
+            return ({
+                candidato: req.user.candidato,
+                _id: req.user.distrito
+            });
+        }
+    }[req.user.rol]();
+
+    Distrito.findAsync(sentence, 'numero', {}).then(function(distritos){
+      res.json(200, distritos);
+    })
 };

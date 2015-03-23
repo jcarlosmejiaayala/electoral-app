@@ -1,9 +1,16 @@
 'use strict';
 
-var controller = function (simpatizantes, distSecciones) {
+var controller = function ($scope, distritos) {
+    this.distritos = distritos;
+
+    $scope.$watchCollection('conteo.distrito', function(_new){
+        if(_new){
+            debugger;
+        }
+    })
 };
 angular
     .module('electoralApp')
     .controller('conteoController', controller);
 
-controller.$inject = ['simpatizantes', 'distSecciones'];
+controller.$inject = ['$scope', 'distritos'];

@@ -42,7 +42,9 @@ label, p {
 .color-text-seagreen{
   color: $color-seagreen;
 }
-
+.bg-white{
+  background-color: $color-white;
+}
 %button {
   background: transparent;
   transition: all 0.5s;

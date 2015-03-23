@@ -55,11 +55,8 @@ var config = function ($stateProvider) {
         controller: 'conteoController as conteo',
         authenticate: true,
         resolve: {
-            simpatizantes: function (usuario) {
-                return (usuario.getSimpatizantes());
-            },
-            distSecciones: function (distrito) {
-                return (distrito.getDistritoAndSecciones());
+            distritos: function (distrito) {
+                return (distrito.get());
             }
         }
     });
