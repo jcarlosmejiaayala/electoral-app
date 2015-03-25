@@ -98,7 +98,7 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
                     title: 'Se ha registrado con éxito',
                     type: 'success'
                 }, function () {
-                    $state.go('resultados');
+                    $state.go('conteo');
                 });
             }).catch(function (err) {
                 SweetAlert

@@ -4,31 +4,56 @@ var controller = function ($scope, $timeout, distritos, usuario) {
     var that = this;
     this.distritos = distritos;
     this.distrito = distritos[0];
-    this.chartConfig = {
-        options: {
-            chart: {
-                type: 'bar'
-            }
-        },
-        series: [{
-            data: [10, 15, 12, 8, 7]
-        }],
-        title: {
-            text: 'Hello'
-        },
+   this.chartConfig = {
 
-        loading: false
-    };
+  options: {
+      chart: {
+          type: 'pie'
+      },
+      title: {
+        text: 'Última conteo registrado: '+ moment().format('hh:mm:ss DD/MM/YYYY')
+      },
+      tooltip: {
+          style: {
+              padding: 10,
+              fontWeight: 'bold'
+          }
+      },
+       plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+  },
+
+      size: {
+   height: 600
+  },
+   credits: {
+    enabled: false
+  },
+  loading: false,
+  useHighStocks: false
+};
 
     function getSimpatizantesDistritos() {
         usuario.getSimpatizantesPorDistrito({distrito: that.distrito._id})
             .then(function (response) {
-                if (!_.isEqual(that.simpatizantes, response.simpatizantes)) {
-                        that.countVotos = response.countVotos;
-                        that.countNoVotos = response.countNoVotos;
-                        that.simpatizantes = response.simpatizantes;
+                if(response.countVotos == 0 && response.countNoVotos == 0){
+                    that.graphSinDatos = true;
                 }
-                // $timeout(getSimpatizantesDistritos(), 1000 *60);
+                else{
+                    that.graphSinDatos = false;
+                }
+                that.chartConfig.options.title = {text :'Última actualización: '+ moment().format('hh:mm:ss DD/MM/YYYY')};
+                that.chartConfig.series = [{name: 'Votaciones', data: [['Votaron', response.countVotos], ['Sin votar', response.countNoVotos]]}];
+                that.simpatizantes = response.simpatizantes;
+                $timeout(getSimpatizantesDistritos, 30000);
             });
     }
 
