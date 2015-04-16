@@ -4,8 +4,8 @@ var controller = function (simpatizantes, votante) {
     this.simpatizantes = simpatizantes;
     this.emitirVoto = function (simpatizante) {
         votante.setVoto(simpatizante._id)
-            .then(function (response) {
-                debugger;
+            .then(function () {
+                $location.reload();
             });
     };
 };
@@ -13,4 +13,4 @@ angular
     .module('electoralApp')
     .controller('votosController', controller);
 
-controller.$inject = ['simpatizantes', 'votante'];
+controller.$inject = ['$location', 'simpatizantes', 'votante'];
