@@ -77,20 +77,32 @@ exports.index = function (req, res) {
 
 exports.getSimpatizanteDistrito = function (req, res) {
     var idCandidato = (req.user.rol == 'candidato') ? req.user._id : req.user.candidato;
-
-    Promise.all([Simpatizante.countAsync({voto: false}), Simpatizante.countAsync({voto: true}),
+    Promise.all([
+        Simpatizante.countAsync({
+            distrito: req.params.distrito,
+            candidato: idCandidato,
+            rol: 'simpatizante',
+            voto: false
+        }),
+        Simpatizante.countAsync({
+            distrito: req.params.distrito,
+            candidato: idCandidato,
+            rol: 'simpatizante',
+            voto: true
+        }),
         Simpatizante.findAsync({
             distrito: req.params.distrito,
             candidato: idCandidato,
             rol: 'simpatizante',
             voto: false
-        }, 'nombre seccion', {}).then(function(users){
+        }, 'nombre seccion', {}).then(function (users) {
             return Promise.map(users, function (user) {
                 return Seccion.findByIdAsync(user.seccion, 'numero', {}).then(function (seccion) {
                     return _.extend(user._doc, {seccion: seccion.numero});
                 });
             });
-        })]).spread(function (countNoVotos, countVotos, simpatizantes) {
+        })
+    ]).spread(function (countNoVotos, countVotos, simpatizantes) {
         res.json(200, {countNoVotos: countNoVotos, countVotos: countVotos, simpatizantes: simpatizantes});
     });
 };
