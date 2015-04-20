@@ -12,7 +12,8 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         pagination: {
             limit: 50
         },
-        loadDetalles: false
+        loadDetalles: false,
+        checkTerminos: false
     });
     angular.extend(this.form, {
         telefonos: {},
@@ -47,6 +48,11 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
 
     this.checkIsEqualsThesePasswords = function () {
         return _.isEqual(this.form.password, this.confirmpassword);
+    };
+    this.openTerminos = function () {
+        $modal.open({
+            templateUrl: 'terminos.html'
+        });
     };
     this.detalles = function () {
         that.loadDetalles = true;

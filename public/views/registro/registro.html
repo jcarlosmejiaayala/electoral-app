@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label>Nombre</label>
                     <input type="text" name="nombre" ng-model="registro.form.nombre" class="form-control"
-                           placeholder="Ingrese nombre completo" required/>
+                           placeholder="Ingrese nombre completo" required autofocus/>
 
                     <div ng-messages="userForm.nombre.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
@@ -37,6 +37,24 @@
 
                     <div ng-messages="userForm.confirmPassword.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
+                </div>
+                <label class="control-label">Partido de pertenencia</label>
+
+                <div class="form-group panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-xs-12">
+                            <div class="radio radio-primary radio-inline col-xs-4 col-sm-2"
+                                 ng-repeat="partido in ::registro.partidos track by partido">
+                                <input type="radio" id="radio{{$index}}" ng-model="registro.form.partido"
+                                       value="{{::partido}}"/>
+                                <label for="radio{{$index}}" tooltip="{{::partido | uppercase}}"
+                                       tooltip-trigger="mouseenter"
+                                       tooltip-placement="right">
+                                    <img ng-src="../assets/img/{{::partido}}.png"/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
@@ -191,18 +209,14 @@
                         </div>
                     </div>
                 </div>
-                <label class="control-label">Partido de pertenencia</label>
-
-                <div class="col-xs-12">
-                    <div class="radio radio-primary radio-inline col-xs-4 col-sm-2"
-                         ng-repeat="partido in ::registro.partidos track by partido">
-                        <input type="radio" id="radio{{$index}}" ng-model="registro.form.partido"
-                               value="{{::partido}}"/>
-                        <label for="radio{{$index}}" tooltip="{{::partido}}" tooltip-trigger="mouseenter"
-                               tooltip-placement="right">
-                            <img ng-src="../assets/img/{{::partido}}.png"/>
-                        </label>
+                <div class="form-group">
+                    <div class="checkbox checkbox-primary checkbox-inline">
+                        <input type="checkbox" name="terminos" id="terminos" ng-model="registro.checkTerminos"
+                               ui-validate="$value==true"/>
+                        <label for="terminos"></label>
                     </div>
+                    <label>Acepto los&nbsp;</label><a href ng-click="registro.openTerminos()">Términos y
+                    Condiciones.</a>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-sm-push-3 col-md-push-4">
                     <button type="submit" class="button btn-block">Enviar</button>
@@ -212,3 +226,358 @@
     </div>
 </div>
 <ng-include src="'/views/layouts/footer.html'"></ng-include>
+<script type="text/ng-template" id="terminos.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$close()"><i class="fa fa-close"></i></button>
+        <h4 class="modal-title text-center">
+            AVISO LEGAL TERMINOS Y CONDICIONES DE USO
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <strong>1. TERMINOS DE USO DEL PORTAL</strong>
+
+                <p class="form-group">
+                    Los términos de uso que a continuación se presentan (en lo sucesivo los Términos de Uso) constituyen
+                    el
+                    acuerdo entre TrackVot.com (en lo sucesivo la Empresa) y cualquier usuario de la Aplicación, en lo
+                    sucesivo,
+                    la App TrackVot.com, cuyos dominio o direccion electrónica es: http:// www.trackvot.com (en lo
+                    sucesivo
+                    la
+                    App o Aplicación).
+
+                    La utilización de la App por parte de cualquier persona, le atribuye la calidad de usuario (en lo
+                    sucesivo
+                    el Usuario) y ello implica su adhesión plena e incondicional a estos Términos de Uso, en
+                    consecuencia es
+                    indispensable que el Usuario los lea previamente y los evalúe de forma cuidadosa, de tal manera que
+                    esté
+                    consciente de que se sujeta a ellos y a las modificaciones que pudieran sufrir, cada vez que accede
+                    al
+                    App.
+
+                    Si en cualquier momento el Usuario no estuviera de acuerdo total o parcialmente con estos Términos
+                    de
+                    Uso,
+                    deberá abstenerse inmediatamente de usar el App en cualquiera de sus partes o secciones.
+
+                    El Usuario está de acuerdo que en diversas partes de la App podrá haber estipulaciones especiales
+                    que,
+                    según
+                    sea el caso, sustituirán, complementarán y/o modificarán los Términos de Uso (en lo sucesivo las
+                    Condiciones
+                    Particulares), por tal razón también resulta indispensable que el Usuario las lea previamente en
+                    cada
+                    caso y
+                    de no estar total o parcialmente de acuerdo con ella o ellas, se abstenga de usar la parte o sección
+                    de
+                    la
+                    App regulada bajo esa Condición o Condiciones Particular(es). En caso de que el Usuario utilice la
+                    parte
+                    de
+                    la App regulada por una o más Condiciones Particulares se entenderá que se somete total e
+                    incondicionalmente
+                    a ellas.
+                </p>
+                <strong>2. OBJETO</strong>
+
+                <p class="form-group">
+                    A través de la App, la Empresa facilita a los Usuarios el acceso a información diversa, así como a
+                    la
+                    utilización de diversos servicios proporcionados por la propia Empresa o por personas vinculadas a
+                    ella
+                    de
+                    manera directa o indirecta, (en lo sucesivo los "Servicios").
+
+                    El Usuario reconoce que el uso de la App no le implica ningún derecho de propiedad sobre el mismo,
+                    cualquiera de sus elementos o contenidos.
+
+                    La Empresa se reserva el derecho a modificar en cualquier momento y sin aviso previo la
+                    presentación,
+                    configuración, información, servicios, contenido y en general cualquier parte o aspecto relacionado
+                    directa
+                    o indirectamente con la App.
+                </p>
+                <strong>3. ACCESO Y UTILIZACIÓN DE LA APP</strong>
+
+                <p class="form-group">
+                    3.1 El acceso y utilización de la App por parte de TrackVotcom tiene carácter gratuito para los
+                    Usuarios por un período de prueba, salvo que en una o más de sus partes o secciones se especifique
+                    lo contrario, después del cual, se especificará una contraprestación económica que se deberá de
+                    pagar a la Empresa. El Usuario estará obligado a registrarse o inscribirse en el App, únicamente
+                    cuando se le solicite específicamente.
+
+                    3.2 Obligación de hacer uso correcto del App y de los servicios.
+
+                    El Usuario se compromete a utilizar la App y los Servicios conforme a las leyes aplicables, a lo
+                    dispuesto en estos Términos de Uso, a la moral y las buenas costumbres, y en respeto del orden
+                    público. El Usuario se obliga utilizar la App y cualquier Servicio o aspecto relacionado con él, de
+                    una manera en que no lesione derechos o intereses de la Empresa, de personas vinculadas a ella
+                    directa o indirectamente o de terceros. El Usuario utilizará la App y/o los Servicios de una manera
+                    en la que no lo dañe, inutilice, deteriore o menoscabe total o parcialmente.
+
+                    3.3 Medios para obtención de contenidos.
+
+                    Salvo en los casos en que se encuentre permitido, el Usuario deberá abstenerse de obtener o intentar
+                    obtener informaciones, mensajes, gráficos, dibujos, archivos de sonido y/o imagen, fotografías,
+                    grabaciones, software y en general, cualquier clase de material accesible a través del App o de los
+                    Servicios (en adelante, los "Contenidos"). En los casos en que esté permitido, podrá hacer uso de
+                    los Contenidos empleando para ello únicamente los medios o procedimientos establecidos dentro de la
+                    App, o bien, haciendo uso de aquellas herramientas o medios de uso común en Internet, que aseguran
+                    la integridad de la App, los Servicios y los Contenidos, y eliminan o disminuyen el riesgo de daños
+                    o afectaciones totales o parciales a ellos.
+
+                    3.4 Uso correcto de los contenidos.
+
+                    El Usuario se obliga a usar los Contenidos de forma diligente, correcta, y lícita, y en particular,
+                    se compromete a abstenerse de: (a) utilizar los Contenidos de forma, con fines o efectos contrarios
+                    a la ley, a la moral, las buenas costumbres o el orden público; (b) copiar, reproducir, o distribuir
+                    con fines de lucro los Contenidos, a menos que se cuente con la autorización de la Empresa o del
+                    titular de los correspondientes derechos o ello resulte legalmente permitido; (c) modificar o
+                    manipular las marcas, logotipos, avisos comerciales, nombres comerciales y signos distintivos en
+                    general de la Empresa, de la App o de las personas vinculadas directa o indirectamente con la
+                    Empresa (salvo que cuente con su autorización por escrito), (d) suprimir, eludir o modificar los
+                    Contenidos, así como los dispositivos técnicos de protección, o cualquier mecanismo o procedimiento
+                    establecido en la App.
+
+                    3.5 Obligación de Observar las instrucciones
+
+                    El Usuario se compromete a seguir al pie de la letra cualquier instrucción impartida por la Empresa
+                    o por personal autorizado por la Empresa que se encuentre relacionado con la App, en relación con
+                    cualquier mecanismo o procedimiento establecido para usar la App, los Contenidos o los Servicios. En
+                    cualquier caso, la persona que diera una instrucción al Usuario, deberá identificarse, y comprobar
+                    su pertenencia a la Empresa o la autorización de esta última para girar la instrucción
+                    correspondiente.
+
+                    3.6 Responsabilidad por daños y perjuicios
+
+                    El Usuario deberá indemnizar inmediatamente a la Empresa o a cualquier persona vinculada directa o
+                    indirectamente con ella o con la App, por cualquier daño y/o perjuicio de cualquier naturaleza que
+                    ocasionara por incumplir estos Términos de Uso o cualquier normatividad aplicable.
+
+                    Sin perjuicio de lo establecido en el párrafo anterior, en el supuesto de que la Empresa fuera
+                    multada o condenada por autoridad competente a indemnizar a cualquier persona por un daño y/o
+                    perjuicio causado por el Usuario, entonces este último deberá pagar a la empresa la cantidad que
+                    corresponda, dentro de los 15 días naturales siguientes a que se le compruebe el monto respectivo,
+                    de lo contrario, se obliga a pagar a la empresa por concepto de pena convencional por el mero
+                    retraso en el cumplimiento de la obligación, una cantidad equivalente a la suerte principal en que
+                    se hubiera afectada la Empresa.
+                </p>
+                <strong>4. UTILIZACIÓN DE LA APP, DE LOS SERVICIOS Y DE LOS CONTENIDOS BAJO LA EXCLUSIVA RESPONSABILIDAD
+                    DEL USUARIO</strong>
+
+                <p class="form-group">
+                    Por el solo hecho de acceder a la App, el Usuario reconoce y acepta que el uso del mismo, de los
+                    Servicios, de cualquiera de los Contenidos, es bajo su exclusiva y estricta responsabilidad, por lo
+                    que la Empresa no será en ningún momento y bajo ninguna circunstancia, responsable por cualquier
+                    desperfecto o problema que se presentara en el equipo de cómputo (hardware) o programas de cómputo
+                    (software) que utilice el Usuario para acceder o navegar en cualquier parte de la App.
+                </p>
+                <strong>5. EXCLUSIÓN DE GARANTÍAS Y DE RESPONSABILIDAD</strong>
+
+                <p class="form-group">
+                    5.1 Exclusión de garantías y de responsabilidad por el funcionamiento del la App y de los Servicios
+
+                    5.1.1 Disponibilidad y continuidad
+
+                    La Empresa no garantiza a los Usuarios la disponibilidad y continuidad del funcionamiento de la App
+                    y/o de los Servicios (incluidos los Servicios Abiertos al Usuario), sin embargo hará lo posible para
+                    que así sea.
+
+                    Por el sólo hecho de acceder a la App, el Usuario renuncia a su derecho de demandar a la Empresa por
+                    cualquier vía, por la falta de disponibilidad o de continuidad en el funcionamiento de la App y/o de
+                    los Servicios.
+
+                    5.1.2. Utilidad
+
+                    La Empresa no garantiza que la App y los Servicios sean útiles para una o más actividades o
+                    propósitos en particular.
+
+                    Por el sólo hecho de acceder a la App, el Usuario renuncia a su derecho de demandar por cualquier
+                    vía a la Empresa, por el hecho de que la App o los Servicios no cubran sus expectativas o difieran
+                    de cualquier atributo que el Usuario considerara que debieran cubrir, o bien porque no resulto
+                    parcial o totalmente de utilidad para determinados fines o propósitos del Usuario.
+
+                    Por el sólo hecho de acceder a la App, el Usuario renuncia a su derecho de demandar por cualquier
+                    vía a la Empresa, por la falta de disponibilidad o de continuidad del funcionamiento del Portal y de
+                    los Servicios.
+
+                    5.2 Exclusión de garantías y de responsabilidad por los Contenidos
+
+                    5.2.1 Virus y otros elementos dañosos.
+
+                    La Empresa no controla con carácter previo y no garantiza la ausencia de virus en los Contenidos, ni
+                    la ausencia de otros elementos en los Contenidos que puedan producir alteraciones en el sistema
+                    informático del Usuario (software y/o hardware) o en los documentos electrónicos y ficheros
+                    almacenados en su sistema informático.
+
+                    Por el sólo hecho de acceder a la App, el Usuario renuncia a su derecho de demandar por cualquier
+                    vía a la Empresa, por cualquier daño o perjuicio que sufriera en su sistema informático (software
+                    y/o hardware), por haber usado el portal y/o los Servicios (incluidos los Servicios Abiertos al
+                    Usuario) y/o los Contenidos, o por que éstos le hubieran transmitido un virus o cualquier otro
+                    elemento dañoso.
+
+                    5.2.2 Licitud, fiabilidad y utilidad de los Contenidos
+
+                    La empresa no garantiza al Usuario la licitud, fiabilidad y utilidad de los Contenidos.
+
+                    Por el sólo hecho de acceder a la App, el Usuario renuncia a su derecho de demandar por cualquier
+                    vía a la Empresa, por cualquier daño o perjuicio que sufriera como consecuencia de la transmisión,
+                    difusión, almacenamiento, puesta a disposición, recepción, obtención, o acceso a los Contenidos y en
+                    particular, aunque no de modo exclusivo, por los daños y perjuicios que pudieran deberse a: (a) el
+                    incumplimiento de la normatividad aplicable como consecuencia de la transmisión, difusión,
+                    almacenamiento puesta a disposición recepción, obtención o acceso al los contenidos; (b) la
+                    infracción de los derechos de propiedad intelectual e industrial, de los secretos industriales, de
+                    compromisos contractuales de cualquier clase, de los derechos al honor, a la intimidad personal y
+                    familiar y a la imagen de la personas, de los derechos de propiedad y de toda otra naturaleza
+                    pertenecientes a un tercero como consecuencia de la transmisión, difusión, almacenamiento, puesta a
+                    disposición, recepción, obtención, o acceso a los Contenidos; (c) la realización de actos de
+                    competencia desleal y publicidad ilícita como consecuencia de la transmisión, difusión,
+                    almacenamiento, puesta a disposición, recepción, obtención o acceso a los Contenidos; (d) la falta
+                    de veracidad, exactitud, exhaustividad, pertinencia y/o actualidad de los Contenidos; (e) el
+                    incumplimiento, retraso en el cumplimiento, cumplimiento defectuoso o terminación por cualquier
+                    causa de las obligaciones contraídas por terceros y contratos realizados con terceros a través de o
+                    con motivo del acceso a la App, a los Servicios (incluidos los Servicios Abiertos al Usuario) y a
+                    los Contenidos; (f) los vicios y defectos de toda clase de los Contenidos transmitidos, difundidos,
+                    almacenados, puestos a disposición, recibidos, obtenidos o a los que se haya accedido a través de la
+                    App o de los Servicios (incluidos los Servicios Abiertos al Usuario).
+
+                    5.3 Exclusión de garantías y de responsabilidad por los Servicios y Contenidos prestados o alojados
+                    fuera de la App.
+
+                    La App pone a disposición de los Usuarios dispositivos técnicos de enlace (entre otros, links o
+                    ligas entre páginas, banners, botones), directorios y herramientas de búsqueda que permiten a los
+                    Usuarios acceder a sitios web pertenecientes a terceros (en adelante "Sitios Enlazados"). La
+                    instalación de estos enlaces, directorios y herramientas de búsqueda en la App tiene por objeto
+                    agilizar el desplazamiento del Usuario por Internet y facilitarle la búsqueda y obtención de
+                    información, por lo que no debe suponerse que necesariamente existe una alianza o asociación entre
+                    la Empresa y las personas físicas o morales a cuyos sitios se genere la liga o enlace.
+
+                    La Empresa no controla previamente, aprueba ni hace propias los servicios, información, datos,
+                    archivos, productos y cualquier clase de material existente en los Sitios Enlazados. El Usuario, por
+                    tanto debe extremar la prudencia en la valoración y utilización de los servicios, información, datos
+                    archivos, productos y cualquier clase de material existente en los Sitios Enlazados.
+
+                    Por el solo hecho de acceder a la App el Usuario renuncia a su derecho de demandar a la Empresa por
+                    cualquier daño o perjuicio que pueda deberse a: (a) el funcionamiento disponibilidad, accesibilidad
+                    o continuidad de los Sitios Enlazados; (b) el mantenimiento de los servicios, información, datos,
+                    archivos, productos y cualquier clase de material existente en los Sitios Enlazados; (c) la
+                    prestación o transmisión de los servicios, información, datos, archivos, productos y cualquier clase
+                    de material existente en los Sitios Enlazados; (d) la calidad, licitud, fiabilidad y utilidad de los
+                    servicios, información , datos, archivos, productos y cualquier clase de material asistente en los
+                    Sitios Enlazados.
+
+                </p>
+                <strong>6. NO LICENCIA SOBRE DERECHOS DE PROPIEDAD</strong>
+
+                <p class="form-group">
+                    La Empresa autoriza al Usuario a utilizar la App en los términos aquí contenidos. La Empresa no
+                    concede a los Usuarios licencia o autorización de ninguna clase sobre sus derechos de propiedad
+                    industrial e intelectual, secretos industriales o sobre cualquier otra propiedad o derecho
+                    relacionado con el Portal, los Servicios o los Contenidos.
+
+                    En caso de que la Empresa tuviera conocimiento de que el Usuario se ha ostentado falsamente como
+                    propietario o licenciatario de uno o más derechos de la Empresa en relación directa o indirecta con
+                    la App, podrá negarle inmediatamente y de manera permanente el acceso a la App. Lo anterior sin
+                    perjuicio de que la Empresa demande al Usuario haciendo uso de los medios legales a su alcance.
+                </p>
+                <strong>7. DENEGACIÓN Y RETIRO DEL ACCESO A LA APP Y/O A LOS SERVICIOS</strong>
+
+                <p class="form-group">
+                    La Empresa se reserva el derecho a denegar o retirar el acceso a la App y/o a los Servicios
+                    (incluidos los Servicios Abiertos al Usuario), en cualquier momento y sin necesidad de preaviso, por
+                    iniciativa propia o a petición de cualquier persona, a aquellos Usuarios que den un uso indebido a
+                    la App, a cualquiera de sus partes o secciones o a los Contenidos, o que incumplan total o
+                    parcialmente estos Términos de Uso o las Condiciones Particulares que resulten aplicables.
+                </p>
+                <strong>8. DURACIÓN Y TERMINACIÓN</strong>
+
+                <p class="form-group">
+                    La prestación del servicio de la App y de los demás Servicios tiene una duración indefinida
+                    dependiendo de lo pactado entre la Empresa y el Cliente. La Empresa sin embargo, podrá dar por
+                    terminada, suspender o interrumpir en cualquier momento y sin necesidad de previo aviso, la
+                    prestación del servicio de la App y/o de cualquiera de los Servicios (incluidos los Servicios
+                    Abiertos al Usuario).
+                </p>
+                <strong>9. LEY APLICABLE Y JURISDICCIÓN</strong>
+
+                <p class="form-group">
+                    En todo lo relacionado con la interpretación y cumplimiento de lo aquí dispuesto, por el solo hecho
+                    de acceder a la App los Usuarios aceptan someterse a las leyes y jurisdicción de los tribunales de
+                    Guadalajara, Jalisco, renunciado a cualquier otro fuero que por razón de sus domicilios presentes o
+                    futuros, o por cualquiera otra razón pudiera corresponderles.
+                    <br/>
+
+                    Terminos de Contratación
+                    <br/>
+
+                    1. Al contratar cualquiera de los servicios señalados en estos términos de contratación, el cliente
+                    manifiesta su consentimiento para adherirse y cumplir los mismos en sus términos, con la finalidad
+                    de que ambas partes tengan la mayor seguridad jurídica posible dentro de su relación.
+                    <br/>
+                    2.Los servicios serán prestados por Trackvot.com o por cualquier otra entidad relacionada directa o
+                    indirectamente con la primera. Estos son los identificados dentro del apartado "Crear una cuenta en
+                    el portal trackvot.com".
+
+                    Dichos servicios se regularán conforme a lo siguiente:
+                    <br/>
+                    a) El cliente proporcionará a TrackVot.com toda la información del candidato, simpatizantes, etc.
+                    que desea promocionar y, en caso de que no proporcione la mínima necesaria requerida por
+                    TrackVot.com, no será posible prestarle dichos servicios.
+                    <br/>
+                    b) TrackVot.com prestará el servicio al cliente durante 30,60 o 90 días naturales, dependiendo del
+                    paquete elegido, contados a partir de la fecha de ingreso del mismo dentro de la base de datos del
+                    portal, vencido dicho plazo, concluirá la prestación del servicio.
+                    <br/>
+                    c) El cliente pagará a TrackVot.com como contraprestación la cantidad en pesos M.N. que este último
+                    le señale dentro del portal.
+                    <br/>
+                    d) Dicha contraprestación podrá pagarla el cliente conforme a lo establecido en el apartado de
+                    "Procesos y Opciones de Pago". TrackVot.com quedará liberado de toda obligación respecto a estos
+                    servicios, mientras el cliente no le haya acreditado el pago, en la manera establecida en dicho
+                    apartado.
+                    <br/>
+                    e) No habrá ningún tipo de reembolso a favor del cliente, cuando los servicios no se hayan podido
+                    prestar total o parcialmente, por causas imputables a este último.
+                    <br/>
+                    3.Las partes convienen que TrackVot.com será en todo momento dueño de la totalidad de información
+                    que se maneje dentro del portal trackvot.com, y en cualquier otra página espejo, total o parcial,
+                    que de ella se tuviera, ello sin importar cómo, cuándo o a través de quién la haya obtenido. Por
+                    supuesto, se entienden comprendidos dentro de lo anterior los análisis y resultados derivados del
+                    procesamiento de la información.
+                    Por el sólo hecho de contratar estos servicios, el cliente autoriza a trackvot.com o a cualquiera
+                    otra empresa relacionada directa o indirectamente con ella, a utilizarla total o parcialmente en
+                    cualquier forma o medio de comunicación (masiva o no masiva), para fines de comerciales, de
+                    análisis, investigación, estadística o cualquier otro, siempre que sea lícito; esta autorización
+                    considera entre otros aspectos, lo establecido en el Art. 109 de la Ley Federal de Derechos de
+                    Autor.
+                    <br/>
+                    4. TrackVot.com y el cliente convienen que el primero no será responsable de ninguna forma, por
+                    fallas tecnológicas o dentro de Internet, que impidan la prestación de los servicios contratados,
+                    caso en el cual, la responsabilidad máxima de TrackVot.com.com consistirá en reponer al cliente el
+                    plazo en el que ello haya ocurrido. Adicionalmente, para que se tenga a TrackVot.com.com en
+                    incumplimiento de cualquier obligación conforme a los servicios que presta, será requisito
+                    indispensable que el cliente le haya informado por escrito con acuse de recibo de la falla o fallas
+                    presentadas, y que TrackVot.com.com no hubiera solucionado la situación correspondiente dentro de
+                    los diez días hábiles siguientes.
+                    <br/>
+                    5. El cliente se obliga a sacar en paz y a salvo y a indemnizar de inmediato a TrackVot.com , por
+                    cualquier demanda o requerimiento que se entablara en su contra, judicial o extrajudicialmente, como
+                    consecuencia de falsedad, ilicitud, error o inexactitud en la información que el primero hubiera
+                    proporcionado al segundo respecto del usuario candidato, simpatizante, etc.
+                    De acuerdo con lo anterior, TrackVot.com.com no tendrá ninguna responsabilidad respecto del cliente,
+                    cuando haya proporcionado el candidato respectivo, con base en datos erróneos, falsos, ilícitos o
+                    inexactos.
+                    <br/>
+                    6. Para la interpretación y cumplimiento de estos términos, las partes aceptan sujetarse a la
+                    jurisdicción y competencia de los tribunales competentes de Guadalajara, Jal., renunciando a
+                    cualquier otro fuero que les correspondiera en virtud de sus domicilios presentes o futuros o por
+                    cualquier otra razón.
+
+                </p>
+            </div>
+        </div>
+    </div>
+</script>
