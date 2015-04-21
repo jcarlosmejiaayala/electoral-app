@@ -64,7 +64,8 @@ usuarioSchema
     .get(function () {
         return {
             nombre: this.nombre,
-            partido: this.partido
+            partido: this.partido,
+            rol: this.rol
         };
     });
 

@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function($state, SweetAlert, usuario) {
+var controller = function ($state, SweetAlert, usuario) {
     this.form = {};
     angular.extend(this.form, {
         email: '',
@@ -15,8 +15,11 @@ var controller = function($state, SweetAlert, usuario) {
         }
         usuario
             .login(this.form)
-            .then(function () {
-                $state.go('conteo');
+            .then(function (user) {
+                if (user.perfil != 'representante de casilla') {
+                    $state.go('conteo');
+                }
+                $state.go('votos');
             })
             .catch(function (err) {
                 SweetAlert.swal({

@@ -66,6 +66,9 @@ function securityMenu() {
                         if (!_.isEqual(user.rol, 'representante de casilla')) {
                             req.menu = _.reject(req.menu, {name: 'Votos'});
                         }
+                        if (_.isEqual(user.rol, 'representante de casilla')) {
+                            req.menu = _.reject(req.menu, {name: 'Conteo'});
+                        }
                         next();
                     });
             } else {
