@@ -53,6 +53,7 @@ function setCandidato(request) {
         var candidato = new Candidato(request.body);
         candidato.status = true;
         candidato.ip = request.ip;
+        candidato.acceptTerminos = true;
         candidato.save(function (err, user) {
             if (err) {
                 return reject();

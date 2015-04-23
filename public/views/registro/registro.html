@@ -162,7 +162,6 @@
                             </div>
                             <small class="text-muted">Algunos campos pueden estar deshabilitados y no se tomaran en
                                 cuenta para la busqueda de las casillas. <br/>
-                                Commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum.
                             </small>
                         </div>
                     </div>
@@ -204,7 +203,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <label>Twitter</label>
-                            <input type="text" class="form-control" ng-model="registro.form.redesSociales.twitter"
+                            <input type="text" class="form-control" name="terminos" ng-model="registro.form.redesSociales.twitter"
                                    placeholder="Ingrese el vínculo"/>
                         </div>
                     </div>
@@ -212,11 +211,13 @@
                 <div class="form-group">
                     <div class="checkbox checkbox-primary checkbox-inline">
                         <input type="checkbox" name="terminos" id="terminos" ng-model="registro.checkTerminos"
-                               ui-validate="$value==true"/>
+                               ui-validate="{terminos: '$value==true'}"/>
                         <label for="terminos"></label>
                     </div>
                     <label>Acepto los&nbsp;</label><a href ng-click="registro.openTerminos()">Términos y
                     Condiciones.</a>
+                    <div ng-messages="userForm.terminos.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-sm-push-3 col-md-push-4">
                     <button type="submit" class="button btn-block">Enviar</button>

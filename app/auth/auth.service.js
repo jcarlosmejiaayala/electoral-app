@@ -5,11 +5,14 @@ var config = require('../config/enviroment'),
     expressJwt = require('express-jwt'),
     compose = require('composable-middleware'),
     Usuario = require('../model/usuario'),
+    Distrito = require('../model/distrito'),
     _ = require('lodash'),
     errors = require('../components/errors'),
     Promise = require('bluebird'),
     validateJwt = expressJwt({secret: config.secrets.session});
+
 Promise.promisifyAll(Usuario);
+Promise.promisifyAll(Distrito);
 
 function isAuthenticated() {
     return compose()
@@ -83,10 +86,29 @@ function securityMenu() {
             }
         });
 }
+
 function signToken(id) {
     return jwt.sign({_id: id}, config.secrets.session, {expiresInMinutes: 60 * 5});
+}
+
+function checkUserExists() {
+    return compose().use(function (req, res, next) {
+        Usuario.findOneAsync({partido: req.body.partido, candidatura: req.body.candidatura})
+            .then(function (user) {
+                if (!user) {
+                    next();
+                }
+                Distrito.findOneAsync({candidato: user._id}).then(function (distrito) {
+                    if (!distrito) {
+                        next();
+                    }
+                    res.json(403, {message: 'Ya existe otro candidato similar, verifique su información.'});
+                });
+            });
+    });
 }
 exports.isAuthenticated = isAuthenticated;
 exports.hasRole = hasRole;
 exports.securityMenu = securityMenu;
 exports.signToken = signToken;
+exports.checkUserExists = checkUserExists;

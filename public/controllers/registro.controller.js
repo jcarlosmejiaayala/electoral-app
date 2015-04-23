@@ -13,7 +13,7 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
             limit: 50
         },
         loadDetalles: false,
-        checkTerminos: false
+        checkTerminos: true
     });
     angular.extend(this.form, {
         telefonos: {},
@@ -29,6 +29,7 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
             secciones: {}
         }
     });
+
     this.changeCandidatura = function () {
         this.sentenceCasilla = {
             'Diputacion': function () {
