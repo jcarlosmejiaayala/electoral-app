@@ -26,6 +26,13 @@ function isAuthenticated() {
                     if (!user || !user.status) {
                         return res.json(401, {message: errors[401]});
                     }
+                    if (Date.now() > user.expira) {
+                        var idCandidato = (user.rol == 'candidato') ? user._id : user.candidato;
+                        return Usuario.updateAsync({$or: [{_id: idCandidato}, {candidato: idCandidato}]}, {$set: {status: false}}, {multi: true})
+                            .then(function () {
+                                return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
+                            });
+                    }
                     req.user = user;
                     next();
                 }).catch(function (err) {

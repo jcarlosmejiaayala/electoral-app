@@ -2,12 +2,16 @@
 
 var Distrito = require('../../model/distrito'),
     Seccion = require('../../model/seccion'),
+    Simpatizante = require('../../model/simpatizante'),
+    Representante = require('../../model/representante-general'),
     errors = require('../../components/errors'),
     _ = require('lodash'),
     Promise = require('bluebird');
 
 Promise.promisifyAll(Distrito);
 Promise.promisifyAll(Seccion);
+Promise.promisifyAll(Simpatizante);
+Promise.promisifyAll(Representante);
 
 function distSeccionesFromOrigin(user) {
     return ({
@@ -113,7 +117,51 @@ exports.index = function (req, res) {
         }
     }[req.user.rol]();
 
-    Distrito.findAsync(sentence, 'numero', {}).then(function(distritos){
-      res.json(200, distritos);
-    })
+    Distrito.findAsync(sentence, 'numero', {}).then(function (distritos) {
+        res.json(200, distritos);
+    });
+};
+
+exports.getSecciones = function (req, res) {
+    Seccion.findAsync({distrito: req.params.id}, 'numero')
+        .then(function (secciones) {
+            if (!secciones.length) {
+                return res.json(403, {message: 'No hay secciobnes'});
+            }
+            res.json(200, secciones);
+        });
+};
+
+exports.getVotantesPorSeccion = function (req, res) {
+    var sentence = {
+        candidato: (req.user.rol == 'candidato') ? req.user._id : req.user.candidato,
+        distrito: req.params.id,
+        rol: 'simpatizante'
+    };
+    if (req.params.seccion != 'todas') {
+        _.extend(sentence, {
+            seccion: req.params.seccion
+        });
+    }
+    Promise.all([
+        Simpatizante.findAsync(sentence, 'nombre seccion rgeneral', {}).then(function (simpatizantes) {
+            return Promise.map(simpatizantes, function (simpatizante) {
+                return Promise.all([
+                    Seccion.findByIdAsync(simpatizante.seccion, 'numero', {}),
+                    Representante.findByIdAsync(simpatizante.rgeneral, 'nombre', {})
+                ]).spread(function (seccion, rgeneral) {
+                    return _.extend(simpatizante._doc, {seccion: seccion.numero, rgeneral: rgeneral.nombre});
+                });
+
+            });
+        }),
+        Simpatizante.countAsync(_.extend(sentence, {
+            voto: false
+        })),
+        Simpatizante.countAsync(_.extend(sentence, {
+            voto: true
+        }))
+    ]).spread(function (simpatizantes, countNoVotos, countVotos) {
+        res.json(200, {countNoVotos: countNoVotos, countVotos: countVotos, simpatizantes: simpatizantes});
+    });
 };

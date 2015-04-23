@@ -19,6 +19,22 @@ var factory = function ($q, $http) {
                     resolve(response);
                 });
             });
+        },
+        getSecciones: function (id) {
+            return $q(function (resolve, reject) {
+                return $http.get('/distrito/' + id)
+                    .success(function (response) {
+                        resolve(response);
+                    });
+            });
+        },
+        getVotantesPorSeccion: function (idDistrito, idSeccion) {
+            return $q(function (resolve) {
+                return $http.get(['/distrito/', idDistrito, '/', idSeccion].join(''))
+                    .success(function (response) {
+                        resolve(response);
+                    });
+            });
         }
     });
 };

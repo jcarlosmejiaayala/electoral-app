@@ -87,7 +87,7 @@ var config = function ($stateProvider) {
         controller: 'votosController as voto',
         resolve: {
             simpatizantes: function (usuario) {
-                return usuario.getPlanilla();
+                return usuario.getPlanilla({voto: false});
             }
         }
     });

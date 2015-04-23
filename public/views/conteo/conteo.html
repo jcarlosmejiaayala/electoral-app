@@ -1,56 +1,67 @@
-<ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
+<ng-include src="'views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row margin-bottom-2x">
         <h1 class="text-center header">Conteo de resultados</h1>
         <hr class="divider"/>
         <div class="col-xs-12">
-            <h3 class="text-center">Resultados del distrito: <strong>{{::conteo.distrito.numero}}</strong></h3>
-            <div class="col-xs-12 col-sm-2">
-                <div class="panel panel-primary">
-                    <div class="panel-body bg-primary">
-                        <label>Distritos</label>
-                        <select class="form-control" ng-model="conteo.distrito"
-                                ng-options="distrito.numero for distrito in ::conteo.distritos track by distrito._id"></select>
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 col-sm-offset-1">
+                    <div class="panel panel-primary">
+                        <div class="panel-body bg-primary">
+                            <label>Distritos</label>
+                            <select class="form-control" ng-model="conteo.distrito"
+                                    ng-options="distrito.numero for distrito in ::conteo.distritos track by distrito._id"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <div class="panel panel-primary">
+                        <div class="panel-body bg-primary">
+                            <label>Sección</label>
+                            <select class="form-control" ng-model="conteo.seccion"
+                                    ng-options="seccion.numero for seccion in ::conteo.secciones track by seccion._id">
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-7">
-                 <div class="alert alert-warning
-                            text-center"  ng-if="conteo.graphSinDatos">
-                                <p>
-                                    Sin datos que graficar.
-                                </p>    
-                            </div>
-                <highchart id="chart1" config="conteo.chartConfig" ng-if="!conteo.graphSinDatos"></highchart>
-            </div>
-            <div class="col-xs-12 col-sm-3">
-                <div class="panel panel-danger">
-                    <div class="panel-body bg-danger">
-                             <h4 class="text-center">Simpatizantes sin votar</h4>
-                        <hr/>
-                            <div class="alert alert-warning
-                            text-center">
-                                <p>
-                                    No hay simpatizantes.
-                                </p>    
-                            </div>
-                        <span ng-if="conteo.simpatizantes.length">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="alert alert-warning
+                            text-center" ng-if="conteo.graphSinDatos">
+                        <p>Sin datos que graficar.</p>
+                    </div>
+                    <highchart id="chart1" config="conteo.chartConfig" ng-if="!conteo.graphSinDatos"></highchart>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="panel panel-danger">
+                            <div class="panel-body bg-danger">
+                                <h4 class="text-center">Sin Votar</h4>
+                                <hr/>
+                                <div class="alert alert-warning
+                            text-center" ng-if="!conteo.simpatizantesNoVotos.length">
+                                    <p>No hay simpatizantes.</p>
+                                </div>
+                        <span ng-if="conteo.simpatizantesNoVotos.length">
                         <h5 class="text-center form-group">
-                            Faltan por votar:&nbsp;&nbsp;&nbsp;<strong class="text-danger" style="font-size:2rem;">{{conteo.noVotosTotal}}</strong>
+                            <strong>Faltan por votar:</strong>&nbsp;&nbsp;&nbsp;<strong class="text-danger" style="font-size:2rem;">{{conteo.noVotosTotal}}</strong>
                         </h5>
 
                         <div class="table-responsive">
-                            <table st-table="conteo.simpatizantes" class="table table-striped text-center bg-white">
+                            <table st-table="conteo.simpatizantesNoVotos" class="table table-striped text-center bg-white">
                                 <thead>
                                 <tr>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Sección</th>
+                                    <th class="text-center">R. General</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="person in conteo.simpatizantes track by person._id">
+                                <tr ng-repeat="person in conteo.simpatizantesNoVotos track by person._id">
                                     <td>{{person.nombre}}</td>
                                     <td>{{person.seccion}}</td>
+                                    <td>{{person.rgeneral}}</td>
                                 </tr>
                                 </tbody>
                                 <tfoot>
@@ -63,10 +74,55 @@
                             </table>
                         </div>
                         </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel panel-info">
+                            <div class="panel-body bg-info">
+                                <h4 class="text-center">Voto Cumplido</h4>
+                                <hr/>
+                                <div class="alert alert-warning
+                            text-center" ng-if="!conteo.simpatizantesVotos.length">
+                                    <p>No hay simpatizantes.</p>
+                                </div>
+                        <span ng-if="conteo.simpatizantesVotos.length">
+                        <h5 class="text-center form-group">
+                            <strong>Votaron Ya:</strong>&nbsp;&nbsp;&nbsp;<strong class="text-info" style="font-size:2rem;">{{conteo.votosTotal}}</strong>
+                        </h5>
+
+                        <div class="table-responsive">
+                            <table st-table="conteo.simpatizantesVotos" class="table table-striped text-center bg-white">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Sección</th>
+                                    <th class="text-center">R. General</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="person in conteo.simpatizantesVotos track by person._id">
+                                    <td>{{person.nombre}}</td>
+                                    <td>{{person.seccion}}</td>
+                                    <td>{{person.rgeneral}}</td>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="2" class="text-center">
+                                        <div st-pagination="" st-items-by-page="10"></div>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<ng-include src="'/views/layouts/footer.html'"></ng-include>
+<ng-include src="'views/layouts/footer.html'"></ng-include>

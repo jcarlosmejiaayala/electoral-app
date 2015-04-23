@@ -1,7 +1,7 @@
 'use strict';
 
 var controller = function ($state, simpatizantes, votante) {
-    this.simpatizantes = _.filter(simpatizantes, {voto:false});
+    this.simpatizantes = simpatizantes;
     this.emitirVoto = function (simpatizante) {
         votante.setVoto(simpatizante._id)
             .then(function () {

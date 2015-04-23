@@ -40,17 +40,20 @@ exports.getPlanilla = function (req, res) {
             return ({rcasilla: req.user._id});
         }
     }[req.user.rol]();
+    if (req.query) {
+        _.extend(sentence, req.query);
+    }
     Usuario.findAsync(sentence, '-salt -hashedPassword -ip -expira -creado -actualizado -status', {}).then(function (users) {
         res.json(200, users);
     });
 };
 
 exports.update = function (req, res) {
-    Usuario.findByIdAsync(req.user._id).then(function(user){
+    Usuario.findByIdAsync(req.user._id).then(function (user) {
         _.extend(user, req.body);
         user.save();
         res.status(200).end();
-    }).catch(function(){
+    }).catch(function () {
         return res.json(404, {message: errors[404]});
     });
 };
