@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function ($scope, $timeout, distritos, usuario, distrito) {
+var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario, distrito) {
     var that = this;
     this.distritos = distritos;
     this.distrito = distritos[0];
@@ -40,7 +40,8 @@ var controller = function ($scope, $timeout, distritos, usuario, distrito) {
         loading: false,
         useHighStocks: false
     };
-
+    this.seeYaVotaron = !!(_.includes(['representante general', 'representante de casilla'], $sessionStorage.rol));
+    this.todasSecciones = !($sessionStorage.rol == 'representante de casilla');
     function getSimpatizantesDistritos() {
         distrito.getVotantesPorSeccion(that.distrito._id, that.seccion._id)
             .then(function (response) {
@@ -63,10 +64,12 @@ var controller = function ($scope, $timeout, distritos, usuario, distrito) {
             distrito.getSecciones(newVal._id)
                 .then(function (response) {
                     that.secciones = response;
-                    that.secciones.unshift({
-                        _id: 'todas',
-                        numero: 'Todas Las Secciones'
-                    });
+                    if (that.todasSecciones) {
+                        that.secciones.unshift({
+                            _id: 'todas',
+                            numero: 'Todas Las Secciones'
+                        });
+                    }
                     that.seccion = that.secciones[0];
                 });
         }
@@ -81,4 +84,4 @@ angular
     .module('electoralApp')
     .controller('conteoController', controller);
 
-controller.$inject = ['$scope', '$timeout', 'distritos', 'usuario', 'distrito'];
+controller.$inject = ['$scope', '$timeout', '$sessionStorage', 'distritos', 'usuario', 'distrito'];

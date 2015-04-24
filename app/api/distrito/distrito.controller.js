@@ -123,14 +123,40 @@ exports.index = function (req, res) {
 };
 
 exports.getSecciones = function (req, res) {
-    Seccion.findAsync({distrito: req.params.id}, 'numero')
+    var sentence = {
+        'candidato': function () {
+            return ({
+                candidato: req.user._id
+            });
+        },
+        'administrador': function () {
+            return ({
+                candidato: req.user.candidato
+            });
+        },
+        'representante general': function () {
+            return ({
+                candidato: req.user.candidato,
+                _id: {$in: req.user.secciones}
+            });
+        },
+        'representante de casilla': function () {
+            return ({
+                candidato: req.user.candidato,
+                _id: req.user.seccion
+            });
+        }
+    }[req.user.rol]();
+    _.extend(sentence, {distrito: req.params.id});
+    Seccion.findAsync(sentence, 'numero')
         .then(function (secciones) {
             if (!secciones.length) {
                 return res.json(403, {message: 'No hay secciobnes'});
             }
             res.json(200, secciones);
         });
-};
+}
+;
 
 exports.getVotantesPorSeccion = function (req, res) {
     var sentence = {
