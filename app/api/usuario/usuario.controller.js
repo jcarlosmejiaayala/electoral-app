@@ -41,11 +41,14 @@ exports.getPlanilla = function (req, res) {
         }
     }[req.user.rol]();
     if (req.query) {
-        _.extend(sentence, req.query);
+        if (req.query.voto) {
+            sentence.voto = JSON.parse(req.query.voto);
+        }
     }
-    Usuario.findAsync(sentence, '-salt -hashedPassword -ip -expira -creado -actualizado -status', {}).then(function (users) {
-        res.json(200, users);
-    });
+    Usuario.findAsync(sentence, '-salt -hashedPassword -ip -expira -creado -actualizado -status', {})
+        .then(function (users) {
+            res.json(200, users);
+        });
 };
 
 exports.update = function (req, res) {

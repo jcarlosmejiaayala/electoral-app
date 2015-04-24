@@ -16,10 +16,10 @@ var controller = function ($state, SweetAlert, usuario) {
         usuario
             .login(this.form)
             .then(function (user) {
-                if (user.perfil != 'representante de casilla') {
+                if (user.perfil.rol != 'representante de casilla') {
                     return $state.go('conteo');
                 }
-                return $state.go('votos');
+                $state.go('votos');
             })
             .catch(function (err) {
                 SweetAlert.swal({
