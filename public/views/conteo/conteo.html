@@ -19,7 +19,7 @@
                         <div class="panel-body bg-primary">
                             <label>Sección</label>
                             <select class="form-control" ng-model="conteo.seccion"
-                                    ng-options="seccion.numero for seccion in ::conteo.secciones track by seccion._id">
+                                    ng-options="seccion.numero for seccion in ::conteo.secciones track by seccion.numero">
                             </select>
                         </div>
                     </div>
@@ -85,6 +85,7 @@
                                 <div class="alert alert-warning
                             text-center" ng-if="!conteo.simpatizantesVotos.length">
                                     <p>No hay simpatizantes.</p>
+
                                 </div>
                         <span ng-if="conteo.simpatizantesVotos.length">
                         <h5 class="text-center form-group">

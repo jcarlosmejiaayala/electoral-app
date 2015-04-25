@@ -117,7 +117,7 @@ exports.index = function (req, res) {
         }
     }[req.user.rol]();
 
-    Distrito.findAsync(sentence, 'numero', {}).then(function (distritos) {
+    Distrito.findAsync(sentence, 'numero', {sort: {numero: 1}}).then(function (distritos) {
         res.json(200, distritos);
     });
 };
@@ -148,7 +148,7 @@ exports.getSecciones = function (req, res) {
         }
     }[req.user.rol]();
     _.extend(sentence, {distrito: req.params.id});
-    Seccion.findAsync(sentence, 'numero')
+    Seccion.findAsync(sentence, 'numero', {sort: {numero: 1}})
         .then(function (secciones) {
             if (!secciones.length) {
                 return res.json(403, {message: 'No hay secciobnes'});
@@ -163,14 +163,30 @@ exports.getVotantesPorSeccion = function (req, res) {
         candidato: (req.user.rol == 'candidato') ? req.user._id : req.user.candidato,
         distrito: req.params.id,
         rol: 'simpatizante'
-    };
+    }, isCandidato = _.includes(['administrador', 'candidato'], req.user.rol);
     if (req.params.seccion != 'todas') {
         _.extend(sentence, {
             seccion: req.params.seccion
         });
     }
-    Promise.all([
-        Simpatizante.findAsync(sentence, 'nombre seccion rgeneral', {}).then(function (simpatizantes) {
+    var Promises = [Simpatizante.findAsync(_.merge(sentence, {voto: false}), 'nombre seccion rgeneral', {}).then(function (simpatizantes) {
+        return Promise.map(simpatizantes, function (simpatizante) {
+            return Promise.all([
+                Seccion.findByIdAsync(simpatizante.seccion, 'numero', {}),
+                Representante.findByIdAsync(simpatizante.rgeneral, 'nombre', {})
+            ]).spread(function (seccion, rgeneral) {
+                return _.extend(simpatizante._doc, {seccion: seccion.numero, rgeneral: rgeneral.nombre});
+            });
+
+        });
+    }), Simpatizante.countAsync(_.extend(sentence, {
+        voto: false
+    })), Simpatizante.countAsync(_.extend(sentence, {
+        voto: true
+    }))];
+
+    if (isCandidato) {
+        Promises.push(Simpatizante.findAsync(_.merge(sentence, {voto: true}), 'nombre seccion rgeneral', {}).then(function (simpatizantes) {
             return Promise.map(simpatizantes, function (simpatizante) {
                 return Promise.all([
                     Seccion.findByIdAsync(simpatizante.seccion, 'numero', {}),
@@ -180,14 +196,19 @@ exports.getVotantesPorSeccion = function (req, res) {
                 });
 
             });
-        }),
-        Simpatizante.countAsync(_.extend(sentence, {
-            voto: false
-        })),
-        Simpatizante.countAsync(_.extend(sentence, {
-            voto: true
-        }))
-    ]).spread(function (simpatizantes, countNoVotos, countVotos) {
-        res.json(200, {countNoVotos: countNoVotos, countVotos: countVotos, simpatizantes: simpatizantes});
+        }));
+    }
+    Promise.all(Promises).spread(function (simpatizantesNoVotos, countNoVotos, countVotos, simpatizantesVotos) {
+        var response = {
+            simpatizantesNoVotos: simpatizantesNoVotos,
+            countNoVotos: countNoVotos,
+            countVotos: countVotos
+        };
+        if (isCandidato) {
+            _.assign(response, {
+                simpatizantesVotos: simpatizantesVotos
+            });
+        }
+        res.json(200, response);
     });
 };

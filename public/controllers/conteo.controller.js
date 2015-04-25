@@ -40,8 +40,8 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
         loading: false,
         useHighStocks: false
     };
-    this.seeYaVotaron = !!(_.includes(['representante general', 'representante de casilla'], $sessionStorage.rol));
-    this.todasSecciones = !($sessionStorage.rol == 'representante de casilla');
+    this.seeYaVotaron = !_.includes(['representante general', 'representante de casilla'], $sessionStorage.perfil.rol);
+    this.todasSecciones = !($sessionStorage.perfil.rol == 'representante de casilla');
     function getSimpatizantesDistritos() {
         distrito.getVotantesPorSeccion(that.distrito._id, that.seccion._id)
             .then(function (response) {
@@ -51,10 +51,12 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                     name: 'Votaciones',
                     data: [['Votaron', response.countVotos], ['Sin votar', response.countNoVotos]]
                 }];
+                that.simpatizantesNoVotos = response.simpatizantesNoVotos;
                 that.noVotosTotal = response.countNoVotos;
-                that.votosTotal = response.countVotos;
-                that.simpatizantesNoVotos = _.filter(response.simpatizantes, {voto: false});
-                that.simpatizantesVotos = _.reject(response.simpatizantes, {voto: false});
+                if (_.includes(['administrador', 'candidato'], $sessionStorage.perfil.rol)) {
+                    that.votosTotal = response.countVotos;
+                    that.simpatizantesVotos = response.simpatizantesVotos;
+                }
                 $timeout(getSimpatizantesDistritos, 30000);
             });
     }
