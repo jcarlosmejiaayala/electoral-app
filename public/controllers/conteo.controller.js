@@ -49,7 +49,7 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                 that.chartConfig.options.title = {text: 'Última actualización: ' + moment().format('hh:mm:ss DD/MM/YYYY')};
                 that.chartConfig.series = [{
                     name: 'Votaciones',
-                    data: [['Votaron', response.countVotos], ['Sin votar', response.countNoVotos]]
+                    data: [['Votaron', response.countVotos], ['Faltan', response.countNoVotos]]
                 }];
                 that.simpatizantesNoVotos = response.simpatizantesNoVotos;
                 that.noVotosTotal = response.countNoVotos;
