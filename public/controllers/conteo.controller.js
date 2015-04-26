@@ -48,7 +48,14 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                 that.graphSinDatos = !!(response.countVotos == 0 && response.countNoVotos == 0);
                 that.chartConfig.options.title = {text: 'Última actualización: ' + moment().format('hh:mm:ss DD/MM/YYYY')};
                 that.chartConfig.series = [{
-                    name: 'Votaciones',
+                    name: 'Total',
+                    point: {
+                        events: {
+                            legendItemClick: function () {
+                                return false;
+                            }
+                        }
+                    },
                     data: [['Votaron', response.countVotos], ['Faltan', response.countNoVotos]]
                 }];
                 that.simpatizantesNoVotos = response.simpatizantesNoVotos;
@@ -60,7 +67,8 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                 $timeout(getSimpatizantesDistritos, 300000);
             });
     }
-    this.checkDiputacion = function(puesto){
+
+    this.checkDiputacion = function (puesto) {
         return /^Dip/.test(puesto);
     };
 
