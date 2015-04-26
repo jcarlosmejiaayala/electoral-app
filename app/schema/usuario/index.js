@@ -68,7 +68,6 @@ usuarioSchema
             rol: this.rol
         };
     });
-
 usuarioSchema
     .virtual('token')
     .get(function () {

@@ -1,6 +1,6 @@
 'use strict';
 
-var factory = function (usuarioResource, candidatoResource, administradorResource, representanteGeneralResource, representanteCasillaResource, simpatizanteResource, $sessionStorage, $http, $q) {
+var factory = function (usuarioResource, candidatoResource, administradorResource, representanteGeneralResource, representanteCasillaResource, simpatizanteResource, $sessionStorage, $http, $q, $rootScope) {
     function get() {
         return usuarioResource.get(function (data) {
             return data;
@@ -11,7 +11,7 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
 
     function createSession(data) {
         if (data.token) {
-            return angular.extend($sessionStorage, {
+            angular.extend($sessionStorage, {
                 token: data.token,
                 perfil: data.perfil
             });
@@ -124,4 +124,4 @@ angular
     .module('electoralApp')
     .factory('usuario', factory);
 
-factory.$inject = ['usuarioResource', 'candidatoResource', 'administradorResource', 'representanteGeneralResource', 'representanteCasillaResource', 'simpatizanteResource', '$sessionStorage', '$http', '$q'];
+factory.$inject = ['usuarioResource', 'candidatoResource', 'administradorResource', 'representanteGeneralResource', 'representanteCasillaResource', 'simpatizanteResource', '$sessionStorage', '$http', '$q', '$rootScope'];

@@ -35,7 +35,7 @@ factory = function ($sessionStorage, $q, $location) {
         responseError: responseError
     });
 };
-run = function ($rootScope, $location, usuario) {
+run = function ($rootScope, $location, $sessionStorage, usuario) {
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {
@@ -45,6 +45,11 @@ run = function ($rootScope, $location, usuario) {
                 $location.path('conteo');
             }
         });
+    });
+    $rootScope.$on('$stateChangeSuccess', function (event, next) {
+        if ($sessionStorage.perfil && !$rootScope.user) {
+            $rootScope.user = $sessionStorage.perfil;
+        }
     });
 };
 estados = ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Distrito Federal", "Nayarit", "Chiapas", "Chihuahua", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Estado De Mexico", "Michoacan", "Morelos", "Nuevo Leon", "Oaxaca", "Puebla", "Queretaro", "Quintana Roo", "San Luis Potosi", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Zacatecas", "Veracruz", "Yucatan"];

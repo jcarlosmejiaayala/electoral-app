@@ -6,6 +6,7 @@ var express = require('express'),
     auth = require('../auth.service'),
     errors = require('../../components/errors'),
     router = express.Router(),
+    _ = require('lodash'),
     Promise = require('bluebird'),
     Usuario = require('../../model/usuario');
 
@@ -21,19 +22,32 @@ router.post('/', function (req, res, next) {
         if (!user) {
             return res.json(401, {message: 'Verifica nuevamente tus credenciales.'});
         }
-        if(!user.status){
+        if (!user.status) {
             return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
         }
 
         if (Date.now() > user.expira) {
-            var idCandidato = (user.rol == 'candidato')? user._id: user.candidato;
-            return Usuario.updateAsync({$or:[{_id: idCandidato }, {candidato: idCandidato}]}, {$set:{status: false}}, {multi: true})
-                .then(function(){
-                   return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
+            var idCandidato = (user.rol == 'candidato') ? user._id : user.candidato;
+            return Usuario.updateAsync({$or: [{_id: idCandidato}, {candidato: idCandidato}]}, {$set: {status: false}}, {multi: true})
+                .then(function () {
+                    return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
                 });
         }
-        token = auth.signToken(user._id);
-        res.json({token: token, perfil: user.perfil});
+        if (user.rol != 'candidato') {
+            return Usuario.findOneAsync({_id: user.candidato, rol: 'candidato'})
+                .then(function (candidato) {
+                    return response(candidato);
+                });
+        }
+        response(user);
+        function response(candidato) {
+            token = auth.signToken(user._id);
+            res.json({token: token, perfil: _.merge(user.perfil, {candidato: {
+                puesto: candidato.candidatura,
+                nombre: candidato.nombre,
+                estado: candidato.estado
+            }})});
+        }
     })(req, res, next);
 });
 

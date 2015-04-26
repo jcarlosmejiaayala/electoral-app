@@ -57,9 +57,12 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                     that.votosTotal = response.countVotos;
                     that.simpatizantesVotos = response.simpatizantesVotos;
                 }
-                $timeout(getSimpatizantesDistritos, 30000);
+                $timeout(getSimpatizantesDistritos, 300000);
             });
     }
+    this.checkDiputacion = function(puesto){
+        return /^Dip/.test(puesto);
+    };
 
     $scope.$watchCollection('conteo.distrito', function (newVal) {
         if (newVal) {

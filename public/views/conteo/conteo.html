@@ -1,7 +1,9 @@
 <ng-include src="'views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid">
     <div class="row margin-bottom-2x">
-        <h1 class="text-center header">Conteo de resultados</h1>
+        <h2 class="text-center header col-xs-12 col-sm-8 col-sm-offset-2">{{user.candidato.nombre}}, Candidato a {{user.candidato.puesto}}, <span
+                ng-if="conteo.checkDiputacion(user.candidato.puesto)">Por el Dístrito {{conteo.distrito.numero}}</span> Del Estado de {{user.candidato.estado}}
+        </h2>
         <hr class="divider"/>
         <div class="col-xs-12">
             <div class="row">
@@ -45,11 +47,13 @@
                                 </div>
                         <span ng-if="conteo.simpatizantesNoVotos.length">
                         <h5 class="text-center form-group">
-                            <strong>Faltan por votar:</strong>&nbsp;&nbsp;&nbsp;<strong class="text-danger" style="font-size:2rem;">{{conteo.noVotosTotal}}</strong>
+                            <strong>Faltan por votar:</strong>&nbsp;&nbsp;&nbsp;<strong class="text-danger"
+                                                                                        style="font-size:2rem;">{{conteo.noVotosTotal}}</strong>
                         </h5>
 
                         <div class="table-responsive">
-                            <table st-table="conteo.simpatizantesNoVotos" class="table table-striped text-center bg-white">
+                            <table st-table="conteo.simpatizantesNoVotos"
+                                   class="table table-striped text-center bg-white">
                                 <thead>
                                 <tr>
                                     <th class="text-center">Nombre</th>
@@ -89,11 +93,13 @@
                                 </div>
                         <span ng-if="conteo.simpatizantesVotos.length">
                         <h5 class="text-center form-group">
-                            <strong>Votaron Ya:</strong>&nbsp;&nbsp;&nbsp;<strong class="text-info" style="font-size:2rem;">{{conteo.votosTotal}}</strong>
+                            <strong>Votaron Ya:</strong>&nbsp;&nbsp;&nbsp;<strong class="text-info"
+                                                                                  style="font-size:2rem;">{{conteo.votosTotal}}</strong>
                         </h5>
 
                         <div class="table-responsive">
-                            <table st-table="conteo.simpatizantesVotos" class="table table-striped text-center bg-white">
+                            <table st-table="conteo.simpatizantesVotos"
+                                   class="table table-striped text-center bg-white">
                                 <thead>
                                 <tr>
                                     <th class="text-center">Nombre</th>
