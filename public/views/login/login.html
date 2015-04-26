@@ -6,8 +6,8 @@
         <div class="col-xs-12 col-sm-4 col-sm-offset-4 vertical-margin-2x">
             <form name="userForm" ng-submit="login.submit(userForm.$valid)" novalidate>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" ng-model="login.form.email" class="form-control" autofocus/>
+                    <label>Usuario</label>
+                    <input type="email" name="email" ng-model="login.form.email" class="form-control" placeholder="tu@correo.com" autofocus/>
 
                     <div ng-messages="userForm.email.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
