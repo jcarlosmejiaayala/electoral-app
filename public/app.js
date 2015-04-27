@@ -46,9 +46,11 @@ run = function ($rootScope, $location, $sessionStorage, usuario) {
             }
         });
     });
-    $rootScope.$on('$stateChangeSuccess', function (event, next) {
-        if ($sessionStorage.perfil && !$rootScope.user) {
-            $rootScope.user = $sessionStorage.perfil;
+    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        if(!_.includes(['logout', 'home'], toState.name)){
+            if ($sessionStorage.perfil) {
+                $rootScope.user = $sessionStorage.perfil;
+            }
         }
     });
 };

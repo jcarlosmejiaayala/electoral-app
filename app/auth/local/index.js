@@ -36,11 +36,11 @@ router.post('/', function (req, res, next) {
         if (user.rol != 'candidato') {
             return Usuario.findOneAsync({_id: user.candidato, rol: 'candidato'})
                 .then(function (candidato) {
-                    return response(candidato);
+                    return response(user, candidato);
                 });
         }
-        response(user);
-        function response(candidato) {
+        response(user, user);
+        function response(user, candidato) {
             token = auth.signToken(user._id);
             res.json({token: token, perfil: _.merge(user.perfil, {candidato: {
                 puesto: candidato.candidatura,
