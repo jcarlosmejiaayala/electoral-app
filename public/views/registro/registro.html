@@ -1,13 +1,14 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid vertical-margin">
     <div class="row">
-        <h1 class="text-center header">Lorem ipsum dolor sit amet</h1>
+        <h1 class="text-center header"><strong>Crea tu cuenta de TrackVot</strong></h1>
         <hr class="divider"/>
         <div class="col-xs-12 col-sm-8 col-sm-offset-2">
             <p class="lead text-left">
-                commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
-                auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla condimentum in est in
-                rutrum. Proin et erat fringilla, dignissim diam sit amet, pharetra nisl. Morbi in risus leo
+                Accede a todos los servicios de <strong>TrackVot</strong> con solo un nombre de usuario y
+                una contraseña. <strong>TrackVot</strong> es la App más potente y precisa diseñada para la
+                gestión de la logística del día “D”. Olvídate de los cortes y del “Bingo”, y
+                concéntrate en lo que más te importa: “Que tu gente salga a votar”.
             </p>
         </div>
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 vertical-margin-2x">
@@ -203,7 +204,8 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <label>Twitter</label>
-                            <input type="text" class="form-control" name="terminos" ng-model="registro.form.redesSociales.twitter"
+                            <input type="text" class="form-control" name="terminos"
+                                   ng-model="registro.form.redesSociales.twitter"
                                    placeholder="Ingrese el vínculo"/>
                         </div>
                     </div>
@@ -216,6 +218,7 @@
                     </div>
                     <label>Acepto los&nbsp;</label><a href ng-click="registro.openTerminos()">Términos y
                     Condiciones.</a>
+
                     <div ng-messages="userForm.terminos.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
