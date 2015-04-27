@@ -96,11 +96,11 @@ function checkUserExists() {
         Usuario.findOneAsync({partido: req.body.partido, candidatura: req.body.candidatura})
             .then(function (user) {
                 if (!user) {
-                    next();
+                    return next();
                 }
-                Distrito.findOneAsync({candidato: user._id}).then(function (distrito) {
+                Distrito.findOneAsync({candidato: user._id, numero: req.body.distrito.numero}).then(function (distrito) {
                     if (!distrito) {
-                        next();
+                        return next();
                     }
                     res.json(403, {message: 'Ya existe otro candidato similar, verifique su información.'});
                 });
