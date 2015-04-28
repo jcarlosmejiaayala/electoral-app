@@ -1,16 +1,27 @@
 'use strict';
 
-var controller = function ($state, simpatizantes, votante) {
+var controller = function ($scope, $state, simpatizantes, votante, SweetAlert) {
+    var that = this;
     this.simpatizantes = simpatizantes;
     this.emitirVoto = function (simpatizante) {
-        votante.setVoto(simpatizante._id)
-            .then(function () {
-                $state.reload();
-            });
+        SweetAlert.swal({
+            title: '¿Desea confirmar el voto de ' + simpatizante.nombre + '?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si'
+        }, function (isConfirm) {
+            if (!isConfirm) {
+                return $scope.$evalAsync(simpatizante.voto = false);
+            }
+            votante.setVoto(simpatizante._id)
+                .then(function () {
+                    $state.reload();
+                });
+        });
     };
 };
 angular
     .module('electoralApp')
     .controller('votosController', controller);
 
-controller.$inject = ['$state', 'simpatizantes', 'votante'];
+controller.$inject = ['$scope', '$state', 'simpatizantes', 'votante', 'SweetAlert'];
