@@ -87,7 +87,11 @@ exports.create = function (req, res) {
             return [user, setDistritosAndSecciones(user._id, distritos)];
         }).spread(function (user) {
             var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
-            res.json(200, {token: token, perfil: user.perfil});
+            res.json(200, {token: token, perfil: _.merge(user.perfil, {candidato: {
+                puesto: user.candidatura,
+                nombre: user.nombre,
+                estado: user.estado
+            }})});
         }).catch(function () {
             return res.json(500, {message: errors[500]});
         });
