@@ -12,6 +12,10 @@
                                 class="fa fa-sort-asc fa-stack-1x"></i><i
                                 class="fa fa-sort-desc fa-stack-1x"></i></span>Nombre
                         </th>
+                        <th st-sort="email" class="text-center"><span class="fa-stack" style="cursor:pointer;"><i
+                                class="fa fa-sort-asc fa-stack-1x"></i><i
+                                class="fa fa-sort-desc fa-stack-1x"></i></span>Email
+                        </th>
                         <th class="text-center">Validar Voto
                         </th>
                     </tr>
@@ -29,9 +33,11 @@
                     <tbody class="text-muted">
                     <tr ng-repeat="simpatizante in voto.simpatizantes">
                         <td>{{simpatizante.nombre}}</td>
+                        <td>{{simpatizante.email}}</td>
                         <td>
                             <div class="checkbox checkbox-primary">
-                                <input type="checkbox" id="simpatizante{{$index}}" ng-model="simpatizante.voto" ng-change="voto.emitirVoto(simpatizante)"/>
+                                <input type="checkbox" id="simpatizante{{$index}}" ng-model="simpatizante.voto"
+                                       ng-change="voto.emitirVoto(simpatizante)"/>
                                 <label for="simpatizante{{$index}}">
                                 </label>
                             </div>
