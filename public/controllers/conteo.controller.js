@@ -64,7 +64,7 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                     that.votosTotal = response.countVotos;
                     that.simpatizantesVotos = response.simpatizantesVotos;
                 }
-                $timeout(getSimpatizantesDistritos, 300000);
+                $timeout(getSimpatizantesDistritos, 5000);
             });
     }
 
