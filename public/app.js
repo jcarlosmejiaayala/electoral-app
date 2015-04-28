@@ -36,6 +36,7 @@ factory = function ($sessionStorage, $q, $location) {
     });
 };
 run = function ($rootScope, $location, $sessionStorage, usuario) {
+    $rootScope._ = _;
     $rootScope.$on('$stateChangeStart', function (event, next) {
         usuario.isLoggin(function (loggedIn) {
             if (next.authenticate && !loggedIn) {

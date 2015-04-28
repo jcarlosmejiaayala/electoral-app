@@ -1,21 +1,16 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid vertical-margin">
     <div class="row">
-        <h1 class="text-center header">Registro del nuevo simpatizante</h1>
+        <h2 class="text-center header" ng-if="!_.includes(['representante general', 'representante de casilla'], simpatizante.user.me.rol)">Registro del nuevo simpatizante</h2>
+        <h2 class="text-center header" ng-if="simpatizante.user.me.rol == 'representante general'">Registro de Representantes Generales</h2>
+        <h2 class="text-center header" ng-if="simpatizante.user.me.rol == 'representante de casilla'">Registro de Representantes de Casilla</h2>
         <hr class="divider"/>
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-            <p class="lead text-left">
-                commodo magna sed mauris luctus sagittis. Nullam vel nisi et orci vehicula interdum. Nulla commodo nunc
-                auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla condimentum in est in
-                rutrum. Proin et erat fringilla, dignissim diam sit amet, pharetra nisl. Morbi in risus leo
-            </p>
-        </div>
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 vertical-margin-2x">
             <form name="userForm" ng-submit="simpatizante.submit(userForm.$valid)" novalidate>
                 <div class="form-group">
                     <label>Nombre</label>
                     <input type="text" name="nombre" ng-model="simpatizante.form.nombre" class="form-control"
-                           placeholder="Ingrese nombre completo" required/>
+                           placeholder="Ingrese nombre completo" required autofocus/>
 
                     <div ng-messages="userForm.nombre.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
