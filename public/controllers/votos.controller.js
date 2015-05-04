@@ -1,7 +1,6 @@
 'use strict';
 
 var controller = function ($scope, $state, simpatizantes, votante, SweetAlert) {
-    var that = this;
     this.simpatizantes = simpatizantes;
     this.emitirVoto = function (simpatizante) {
         SweetAlert.swal({

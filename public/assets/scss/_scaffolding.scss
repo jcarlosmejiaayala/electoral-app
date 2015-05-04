@@ -39,12 +39,15 @@ label, p {
 .color-text-ligthblack {
   color: $color-ligthblack;
 }
-.color-text-seagreen{
+
+.color-text-seagreen {
   color: $color-seagreen;
 }
-.bg-white{
+
+.bg-white {
   background-color: $color-white;
 }
+
 %button {
   background: transparent;
   transition: all 0.5s;
@@ -81,7 +84,8 @@ label, p {
     color: $color-white;
   }
 }
-.button-link{
+
+.button-link {
   @extend %button;
   text-decoration: underline;
   color: $color-white;
@@ -122,5 +126,38 @@ a.button, a.button-info {
   &:hover {
     cursor: pointer;
     color: $color-ligthblack;
+  }
+}
+
+.panel-tools {
+  border-bottom: 1px solid $color-ligthgray;
+  position:relative;
+  min-height: 40px;
+  ul {
+    list-style: none;
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    li {
+      float: left;
+    }
+  }
+  .tools-actions {
+    height: 40px;
+    width: 40px;
+    padding: 10px 5px;
+    border-left: 1px solid $color-ligthgray;
+    cursor: pointer;
+    &:hover, &:active{
+      background-color: lighten($color-ligthgray, 5%);
+    }
+    &:hover .fa-plus, &:active .fa-plus{
+      color: $color-blue-info;
+    }
+    &:hover .fa-remove, &:active .fa-remove{
+      color: $color-red;
+    }
   }
 }

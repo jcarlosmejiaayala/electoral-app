@@ -1,18 +1,12 @@
 'use strict';
 
-var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, casilla, pubsub, ESTADOS, PARTIDOS, CANDIDATURAS) {
+var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario, ESTADOS, PARTIDOS, CANDIDATURAS) {
     var that = this;
     this.form = {};
     angular.extend(this, {
         partidos: PARTIDOS,
         candidaturas: CANDIDATURAS,
         estados: ESTADOS,
-        sentenceCasilla: '',
-        availableSecciones: false,
-        pagination: {
-            limit: 50
-        },
-        loadDetalles: false,
         checkTerminos: true
     });
     angular.extend(this.form, {
@@ -25,26 +19,15 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         estado: that.estados[0],
         municipio: '',
         email: '',
-        distrito: {
-            secciones: {}
-        }
+        distritos: [{
+            secciones: [{}]
+        }]
     });
 
     this.changeCandidatura = function () {
-        this.sentenceCasilla = {
-            'Diputacion': function () {
-                return ({distrito: that.form.distrito.numero});
-            },
-            'Alcaldia': function () {
-                return ({estado: that.form.estado, municipio: that.form.municipio});
-            },
-            'Gubernatura': function () {
-                return ({estado: that.form.estado});
-            },
-            'Presidencia Nacional': function () {
-                return ({});
-            }
-        }[(!!/^Diputación/.test(this.form.candidatura)) ? 'Diputacion' : that.form.candidatura]();
+        this.form.distritos = [{
+            secciones: [{}]
+        }];
     };
 
     this.checkIsEqualsThesePasswords = function () {
@@ -54,33 +37,6 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         $modal.open({
             templateUrl: 'terminos.html'
         });
-    };
-    this.detalles = function () {
-        that.loadDetalles = true;
-        casilla.get(_.merge({selects: that.sentenceCasilla}, {filters: that.pagination}))
-            .then(function (response) {
-                $modal.open({
-                    templateUrl: 'views/partials/casilla/detalles.html',
-                    controller: 'casillaDetalles as detalle',
-                    resolve: {
-                        casillas: function () {
-                            return (response);
-                        },
-                        pagination: function () {
-                            return (_.cloneDeep(that.pagination));
-                        },
-                        selects: function () {
-                            return (that.sentenceCasilla);
-                        }
-                    }
-                });
-            }).catch(function (err) {
-                return SweetAlert
-                    .swal({
-                        title: err,
-                        type: 'warning'
-                    });
-            });
     };
     this.submit = function (isValid) {
         if (!isValid) {
@@ -98,6 +54,8 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         if (_.contains(['Presidencia Nacional', 'Gubernatura', 'Diputación Federal', 'Diputación Local'], this.form.candidatura)) {
             delete this.form.municipio;
         }
+        debugger;
+        return;
         usuario
             .save(this.form)
             .then(function () {
@@ -118,9 +76,6 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
                     });
             });
     };
-    pubsub.subscribe('modal:close', function () {
-        that.loadDetalles = false;
-    });
     $scope.$watchCollection('registro.form.estado', function (_new) {
         estados
             .get({nombre: _new})
@@ -142,4 +97,4 @@ angular
     .module('electoralApp')
     .controller('registroController', controller);
 
-controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'usuario', 'casilla', 'pubsub', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];
+controller.$inject = ['$scope', '$state', '$modal', 'estados', 'SweetAlert', 'usuario', 'ESTADOS', 'PARTIDOS', 'CANDIDATURAS'];

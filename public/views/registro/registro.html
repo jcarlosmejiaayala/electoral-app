@@ -78,10 +78,6 @@
                 <div class="form-group panel panel-default">
                     <div class="panel-body">
                         <div class="col-xs-12">
-                            <label class="margin-bottom">En <i class="text-primary">Ver secciones</i> podra ver
-                                información a detalle de los
-                                distritos y secciones.</label>
-
                             <div class="form-group">
                                 <label>Tipo</label>
                                 <select ng-model="registro.form.candidatura" class="form-control"
@@ -89,81 +85,106 @@
                                         ng-change="registro.changeCandidatura()"></select>
                             </div>
                             <div class="row form-group">
-                                <div class="col-xs-12 col-sm-6">
+                                <div class="col-xs-12 col-sm-6" ng-show="!_.includes(['Presidencia Nacional'], registro.form.candidatura);">
                                     <label>Estado</label>
                                     <select ng-model="registro.form.estado" class="form-control"
-                                            ng-options="estado for estado in ::registro.estados"
-                                            ng-disabled="['Presidencia Nacional'].indexOf(registro.form.candidatura) > -1"></select>
+                                            ng-options="estado for estado in ::registro.estados"></select>
                                 </div>
-                                <div class="col-xs-12 col-sm-6">
+                                <div class="col-xs-12 col-sm-6" ng-show="!_.includes(['Presidencia Nacional','Gubernatura', 'Diputación Federal', 'Diputación Local'], registro.form.candidatura);">
                                     <label>Municipio</label>
                                     <select ng-model="registro.form.municipio" class="form-control"
-                                            ng-options="municipio.nombre as municipio.nombre for municipio in ::registro.municipios"
-                                            ng-change="registro.changeCandidatura()"
-                                            ng-disabled="['Presidencia Nacional','Gubernatura', 'Diputación Federal', 'Diputación Local'].indexOf(registro.form.candidatura) > -1"></select>
+                                            ng-options="municipio.nombre as municipio.nombre for municipio in ::registro.municipios"></select>
                                 </div>
                             </div>
-                            <div ng-if="['Diputación Local', 'Diputación Federal'].indexOf(registro.form.candidatura) > -1">
-                                <label class="form-group">Ingresa el distrito y su rango de secciones que lo
-                                    integran.</label>
-
-                                <div class="row form-group">
-                                    <div class="col-xs-4">
+                            <div class="panel panel-default form-group"
+                                 ng-repeat="distrito in registro.form.distritos track by $index">
+                                <div class="panel-tools">
+                                    <div class="panel-title" style="padding-top:10px;padding-left: 10px;">
+                                        <strong>Distrito {{distrito.numero}}</strong>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <div class="tools-actions text-center" tooltip="Agregar Distrito"
+                                                 tooltip-trigger="mouseenter"
+                                                 ng-click="$event.preventDefault(); registro.form.distritos.push({secciones:[{}]});"
+                                                 ng-show="!_.includes(['Diputación Local', 'Diputación Federal'],registro.form.candidatura);">
+                                                <i class="fa fa-plus fa-lg"></i>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="tools-actions text-center" tooltip="Remover Distrito"
+                                                 tooltip-trigger="mouseenter"
+                                                 ng-click="$event.preventDefault(); registro.form.distritos = _.without(registro.form.distritos, distrito);"
+                                                 ng-show="registro.form.distritos.length > 1 && !_.includes(['Diputación Local', 'Diputación Federal'],registro.form.candidatura);">
+                                                <i class="fa fa-remove fa-lg"></i>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-xs-12 col-sm-4 col-sm-offset-4">
                                         <label>Distrito</label>
-                                        <input type="text" name="distrito" ng-model="registro.form.distrito.numero"
-                                               class="form-control" placeholder="0" required ng-pattern="/^\d{1,3}$/"
-                                               ng-change="registro.changeCandidatura()"/>
-
-                                        <div ng-messages="userForm.distrito.$error"
-                                             ng-messages-include="views/partials/errors/errors.html"></div>
+                                        <input ng-model="distrito.numero" class="form-control"
+                                               placeholder="Ingresa un distrito"/>
                                     </div>
-                                    <div class="col-xs-4">
-                                        <label>Inicial</label>
-                                        <input type="text" class="form-control" name="seccionesmin"
-                                               ng-model="registro.form.distrito.secciones.min"
-                                               ng-disabled="!registro.form.distrito.numero"
-                                               ng-pattern="/^\d{1,4}$/" placeholder="0" required/>
-
-                                        <div ng-messages="userForm.seccionesmin.$error"
-                                             ng-messages-include="views/partials/errors/errors.html"></div>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <label>Final</label>
-                                        <input type="text" class="form-control" name="seccionesmax"
-                                               ng-model="registro.form.distrito.secciones.max"
-                                               ng-disabled="!registro.form.distrito.numero"
-                                               ng-pattern="/^\d{1,4}$/" placeholder="1000"
-                                               ui-validate="{distinctMinValue: '$value > registro.form.distrito.secciones.min'}"
-                                               ui-validate-watch="'registro.form.distrito.secciones.min'" required/>
-
-                                        <div ng-messages="userForm.seccionesmax.$error"
-                                             ng-messages-include="views/partials/errors/errors.html"></div>
-
-                                    </div>
-                                </div>
-                                <div class="row form-group">
                                     <div class="col-xs-12">
-                                        <small class="text-muted">Para ofrecerte un mejor control, usted tendra que
-                                            eligir su distrito y sus secciones.
-                                        </small>
+                                        <label>Secciones</label>
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table-condensed" style="width:100%;">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-center">Inicial</th>
+                                                            <th class="text-center">Final</th>
+                                                            <th class="text-center">Agregar</th>
+                                                            <th class="text-center">Eliminar</th>
+                                                            <th class="text-center">Total</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="seccion in distrito.secciones track by $index">
+                                                            <td class="text-center">
+                                                                <input class="form-control" ng-model="seccion.inicial"
+                                                                       ng-pattern="/^\d{1,4}$/" required/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <input class="form-control" name="final-{{$index}}"
+                                                                       ng-model="seccion.final" ng-pattern="/^\d{1,4}$/"
+                                                                       ui-validate="{distinctMinValue: '$value > seccion.inicial'}"
+                                                                       ui-validate-watch="'seccion.inicial'" required/>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <button class="btn btn-primary"
+                                                                        ng-click="$event.preventDefault(); distrito.secciones.push({});">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <button class="btn btn-danger"
+                                                                        ng-click="$event.preventDefault(); distrito.secciones = _.without(distrito.secciones, seccion)"
+                                                                        ng-disabled="distrito.secciones.length <= 1">
+                                                                    <i class="fa fa-remove"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <strong>{{(!!(seccion.final - seccion.inicial) ||
+                                                                    (seccion.final >=
+                                                                    seccion.inicial))? ((seccion.final -
+                                                                    seccion.inicial) + 1) :
+                                                                    0}}</strong>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row vertical-margin-2x">
-                                <div class="col-sm-1 col-sm-offset-3 text-right" ng-show="registro.loadDetalles">
-                                    <i class="fa fa-refresh fa-spin fa-2x"></i>
-                                </div>
-                                <div class="col-xs-12 col-sm-4"
-                                     ng-class="(!registro.loadDetalles)? 'col-sm-offset-4': ''">
-                                    <button type="button" class="button-info btn-block" ng-click="registro.detalles()">
-                                        Ver seciones
-                                    </button>
-                                </div>
-                            </div>
-                            <small class="text-muted">Algunos campos pueden estar deshabilitados y no se tomaran en
-                                cuenta para la busqueda de las casillas. <br/>
-                            </small>
                         </div>
                     </div>
                 </div>

@@ -93,18 +93,28 @@ function signToken(id) {
 
 function checkUserExists() {
     return compose().use(function (req, res, next) {
-        Usuario.findOneAsync({partido: req.body.partido, candidatura: req.body.candidatura})
-            .then(function (user) {
-                if (!user) {
-                    return next();
-                }
-                Distrito.findOneAsync({candidato: user._id, numero: req.body.distrito.numero}).then(function (distrito) {
-                    if (!distrito) {
+        Usuario.findOneAsync({
+            partido: req.body.partido,
+            candidatura: req.body.candidatura,
+            estado: req.body.estado,
+            municipio: req.body.municipio
+        }).then(function (user) {
+            if (!user) {
+                return next();
+            }
+            if (/^Dip/.test(req.body.candidatura)) {
+                return Distrito.findOneAsync({
+                    candidato: user._id,
+                    numero: req.body.distritos[0].numero
+                }).then(function (dist) {
+                    if (!dist) {
                         return next();
                     }
                     res.json(403, {message: 'Ya existe otro candidato similar, verifique su información.'});
                 });
-            });
+            }
+            res.json(403, {message: 'Ya existe otro candidato similar, verifique su información.'});
+        });
     });
 }
 exports.isAuthenticated = isAuthenticated;

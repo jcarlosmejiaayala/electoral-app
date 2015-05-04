@@ -110,6 +110,32 @@ a.button, a.button-info {
     cursor: pointer;
     color: #2a2a2a; }
 
+.panel-tools {
+  border-bottom: 1px solid #dedede;
+  position: relative;
+  min-height: 40px; }
+  .panel-tools ul {
+    list-style: none;
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0; }
+    .panel-tools ul li {
+      float: left; }
+  .panel-tools .tools-actions {
+    height: 40px;
+    width: 40px;
+    padding: 10px 5px;
+    border-left: 1px solid #dedede;
+    cursor: pointer; }
+    .panel-tools .tools-actions:hover, .panel-tools .tools-actions:active {
+      background-color: #ebebeb; }
+    .panel-tools .tools-actions:hover .fa-plus, .panel-tools .tools-actions:active .fa-plus {
+      color: #5bc0de; }
+    .panel-tools .tools-actions:hover .fa-remove, .panel-tools .tools-actions:active .fa-remove {
+      color: #CB0000; }
+
 .home {
   color: #2a2a2a;
   margin-top: -18px; }

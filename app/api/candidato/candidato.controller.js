@@ -17,34 +17,10 @@ Promise.promisifyAll(Seccion);
 
 function getSecciones(candidato) {
     return new Promise(function (resolve) {
-        if (!candidato.distrito) {
-            var ubicacion = {};
-            if (candidato.estado) {
-                ubicacion.estado = candidato.estado;
-            }
-            if (candidato.municipio) {
-                ubicacion.municipio = candidato.municipio;
-            }
-            Casilla.aggregateAsync([
-                {$match: ubicacion},
-                {$group: {_id: '$distrito', secciones: {$addToSet: '$seccion'}}}
-            ]).then(function (data) {
-                resolve(_.transform(data, function (result, object) {
-                    return result.push({
-                        numero: object._id,
-                        secciones: _(object.secciones).chain().transform(function (result, item) {
-                            return result.push(item);
-                        }).sortBy().value()
-                    });
-                }));
-            });
-        }
-        else {
-            resolve([{
-                numero: candidato.distrito.numero,
-                secciones: _.range(candidato.distrito.secciones.min, _.parseInt(candidato.distrito.secciones.max) + 1)
-            }]);
-        }
+        resolve([{
+            numero: candidato.distrito.numero,
+            secciones: _.range(candidato.distrito.secciones.min, _.parseInt(candidato.distrito.secciones.max) + 1)
+        }]);
     });
 }
 
@@ -64,6 +40,11 @@ function setCandidato(request) {
 }
 
 function setDistritosAndSecciones(idUser, distritos) {
+    _.forEach(distritos, function (distrito) {
+        distrito.secciones = _(distrito.secciones).chain().map(function (seccion) {
+            return _.range(seccion.inicial, _.parseInt(seccion.final) + 1);
+        }).flatten().value();
+    });
     var mapDistritos = _.map(distritos, function (distrito) {
         return Distrito.createAsync({
             numero: distrito.numero,
@@ -82,17 +63,20 @@ function setDistritosAndSecciones(idUser, distritos) {
 }
 
 exports.create = function (req, res) {
-    Promise.all([setCandidato(req), getSecciones(req.body)])
-        .spread(function (user, distritos) {
-            return [user, setDistritosAndSecciones(user._id, distritos)];
-        }).spread(function (user) {
-            var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
-            res.json(200, {token: token, perfil: _.merge(user.perfil, {candidato: {
-                puesto: user.candidatura,
-                nombre: user.nombre,
-                estado: user.estado
-            }})});
-        }).catch(function () {
-            return res.json(500, {message: errors[500]});
+    setCandidato(req).then(function (user) {
+        return [user, setDistritosAndSecciones(user._id, req.body.distritos)]
+    }).spread(function (user) {
+        var token = jwt.sign({_id: user._id}, config.secrets.session, {expiresInMinutes: 60 * 5});
+        res.json(200, {
+            token: token, perfil: _.merge(user.perfil, {
+                candidato: {
+                    puesto: user.candidatura,
+                    nombre: user.nombre,
+                    estado: user.estado
+                }
+            })
         });
+    }).catch(function () {
+        return res.json(500, {message: errors[500]});
+    });
 };
