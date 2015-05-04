@@ -54,8 +54,6 @@ var controller = function ($scope, $state, $modal, estados, SweetAlert, usuario,
         if (_.contains(['Presidencia Nacional', 'Gubernatura', 'Diputación Federal', 'Diputación Local'], this.form.candidatura)) {
             delete this.form.municipio;
         }
-        debugger;
-        return;
         usuario
             .save(this.form)
             .then(function () {
