@@ -39,6 +39,22 @@
                     <div ng-messages="userForm.confirmPassword.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com"
+                           class="form-control" required/>
+
+                    <div ng-messages="userForm.email.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
+                </div>
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" name="direccion" class="form-control" ng-model="registro.form.direccion"
+                           placeholder="Ingrese dirección completa" required/>
+
+                    <div ng-messages="userForm.direccion.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
+                </div>
                 <label class="control-label">Partido de pertenencia</label>
 
                 <div class="form-group panel panel-default">
@@ -56,22 +72,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com"
-                           class="form-control" required/>
-
-                    <div ng-messages="userForm.email.$error"
-                         ng-messages-include="views/partials/errors/errors.html"></div>
-                </div>
-                <div class="form-group">
-                    <label>Dirección</label>
-                    <input type="text" name="direccion" class="form-control" ng-model="registro.form.direccion"
-                           placeholder="Ingrese dirección completa" required/>
-
-                    <div ng-messages="userForm.direccion.$error"
-                         ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <label class="control-label">Detalles de la candidatura</label>
 
