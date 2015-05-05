@@ -147,13 +147,13 @@
                                                         <tr ng-repeat="seccion in distrito.secciones track by $index">
                                                             <td class="text-center">
                                                                 <input class="form-control" ng-model="seccion.inicial"
-                                                                       ng-pattern="/^\d{1,4}$/" required/>
+                                                                       ng-pattern="/^\d{1,4}$/" placeholder="Ingrese la sección inicial" required/>
                                                             </td>
                                                             <td class="text-center">
                                                                 <input class="form-control" name="final-{{$index}}"
                                                                        ng-model="seccion.final" ng-pattern="/^\d{1,4}$/"
                                                                        ui-validate="{distinctMinValue: '$value > seccion.inicial'}"
-                                                                       ui-validate-watch="'seccion.inicial'" required/>
+                                                                       ui-validate-watch="'seccion.inicial'" placeholder="Ingrese la sección final" required/>
                                                             </td>
                                                             <td class="text-center">
                                                                 <button class="btn btn-primary"
