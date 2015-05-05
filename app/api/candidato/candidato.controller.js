@@ -43,7 +43,7 @@ function setDistritosAndSecciones(idUser, distritos) {
     _.forEach(distritos, function (distrito) {
         distrito.secciones = _(distrito.secciones).chain().map(function (seccion) {
             return _.range(seccion.inicial, _.parseInt(seccion.final) + 1);
-        }).union().value();
+        }).union().flatten().value();
     });
     var mapDistritos = _.map(distritos, function (distrito) {
         return Distrito.createAsync({
