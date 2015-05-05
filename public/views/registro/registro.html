@@ -22,6 +22,14 @@
                          ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com"
+                           class="form-control" required/>
+
+                    <div ng-messages="userForm.email.$error"
+                         ng-messages-include="views/partials/errors/errors.html"></div>
+                </div>
+                <div class="form-group">
                     <label>Contraseña</label>
                     <input type="password" name="password" ng-model="registro.form.password" class="form-control"
                            required/>
@@ -37,14 +45,6 @@
                            ui-validate-watch="'registro.form.password'"/>
 
                     <div ng-messages="userForm.confirmPassword.$error"
-                         ng-messages-include="views/partials/errors/errors.html"></div>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" ng-model="registro.form.email" placeholder="tu@correo.com"
-                           class="form-control" required/>
-
-                    <div ng-messages="userForm.email.$error"
                          ng-messages-include="views/partials/errors/errors.html"></div>
                 </div>
                 <div class="form-group">
@@ -85,12 +85,14 @@
                                         ng-change="registro.changeCandidatura()"></select>
                             </div>
                             <div class="row form-group">
-                                <div class="col-xs-12 col-sm-6" ng-show="!_.includes(['Presidencia Nacional'], registro.form.candidatura);">
+                                <div class="col-xs-12 col-sm-6"
+                                     ng-show="!_.includes(['Presidencia Nacional'], registro.form.candidatura);">
                                     <label>Estado</label>
                                     <select ng-model="registro.form.estado" class="form-control"
                                             ng-options="estado for estado in ::registro.estados"></select>
                                 </div>
-                                <div class="col-xs-12 col-sm-6" ng-show="!_.includes(['Presidencia Nacional','Gubernatura', 'Diputación Federal', 'Diputación Local'], registro.form.candidatura);">
+                                <div class="col-xs-12 col-sm-6"
+                                     ng-show="!_.includes(['Presidencia Nacional','Gubernatura', 'Diputación Federal', 'Diputación Local'], registro.form.candidatura);">
                                     <label>Municipio</label>
                                     <select ng-model="registro.form.municipio" class="form-control"
                                             ng-options="municipio.nombre as municipio.nombre for municipio in ::registro.municipios"></select>
@@ -147,13 +149,16 @@
                                                         <tr ng-repeat="seccion in distrito.secciones track by $index">
                                                             <td class="text-center">
                                                                 <input class="form-control" ng-model="seccion.inicial"
-                                                                       ng-pattern="/^\d{1,4}$/" placeholder="Ingrese la sección inicial" required/>
+                                                                       ng-pattern="/^\d{1,4}$/"
+                                                                       placeholder="Ingrese la sección inicial"
+                                                                       required/>
                                                             </td>
                                                             <td class="text-center">
                                                                 <input class="form-control" name="final-{{$index}}"
                                                                        ng-model="seccion.final" ng-pattern="/^\d{1,4}$/"
                                                                        ui-validate="{distinctMinValue: '$value > seccion.inicial'}"
-                                                                       ui-validate-watch="'seccion.inicial'" placeholder="Ingrese la sección final" required/>
+                                                                       ui-validate-watch="'seccion.inicial'"
+                                                                       placeholder="Ingrese la sección final" required/>
                                                             </td>
                                                             <td class="text-center">
                                                                 <button class="btn btn-primary"
