@@ -1,6 +1,6 @@
 'use strict';
 
-var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
+var controller = function ($state, user, usuario, SweetAlert) {
     var that = this;
     that.user = user;
     this.form = {};
@@ -36,11 +36,11 @@ var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
         }
     }[this.user.me.rol]();
 
-    if(this.user.me.rol == 'representante de casilla'){
-        this.form.rgeneral =  this.user.me.rgeneral;
+    if (this.user.me.rol == 'representante de casilla') {
+        this.form.rgeneral = this.user.me.rgeneral;
         this.form.rcasilla = this.user.me._id;
-        this.form.distrito =  this.user.me.distrito;
-        this.form.seccion =  this.user.me.seccion;
+        this.form.distrito = this.user.me.distrito;
+        this.form.seccion = this.user.me.seccion;
     }
 
     this.submit = function (isValid) {
@@ -50,7 +50,26 @@ var controller = function ($scope, $modal, $state, user, usuario, SweetAlert) {
                 type: 'warning'
             });
         }
-
+        if (this.form.rol == 'representante general') {
+            this.form.distSecciones.secciones = _.uniq(_(this.form.seccionesIntervals).chain().map(function (interval) {
+                if (interval.inicial > interval.final) {
+                    var tmp = interval.inicial;
+                    interval.inicial = interval.final;
+                    interval.final = tmp;
+                }
+                return _(that.form.secciones).chain().filter(function (seccion) {
+                    if (seccion.numero >= interval.inicial.numero && seccion.numero <= interval.final.numero) {
+                        return (seccion._id);
+                    }
+                }).pluck('_id').value();
+            }).union().flatten().value());
+        }
+        if (this.form.secciones) {
+            delete this.form.secciones;
+        }
+        if (this.form.seccionesIntervals) {
+            delete this.form.seccionesIntervals;
+        }
         usuario
             .save(this.form)
             .then(function () {
@@ -75,4 +94,4 @@ angular
     .module('electoralApp')
     .controller('simpatizantesNuevoController', controller);
 
-controller.$inject = ['$scope', '$modal', '$state', 'user', 'usuario', 'SweetAlert'];
+controller.$inject = ['$state', 'user', 'usuario', 'SweetAlert'];

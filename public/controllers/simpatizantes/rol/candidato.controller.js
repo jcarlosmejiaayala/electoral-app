@@ -19,7 +19,7 @@ var controller = function ($scope) {
     this.getSecciones = getSecciones;
 
     function setSecciones() {
-        that.secciones = _(that.user.distSecciones).chain().map(function (object) {
+        that.form.secciones = _(that.user.distSecciones).chain().map(function (object) {
             if (object.distrito.numero == that.distrito.numero) {
                 return object.secciones;
             }
@@ -30,15 +30,12 @@ var controller = function ($scope) {
         if (that.user.distSecciones.length) {
             that.form.distSecciones.distrito = that.distrito._id;
             setSecciones();
-            that.interval = {
-                seccionesMin: that.secciones[0],
-                seccionesMax: that.secciones[that.secciones.length - 1]
-            };
         }
     }
 
     function getRepresentante() {
         angular.extend(that.form, {
+            seccionesIntervals: [{}],
             distSecciones: {}
         });
         getSecciones();
@@ -51,6 +48,8 @@ var controller = function ($scope) {
         else {
             if (that.form.distSecciones) {
                 delete that.form.distSecciones;
+                delete that.form.seccionesIntervals;
+                delete that.form.secciones;
             }
         }
     };
@@ -68,15 +67,6 @@ var controller = function ($scope) {
         that.seccion = that.secciones[0];
         that.changeSeccion();
     }
-    $scope.$watchCollection('candidato.interval', function (_new) {
-        if (_new && _new.seccionesMax.numero >= _new.seccionesMin.numero) {
-            that.form.distSecciones.secciones = _(that.secciones).chain().map(function (object) {
-                if (object.numero >= _new.seccionesMin.numero && object.numero <= _new.seccionesMax.numero) {
-                    return (object._id);
-                }
-            }).compact().value();
-        }
-    });
 };
 
 

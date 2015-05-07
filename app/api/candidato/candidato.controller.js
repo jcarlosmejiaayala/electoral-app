@@ -42,7 +42,7 @@ function setCandidato(request) {
 function setDistritosAndSecciones(idUser, distritos) {
     _.forEach(distritos, function (distrito) {
         distrito.secciones = _(distrito.secciones).chain().map(function (seccion) {
-            return _.range(seccion.inicial, _.parseInt(seccion.final) + 1);
+            return (seccion.inicial == seccion.final) ? _.range(seccion.inicial, _.parseInt(seccion.final) + 1) : [_.parseInt(seccion.inicial)];
         }).union().flatten().value();
     });
     var mapDistritos = _.map(distritos, function (distrito) {

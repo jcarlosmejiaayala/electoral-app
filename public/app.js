@@ -58,7 +58,7 @@ run = function ($rootScope, $location, $sessionStorage, usuario) {
 estados = ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Coahuila", "Colima", "Distrito Federal", "Nayarit", "Chiapas", "Chihuahua", "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Estado De Mexico", "Michoacan", "Morelos", "Nuevo Leon", "Oaxaca", "Puebla", "Queretaro", "Quintana Roo", "San Luis Potosi", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Zacatecas", "Veracruz", "Yucatan"];
 partidos = ['pri', 'pan', 'prd', 'pt', 'morena', 'ind', 'pve', 'mc', 'panal'];
 candidaturas = ['Alcaldia', 'Diputación Local', 'Diputación Federal', 'Gubernatura', 'Presidencia Nacional'];
-roles = ['simpatizante', 'representante de casilla', 'representante general', 'adminisitrador', 'candidato', 'root'];
+roles = ['simpatizante', 'representante de casilla', 'representante general', 'administrador', 'candidato', 'root'];
 
 angular
     .module('electoralApp', [

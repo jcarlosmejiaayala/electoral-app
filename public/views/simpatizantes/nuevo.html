@@ -1,9 +1,16 @@
 <ng-include src="'/views/layouts/navbar.html'" ng-controller="navbarController as navbar"></ng-include>
 <div class="container-fluid vertical-margin">
     <div class="row">
-        <h2 class="text-center header" ng-if="!_.includes(['representante general', 'representante de casilla'], simpatizante.user.me.rol)">Registro del nuevo simpatizante</h2>
-        <h2 class="text-center header" ng-if="simpatizante.user.me.rol == 'representante general'">Registro de Representantes Generales</h2>
-        <h2 class="text-center header" ng-if="simpatizante.user.me.rol == 'representante de casilla'">Registro de Representantes de Casilla</h2>
+        <h2 class="text-center header"
+            ng-if="!_.includes(['representante general', 'representante de casilla'], simpatizante.user.me.rol)">
+            <span ng-if="simpatizante.form.rol == 'representante general'">Registro para Nuevo Representante General</span>
+            <span ng-if="simpatizante.form.rol == 'administrador'">Registro para nuevo Administrador</span></h2>
+
+        <h2 class="text-center header" ng-if="simpatizante.user.me.rol == 'representante general'">Registro para nuevo
+            Representante de Casilla</h2>
+
+        <h2 class="text-center header" ng-if="simpatizante.user.me.rol == 'representante de casilla'">Registro para
+            nuevo Simpatizante</h2>
         <hr class="divider"/>
         <div class="col-xs-12 col-sm-6 col-sm-offset-3 vertical-margin-2x">
             <form name="userForm" ng-submit="simpatizante.submit(userForm.$valid)" novalidate>
@@ -91,17 +98,6 @@
                     <div class="col-xs-12 col-sm-4 col-sm-offset-4">
                         <button type="submit" class="button btn-block">Enviar</button>
                     </div>
-                </div>
-                <div class="form-group">
-                    <small class="text-muted">
-                        commodo magna sed mauris luctus sagittis. <span
-                            class="text-danger">Nullam vel nisi</span> et
-                        orci vehicula interdum. Nulla
-                        commodo nunc
-                        auctor nibh consequat sollicitudin. Etiam euismod porta magna sed efficitur. Nulla
-                        condimentum
-                        in est in
-                    </small>
                 </div>
             </form>
         </div>
