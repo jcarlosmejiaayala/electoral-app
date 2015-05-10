@@ -1,7 +1,8 @@
 'use strict';
 
 var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario, distrito) {
-    var that = this;
+    var that = this,
+        timer;
     this.distritos = distritos;
     this.distrito = distritos[0];
     this.chartConfig = {
@@ -64,7 +65,7 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
                     that.votosTotal = response.countVotos;
                     that.simpatizantesVotos = response.simpatizantesVotos;
                 }
-                $timeout(getSimpatizantesDistritos, 5000);
+                timer = $timeout(getSimpatizantesDistritos, 5000);
             });
     }
 
@@ -91,6 +92,10 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
         if (newVal) {
             getSimpatizantesDistritos();
         }
+    });
+
+    $scope.$on('$destroy', function () {
+        $timeout.cancel(timer);
     });
 };
 angular
