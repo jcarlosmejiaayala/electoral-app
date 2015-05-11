@@ -130,60 +130,67 @@
                                                placeholder="Ingresa un distrito"/>
                                     </div>
                                     <div class="col-xs-12">
-                                        <label>Secciones</label>
+                                        <div class="row">
+                                            <label>Secciones</label>
 
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <div class="table-responsive">
-                                                    <table class="table-condensed" style="width:100%;">
-                                                        <thead>
-                                                        <tr>
-                                                            <th class="text-center">Inicial</th>
-                                                            <th class="text-center">Final</th>
-                                                            <th class="text-center">Agregar</th>
-                                                            <th class="text-center">Eliminar</th>
-                                                            <th class="text-center">Total</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr ng-repeat="seccion in distrito.secciones track by $index">
-                                                            <td class="text-center">
-                                                                <input class="form-control" ng-model="seccion.inicial"
-                                                                       ng-pattern="/^\d{1,4}$/"
-                                                                       placeholder="Ingrese la sección inicial"
-                                                                       required/>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <input class="form-control" name="final-{{$index}}"
-                                                                       ng-model="seccion.final" ng-pattern="/^\d{1,4}$/"
-                                                                       ui-validate="{distinctMinValue: '$value >= seccion.inicial'}"
-                                                                       ui-validate-watch="'seccion.inicial'"
-                                                                       placeholder="Ingrese la sección final" required/>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-primary"
-                                                                        ng-click="$event.preventDefault(); distrito.secciones.push({});">
-                                                                    <i class="fa fa-plus"></i>
-                                                                </button>
-                                                            </td>
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table-condensed" style="width:100%;">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center">Inicial</th>
+                                                                <th class="text-center">Final</th>
+                                                                <th class="text-center">Agregar</th>
+                                                                <th class="text-center">Eliminar</th>
+                                                                <th class="text-center">Total</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr ng-repeat="seccion in distrito.secciones track by $index">
+                                                                <td class="text-center">
+                                                                    <input class="form-control"
+                                                                           ng-model="seccion.inicial"
+                                                                           ng-pattern="/^\d{1,4}$/"
+                                                                           placeholder="Ingrese la sección inicial"
+                                                                           required/>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <input class="form-control"
+                                                                           name="final-{{$index}}"
+                                                                           ng-model="seccion.final"
+                                                                           ng-pattern="/^\d{1,4}$/"
+                                                                           ui-validate="{distinctMinValue: '$value >= seccion.inicial'}"
+                                                                           ui-validate-watch="'seccion.inicial'"
+                                                                           placeholder="Ingrese la sección final"
+                                                                           required/>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button class="btn btn-primary"
+                                                                            ng-click="$event.preventDefault(); distrito.secciones.push({});">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </td>
 
-                                                            <td class="text-center">
-                                                                <button class="btn btn-danger"
-                                                                        ng-click="$event.preventDefault(); distrito.secciones = _.without(distrito.secciones, seccion)"
-                                                                        ng-disabled="distrito.secciones.length <= 1">
-                                                                    <i class="fa fa-remove"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <strong>{{(!!(seccion.final - seccion.inicial) ||
-                                                                    (seccion.final >=
-                                                                    seccion.inicial))? ((seccion.final -
-                                                                    seccion.inicial) + 1) :
-                                                                    0}}</strong>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                <td class="text-center">
+                                                                    <button class="btn btn-danger"
+                                                                            ng-click="$event.preventDefault(); distrito.secciones = _.without(distrito.secciones, seccion)"
+                                                                            ng-disabled="distrito.secciones.length <= 1">
+                                                                        <i class="fa fa-remove"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <strong>{{(!!(seccion.final - seccion.inicial)
+                                                                        ||
+                                                                        (seccion.final >=
+                                                                        seccion.inicial))? ((seccion.final -
+                                                                        seccion.inicial) + 1) :
+                                                                        0}}</strong>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

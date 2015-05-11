@@ -26,53 +26,55 @@
                         ng-change="candidato.getSecciones()"></select>
             </div>
             <div class="col-xs-12">
-                <label>Secciones</label>
+                <div class="row">
+                    <label>Secciones</label>
 
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table-condensed" style="width:100%">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Inicial</th>
-                                    <th class="text-center">Final</th>
-                                    <th class="text-center">Agregar</th>
-                                    <th class="text-center">Eliminar</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="secciones in candidato.form.seccionesIntervals track by $index">
-                                    <td class="text-center">
-                                        <select ng-model="secciones.inicial" class="form-control"
-                                                ng-init="secciones.inicial = candidato.form.secciones[0];"
-                                                ng-options="seccion.numero for seccion in ::candidato.form.secciones track by seccion._id"></select>
-                                    </td>
-                                    <td class="text-center">
-                                        <select ng-model="secciones.final"
-                                                ng-init="secciones.final = candidato.form.secciones[candidato.form.secciones.length - 1];"
-                                                name="seccionesmax"
-                                                class="form-control"
-                                                ng-options="seccion.numero for seccion in ::candidato.form.secciones track by seccion._id"
-                                                ui-validate="{distinctMinValue: '$value >= secciones.inicial'}"
-                                                ui-validate-watch="'secciones.inicial'"></select>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-primary"
-                                                ng-click="$event.preventDefault(); candidato.form.seccionesIntervals.push({});">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </td>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table-condensed" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Inicial</th>
+                                        <th class="text-center">Final</th>
+                                        <th class="text-center">Agregar</th>
+                                        <th class="text-center">Eliminar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="secciones in candidato.form.seccionesIntervals track by $index">
+                                        <td class="text-center">
+                                            <select ng-model="secciones.inicial" class="form-control"
+                                                    ng-init="secciones.inicial = candidato.form.secciones[0];"
+                                                    ng-options="seccion.numero for seccion in ::candidato.form.secciones track by seccion._id"></select>
+                                        </td>
+                                        <td class="text-center">
+                                            <select ng-model="secciones.final"
+                                                    ng-init="secciones.final = candidato.form.secciones[candidato.form.secciones.length - 1];"
+                                                    name="seccionesmax"
+                                                    class="form-control"
+                                                    ng-options="seccion.numero for seccion in ::candidato.form.secciones track by seccion._id"
+                                                    ui-validate="{distinctMinValue: '$value >= secciones.inicial'}"
+                                                    ui-validate-watch="'secciones.inicial'"></select>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-primary"
+                                                    ng-click="$event.preventDefault(); candidato.form.seccionesIntervals.push({});">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
 
-                                    <td class="text-center">
-                                        <button class="btn btn-danger"
-                                                ng-click="$event.preventDefault(); candidato.form.seccionesIntervals = _.without(candidato.form.seccionesIntervals, secciones)"
-                                                ng-disabled="candidato.form.seccionesIntervals.length <= 1">
-                                            <i class="fa fa-remove"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                        <td class="text-center">
+                                            <button class="btn btn-danger"
+                                                    ng-click="$event.preventDefault(); candidato.form.seccionesIntervals = _.without(candidato.form.seccionesIntervals, secciones)"
+                                                    ng-disabled="candidato.form.seccionesIntervals.length <= 1">
+                                                <i class="fa fa-remove"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
