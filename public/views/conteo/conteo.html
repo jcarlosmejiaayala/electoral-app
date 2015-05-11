@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row margin-bottom-2x">
         <h2 class="text-center header col-xs-12 col-sm-8 col-sm-offset-2">{{user.candidato.nombre}}, Candidato a {{user.candidato.puesto}}, <span
-                ng-if="conteo.checkDiputacion(user.candidato.puesto)">Por el Dístrito {{conteo.distrito.numero}}</span> Del Estado de {{user.candidato.estado}}
+                ng-if="conteo.checkDiputacion(user.candidato.puesto)">Por el Dístrito {{conteo.distrito.numero}}</span> Del Estado de {{user.candidato.estado}} ({{user.partido|uppercase}})
         </h2>
         <h2 class="text-center header col-xs-12 col-sm-8 col-sm-offset-2"><strong>Conteo de Resultados</strong></h2>
         <hr class="divider"/>
