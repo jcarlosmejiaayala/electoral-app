@@ -156,7 +156,7 @@
                                                             <td class="text-center">
                                                                 <input class="form-control" name="final-{{$index}}"
                                                                        ng-model="seccion.final" ng-pattern="/^\d{1,4}$/"
-                                                                       ui-validate="{distinctMinValue: '$value > seccion.inicial'}"
+                                                                       ui-validate="{distinctMinValue: '$value >= seccion.inicial'}"
                                                                        ui-validate-watch="'seccion.inicial'"
                                                                        placeholder="Ingrese la sección final" required/>
                                                             </td>
