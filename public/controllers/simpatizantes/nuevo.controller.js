@@ -40,7 +40,7 @@ var controller = function ($state, user, usuario, SweetAlert) {
         this.form.rgeneral = this.user.me.rgeneral;
         this.form.rcasilla = this.user.me._id;
         this.form.distrito = this.user.me.distrito;
-        this.form.seccion = this.user.me.seccion;
+        this.form.seccion = this.user.distSecciones[0].secciones[0]._id;
     }
 
     this.submit = function (isValid) {

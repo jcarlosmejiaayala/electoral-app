@@ -161,15 +161,23 @@ exports.getVotantesPorSeccion = function (req, res) {
     var sentence = {
         candidato: (req.user.rol == 'candidato') ? req.user._id : req.user.candidato,
         distrito: req.params.id,
-        rgeneral: req.user.rol == 'representante general' ? req.user._id : undefined,
-        seccion: req.params.seccion != 'todas' ? req.params.seccion : undefined,
         rol: 'simpatizante'
     }, isCandidato = _.includes(['administrador', 'candidato'], req.user.rol);
+    if(req.user.rol == 'representante general'){
+        _.extend(sentence, {
+            rgeneral: req.user._id
+        });
+    }
+    if(req.params.seccion != 'todas'){
+        _.extend(sentence, {
+            seccion: req.params.seccion
+        });
+    }
     var Promises = [Simpatizante.findAsync(_.merge(sentence, {voto: false}), 'nombre seccion rgeneral', {}).then(function (simpatizantes) {
         return Promise.map(simpatizantes, function (simpatizante) {
             return Promise.all([
-                Seccion.findByIdAsync(simpatizante.seccion, 'numero', {}),
-                Representante.findByIdAsync(simpatizante.rgeneral, 'nombre', {})
+                Seccion.findByIdAsync(simpatizante.seccion, 'numero'),
+                Representante.findByIdAsync(simpatizante.rgeneral, 'nombre')
             ]).spread(function (seccion, rgeneral) {
                 return _.extend(simpatizante._doc, {seccion: seccion.numero, rgeneral: rgeneral.nombre});
             });

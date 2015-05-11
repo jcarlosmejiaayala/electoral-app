@@ -64,7 +64,7 @@ exports.update = function (req, res) {
 exports.remove = function (req, res) {
     Usuario.findByIdAsync(req.params.id)
         .then(function (user) {
-            if (_.isEqual(user.rol, 'administrador')) {
+            if (user.rol == 'administrador' || user.rol == 'simpatizante') {
                 return user.remove();
             }
             var sentence = {
