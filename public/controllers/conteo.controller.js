@@ -90,6 +90,7 @@ var controller = function ($scope, $timeout, $sessionStorage, distritos, usuario
     });
     $scope.$watchCollection('conteo.seccion', function (newVal) {
         if (newVal) {
+            $timeout.cancel(timer);
             getSimpatizantesDistritos();
         }
     });
