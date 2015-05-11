@@ -25,7 +25,13 @@ factory = function ($sessionStorage, $q, $location) {
     function responseError(response) {
         if (response.status == 401) {
             $location.path('login');
-            delete $sessionStorage.token;
+            for (var key in $sessionStorage) {
+                if ($sessionStorage[key]) {
+                    delete $sessionStorage[key];
+                }
+            }
+            return $q.reject(response);
+        }else{
             return $q.reject(response);
         }
     }
@@ -48,7 +54,7 @@ run = function ($rootScope, $location, $sessionStorage, usuario) {
         });
     });
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-        if(!_.includes(['logout', 'home'], toState.name)){
+        if (!_.includes(['logout', 'home'], toState.name)) {
             if ($sessionStorage.perfil) {
                 $rootScope.user = $sessionStorage.perfil;
             }

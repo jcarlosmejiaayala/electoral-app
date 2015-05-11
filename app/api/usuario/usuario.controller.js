@@ -69,13 +69,16 @@ exports.remove = function (req, res) {
             }
             var sentence = {
                 'representante general': function () {
-                    return ({rgeneral: user._id});
+                    return [{rgeneral: user._id}, {rgeneral: "", rcasilla: ""}];
                 },
                 'representante de casilla': function () {
-                    return ({rcasilla: user._id});
+                    return [{rcasilla: user._id}, {rcasilla: ""}];
                 }
             }[user.rol]();
-            return Usuario.removeAsync(sentence).then(function () {
+            return Promise.all([
+                Seccion.updateAsync(sentence[0], {$unset: sentence[1]}, {multi: true}),
+                Usuario.removeAsync(sentence[0])
+            ]).then(function () {
                 return user.remove();
             });
         }).then(function () {

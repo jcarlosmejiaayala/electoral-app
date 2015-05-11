@@ -6,7 +6,6 @@ var mongoose = require('mongoose'),
     usuarioSchema = require('../../schema/usuario'),
     representanteSchema = usuarioSchema.extend({
         distrito: {type: Schema.Types.ObjectId, ref: 'distrito'},
-        secciones: [{type: Schema.Types.ObjectId, ref: 'seccion'}],
         candidato: {type: Schema.Types.ObjectId, ref: 'usuario'}
     });
 

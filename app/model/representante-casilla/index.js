@@ -7,8 +7,7 @@ var mongoose = require('mongoose'),
     representanteSchema = usuarioSchema.extend({
         candidato: {type: Schema.Types.ObjectId, ref: 'usuario'},
         rgeneral: {type: Schema.Types.ObjectId, ref: 'usuario'},
-        distrito: {type: Schema.Types.ObjectId, ref: 'distrito'},
-        seccion: {type: Schema.Types.ObjectId, ref: 'seccion'}
+        distrito: {type: Schema.Types.ObjectId, ref: 'distrito'}
     });
 
 module.exports = mongoose.model('representante-casilla', representanteSchema);

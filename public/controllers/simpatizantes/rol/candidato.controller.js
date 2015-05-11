@@ -64,7 +64,7 @@ var controller = function ($scope) {
         this.form.rgeneral = this.user.me._id;
         that.form.distrito = that.distrito._id;
         setSecciones();
-        that.seccion = that.secciones[0];
+        that.seccion = that.form.secciones[0];
         that.changeSeccion();
     }
 };

@@ -17,8 +17,7 @@ function distSeccionesFromOrigin(user) {
     return ({
         candidato: user.candidato,
         distrito: (user.distrito) ? user.distrito : undefined,
-        secciones: (user.secciones) ? user.secciones : undefined,
-        seccion: (user.seccion) ? user.seccion : undefined,
+        _id: user._id,
         rol: user.rol
     });
 }
@@ -47,7 +46,7 @@ exports.getDistristrosAndSecciones = function (req, res) {
                     candidato: sentences.candidato,
                     _id: sentences.distrito
                 },
-                seccion: {_id: {$in: sentences.secciones}}
+                seccion: {rgeneral: sentences._id}
             });
         },
         'representante de casilla': function () {
@@ -57,7 +56,7 @@ exports.getDistristrosAndSecciones = function (req, res) {
                     _id: sentences.distrito
                 },
                 seccion: {
-                    _id: sentences.seccion
+                    rcasilla: sentences._id
                 }
             });
         },
@@ -137,13 +136,13 @@ exports.getSecciones = function (req, res) {
         'representante general': function () {
             return ({
                 candidato: req.user.candidato,
-                _id: {$in: req.user.secciones}
+                rgeneral: req.user._id
             });
         },
         'representante de casilla': function () {
             return ({
                 candidato: req.user.candidato,
-                _id: req.user.seccion
+                rcasilla: req.user._id
             });
         }
     }[req.user.rol]();
@@ -162,13 +161,10 @@ exports.getVotantesPorSeccion = function (req, res) {
     var sentence = {
         candidato: (req.user.rol == 'candidato') ? req.user._id : req.user.candidato,
         distrito: req.params.id,
+        rgeneral: req.user.rol == 'representante general' ? req.user._id : undefined,
+        seccion: req.params.seccion != 'todas' ? req.params.seccion : undefined,
         rol: 'simpatizante'
     }, isCandidato = _.includes(['administrador', 'candidato'], req.user.rol);
-    if (req.params.seccion != 'todas') {
-        _.extend(sentence, {
-            seccion: req.params.seccion
-        });
-    }
     var Promises = [Simpatizante.findAsync(_.merge(sentence, {voto: false}), 'nombre seccion rgeneral', {}).then(function (simpatizantes) {
         return Promise.map(simpatizantes, function (simpatizante) {
             return Promise.all([
@@ -194,7 +190,6 @@ exports.getVotantesPorSeccion = function (req, res) {
                 ]).spread(function (seccion, rgeneral) {
                     return _.extend(simpatizante._doc, {seccion: seccion.numero, rgeneral: rgeneral.nombre});
                 });
-
             });
         }));
     }

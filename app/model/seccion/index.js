@@ -5,8 +5,9 @@ var mongoose = require('mongoose'),
     seccionSchema = new Schema({
         candidato: {type: Schema.Types.ObjectId, ref: 'usuario'},
         distrito: {type: Schema.Types.ObjectId, ref: 'distrito'},
-        numero: Number,
-        isBusy: {type: Boolean, default: false}
+        rgeneral: {type: Schema.Types.ObjectId, ref: 'usuario'},
+        rcasilla: {type: Schema.Types.ObjectId, ref: 'usuario'},
+        numero: Number
     }, {collection: 'seccion'});
 
 module.exports = mongoose.model('seccion', seccionSchema);

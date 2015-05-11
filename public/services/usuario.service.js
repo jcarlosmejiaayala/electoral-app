@@ -78,7 +78,7 @@ var factory = function (usuarioResource, candidatoResource, administradorResourc
             .save(data, function (response) {
                 return createSession(response);
             }, function (err) {
-                throw err.data.message;
+                throw !!err.data.message ? "Secciones No disponibles: " + err.data.message + '.' : err.data.message;
             }).$promise;
     }
 
