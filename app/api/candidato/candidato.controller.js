@@ -42,7 +42,7 @@ function setCandidato(request) {
 function setDistritosAndSecciones(idUser, distritos) {
     _.forEach(distritos, function (distrito) {
         distrito.secciones = _(distrito.secciones).chain().map(function (seccion) {
-            return (seccion.inicial == seccion.final) ? _.range(seccion.inicial, _.parseInt(seccion.final) + 1) : [_.parseInt(seccion.inicial)];
+            return (seccion.inicial != seccion.final) ? _.range(seccion.inicial, _.parseInt(seccion.final) + 1) : [_.parseInt(seccion.inicial)];
         }).union().flatten().value();
     });
     var mapDistritos = _.map(distritos, function (distrito) {
@@ -77,6 +77,6 @@ exports.create = function (req, res) {
             })
         });
     }).catch(function () {
-        return res.json(500, {message: errors[500]});
+        return res.json(403, {message: errors[500]});
     });
 };
