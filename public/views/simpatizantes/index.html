@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="row margin-bottom-4x">
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3" ng-if="simpatizante.simpatizantes.length">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1" ng-if="simpatizante.simpatizantes.length">
             <div class="table-responsive">
                 <table st-table="simpatizante.simpatizantes" class="table table-striped text-center">
                     <thead>
@@ -18,6 +18,10 @@
                         <th st-sort="rol" class="text-center"><span class="fa-stack" style="cursor:pointer;"><i
                                 class="fa fa-sort-asc fa-stack-1x"></i><i
                                 class="fa fa-sort-desc fa-stack-1x"></i></span>Puesto
+                        </th>
+                        <th st-sort="dependiente" class="text-center"><span class="fa-stack" style="cursor:pointer;"><i
+                                class="fa fa-sort-asc fa-stack-1x"></i><i
+                                class="fa fa-sort-desc fa-stack-1x"></i></span>Depende de
                         </th>
                         <th class="text-center">Detalles</th>
                         <th class="text-center">Eliminar</th>
@@ -37,6 +41,13 @@
                                        placeholder="Buscar por puesto"/>
                             </div>
                         </th>
+                        <th class="text-center">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input st-search="dependiente" st-delay="50" class="form-control input-sm" type="search"
+                                       placeholder="Buscar por dependiente"/>
+                            </div>
+                        </th>
                         <th class="text-center">&nbsp;</th>
                     </tr>
                     </thead>
@@ -44,6 +55,7 @@
                     <tr ng-repeat="person in simpatizante.simpatizantes">
                         <td>{{person.nombre}}</td>
                         <td>{{person.rol}}</td>
+                        <td>{{person.dependiente}}</td>
                         <td>
                             <button class="btn btn-info" ng-click="simpatizante.getDetalles(person)"><i
                                     class="fa fa-eye fa-lg"></i></button>

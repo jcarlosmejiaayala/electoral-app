@@ -29,6 +29,7 @@ var crypto = require('crypto'),
             facebook: String,
             twitter: String
         },
+        dependiente: String,
         status: Boolean,
         creado: Date,
         actualizado: Date,
