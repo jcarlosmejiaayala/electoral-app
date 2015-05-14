@@ -4,7 +4,7 @@
         <h2 class="text-center header col-xs-12 col-sm-8 col-sm-offset-2">{{user.candidato.nombre}}, <span
                 ng-if="conteo.checkDiputacion(user.candidato.puesto)">Candidato a {{user.candidato.puesto}} Por el Dístrito {{conteo.distrito.numero}} Del Estado de {{user.candidato.estado}}</span><span
                 ng-if="user.candidato.puesto == 'Alcaldia'">Candidato a la Alcaldía de {{user.candidato.municipio}},</span><span
-                ng-if="user.candidato.puesto == 'Gubernatura'">Candidata la Gubernatura Del Estado de {{user.candidato.estado}}</span>
+                ng-if="user.candidato.puesto == 'Gubernatura'">Candidato a la Gubernatura Del Estado de {{user.candidato.estado}}</span>
             ({{user.partido|uppercase}})
         </h2>
 
