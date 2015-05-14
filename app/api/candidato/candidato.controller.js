@@ -72,7 +72,8 @@ exports.create = function (req, res) {
                 candidato: {
                     puesto: user.candidatura,
                     nombre: user.nombre,
-                    estado: user.estado
+                    estado: user.estado,
+                    municipio: user.candidatura == 'Alcaldia' ? user.municipio : void 0
                 }
             })
         });
