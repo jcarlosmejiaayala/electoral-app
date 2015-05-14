@@ -25,14 +25,15 @@ router.post('/', function (req, res, next) {
         if (!user.status) {
             return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
         }
-
-        if (Date.now() > user.expira) {
-            var idCandidato = (user.rol == 'candidato') ? user._id : user.candidato;
-            return Usuario.updateAsync({$or: [{_id: idCandidato}, {candidato: idCandidato}]}, {$set: {status: false}}, {multi: true})
-                .then(function () {
-                    return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
-                });
-        }
+        /*
+         if (Date.now() > user.expira) {
+         var idCandidato = (user.rol == 'candidato') ? user._id : user.candidato;
+         return Usuario.updateAsync({$or: [{_id: idCandidato}, {candidato: idCandidato}]}, {$set: {status: false}}, {multi: true})
+         .then(function () {
+         return res.json(401, {message: 'Su periodo de prueba ha caducado, favor pónganse en contacto con nosotros.'});
+         });
+         }
+         */
         if (user.rol != 'candidato') {
             return Usuario.findOneAsync({_id: user.candidato, rol: 'candidato'})
                 .then(function (candidato) {
@@ -42,11 +43,16 @@ router.post('/', function (req, res, next) {
         response(user, user);
         function response(user, candidato) {
             token = auth.signToken(user._id);
-            res.json({token: token, perfil: _.merge(user.perfil, {candidato: {
-                puesto: candidato.candidatura,
-                nombre: candidato.nombre,
-                estado: candidato.estado
-            }})});
+            res.json({
+                token: token, perfil: _.merge(user.perfil, {
+                    candidato: {
+                        puesto: candidato.candidatura,
+                        nombre: candidato.nombre,
+                        estado: candidato.estado,
+                        municipio: candidato.candidatura == 'Alcaldia' ? candidato.municipio : void 0
+                    }
+                })
+            });
         }
     })(req, res, next);
 });
